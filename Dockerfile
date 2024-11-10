@@ -19,3 +19,12 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install --fix-missing -y git build-es
  qemu-kvm libvirt-clients libvirt-daemon-system bridge-utils virtinst libvirt-daemon xterm attr busybox openssh-server \
  iputils-ping kmod \
  zstd
+
+RUN wget https://apt.llvm.org/llvm.sh
+RUN chmod +x llvm.sh
+RUN ./llvm.sh 19
+RUN ln -s /usr/bin/clang-19 /usr/bin/clang
+RUN ln -s /usr/bin/clang++-19 /usr/bin/clang++
+RUN ln -s /usr/bin/ld.lld-19 /usr/bin/ld.lld
+RUN DEBIAN_FRONTEND=noninteractive apt-get install --fix-missing -y curl
+

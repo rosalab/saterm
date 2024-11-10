@@ -16,18 +16,6 @@ git submodule init
 git submodule update
 ```
 
-#### Copy config file to linux folder
-
-``` cp linux-config/.config ./linux ```
-
-or 
-
-```
-cd linux
-make defconfig
-cd ../
-```
-
 #### Build linux
 
 ```
@@ -89,3 +77,7 @@ Both have a respective clean target to clean these.
 There is also a bpf-progs directory that has a make file to make building bpf programs easy.
 There is a naming scheme where programs of the form `*.kern.c` are built as BPF objects, while programs of the form `*.user.c` are
 built as user space programs.
+
+## crap
+* `make header_install` in main Linux dir
+* Then `make` in samples/bpf/
