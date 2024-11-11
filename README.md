@@ -22,6 +22,13 @@ git submodule update
 make vmlinux
 ```
 
+Also, do
+```
+make libbpf
+make bpftool
+cd bpf-progs && make && cd ..
+```
+
 #### Run Qemu
 ```
 make qemu-run
