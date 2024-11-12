@@ -24,7 +24,7 @@ struct
 } 
 my_map SEC(".maps");
 
-void populate_map()
+void map_access()
 {
 	bpf_printk("Hello world ;)\n");
 }
@@ -32,7 +32,8 @@ void populate_map()
 SEC("tracepoint/syscalls/sys_exit_saterm_test")
 int tracepoint_exit_saterm_connect1(struct pt_regs *ctx)
 {
-	populate_map();
+	// TODO: this should be like Listing 1
+	map_access();
 	return 0;
 }
 
