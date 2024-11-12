@@ -12,7 +12,7 @@
 #define CC_USING_FENTRY
 #endif
 
-#define ITERS 1 << 23
+#define ITERS 1 << 5
 
 static int simple()
 {
@@ -20,15 +20,10 @@ static int simple()
 	return 0;
 }
 
-static int loop4()
-{
-	bpf_loop(ITERS, simple, NULL, 0);
-	return 0;
-}
 
 static int loop3()
 {
-	bpf_loop(ITERS, loop4, NULL, 0);
+	bpf_loop(ITERS, simple, NULL, 0);
 	return 0;
 }
 

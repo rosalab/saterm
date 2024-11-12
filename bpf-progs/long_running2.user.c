@@ -1,15 +1,19 @@
-#include <sys/socket.h>
 #include <arpa/inet.h>
-#include <stdint.h>
 #include <assert.h>
-#include <errno.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include <bpf/bpf.h>
 #include <bpf/libbpf.h>
+#include <errno.h>
+#include <spawn.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/socket.h>
+#include <sys/wait.h>
 
 //#include "bpf_util.h"
 //#include "trace_helpers.h"
+
+extern char **environ;
 
 int main(int argc, char **argv)
 {
@@ -45,6 +49,11 @@ int main(int argc, char **argv)
 	} else {
 		printf("Attach success\n");
 	}
+
+	pid_t pid;
+	char *argv_new[] = {"./saterm.test", (char *)NULL};
+	posix_spawn(&pid, "./saterm.test", NULL, NULL, argv_new, environ);
+	waitpid(pid, NULL, 0);
 
 	bpf_link__disconnect(link);
 	//read_trace_pipe();

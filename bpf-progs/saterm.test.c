@@ -7,7 +7,7 @@
 #define DELAY_S 1
 
 int main(int argc, char** arg){
-	printf("Starting throughput performance test for the hello syscall (10s)...\n");
+	printf("Starting throughput performance test for test syscall (10s)...\n");
 	printf("-------------------------------------------------------------\n");
 	int cnt=0, num_calls=0;
 
