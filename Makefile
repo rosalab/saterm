@@ -21,6 +21,10 @@ qemu-run:
 	-it saterm-dev:latest \
 	/linux-dev-env/q-script/yifei-q -s
 
+# TODO: should have this get port from var
+qemu-stop:
+	docker stop $(docker ps --filter "publish=60002" -q)
+
 # connect running qemu by ssh
 qemu-ssh:
 	ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -t root@127.0.0.1 -p ${SSH_PORT}

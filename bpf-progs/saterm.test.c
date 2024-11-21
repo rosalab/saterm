@@ -11,7 +11,7 @@ int main(int argc, char** arg){
 	printf("-------------------------------------------------------------\n");
 	int cnt=0, num_calls=0;
 
-	while(cnt<10){
+	while(cnt<60){
 		clock_t start_clocks = clock();
 		while (clock() - start_clocks < DELAY_S * CLOCKS_PER_SEC) {
 			syscall(__NR_hello);
