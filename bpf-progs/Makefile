@@ -29,4 +29,4 @@ $(USER) : % : %.c
 .PHONY : clean
 
 clean :
-	rm $(FILES) $(USER)
+	rm -f $(FILES) $(USER) saterm.test

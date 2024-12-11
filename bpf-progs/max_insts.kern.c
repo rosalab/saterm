@@ -24,7 +24,7 @@ int tracepoint_exit_saterm_connect3(struct pt_regs *ctx)
 	}
 
 	int end_time = bpf_ktime_get_ns();
-	bpf_printk("Total time : %d", end_time - start_time);
+	bpf_printk("Time max_insts: %d\n", end_time - start_time);
 	return 0;
 }
 
