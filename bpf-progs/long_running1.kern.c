@@ -17,7 +17,7 @@
 
 struct 
 {
-    __uint(type, BPF_MAP_TYPE_ARRAY);
+    __uint(type, BPF_MAP_TYPE_LRU_HASH);
     __uint(max_entries, MAX_DICT_SIZE);
     __type(key, int);
     __type(value, int);
@@ -26,7 +26,9 @@ my_map SEC(".maps");
 
 void map_access()
 {
-	bpf_printk("Hello world ;)\n");
+	int k = bpf_get_prandom_u32() % MAX_DICT_SIZE;
+	int v = bpf_get_prandom_u32() % MAX_DICT_VAL;
+	bpf_map_update_elem(&my_map, &k, &v, BPF_ANY);
 }
 
 SEC("tracepoint/syscalls/sys_exit_saterm_test")
