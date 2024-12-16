@@ -68,7 +68,7 @@ cleanup:
 	bpf_object__close(obj);
 
 	recursively_handle(100000); // capped out
-	handle_helper_case();
+	//handle_helper_case();
 }
 
 void recursively_handle(int iters) {

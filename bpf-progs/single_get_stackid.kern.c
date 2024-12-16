@@ -14,14 +14,18 @@
 #define CC_USING_FENTRY
 #endif
 
-#undef PERF_MAX_STACK_DEPTH
-#define PERF_MAX_STACK_DEPTH 4096
+// default is 127 i believe
+//#undef PERF_MAX_STACK_DEPTH
+//#define PERF_MAX_STACK_DEPTH 4096
+//#define PERF_MAX_STACK_DEPTH (128*2 - 1)
+//#define PERF_MAX_STACK_DEPTH 127
+//#define PERF_MAX_STACK_DEPTH 127 
 
 struct {
 	__uint(type, BPF_MAP_TYPE_STACK_TRACE);
 	__uint(key_size, sizeof(int));
 	__uint(value_size, PERF_MAX_STACK_DEPTH * sizeof(long));
-	__uint(max_entries, 10000);
+	__uint(max_entries, 100);
 } stack_traces SEC(".maps");
 
 SEC("tracepoint/syscalls/sys_exit_saterm_test")
