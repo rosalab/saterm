@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <unistd.h>
+#include <sys/syscall.h>
+
+#define __NR_hello 463
+
 
 void main() {
-    getchar();
-    char buf[256];
-    getcwd(buf, 256);
+   	syscall(__NR_hello);
 }
