@@ -29,11 +29,12 @@ struct {
 } stack_traces SEC(".maps");
 
 SEC("tracepoint/syscalls/sys_exit_saterm_test")
-int tracepoint_exit_saterm_connect4(struct pt_regs *ctx)
+int tracepoint_exit_saterm_connect3(struct pt_regs *ctx)
 {
 	int start_time = bpf_ktime_get_ns();
-	volatile long kernel_stack_id = bpf_get_stackid(ctx, &stack_traces, 0);
-	volatile long user_stack_id = bpf_get_stackid(ctx, &stack_traces, 0 | BPF_F_USER_STACK);
+	for (int i = 0; i < 30; i++) {
+		volatile long user_stack_id = bpf_get_stackid(ctx, &stack_traces, 0 | BPF_F_USER_STACK);
+	}
 	int end_time = bpf_ktime_get_ns();
 	bpf_printk("Time stack_id: %d\n", end_time - start_time);
 	return 0;

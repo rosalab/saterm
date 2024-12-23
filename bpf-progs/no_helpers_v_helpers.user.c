@@ -27,7 +27,7 @@ int main(int argc, char **argv)
 	struct bpf_link *link = NULL;
 	struct bpf_program *prog;
 	struct bpf_object *obj;
-	char *filename = "max_insts.kern.o";
+	char *filename = argv[1];
 	obj = bpf_object__open_file(filename, NULL);
 	if (libbpf_get_error(obj)) {
 		fprintf(stderr, "ERROR: opening BPF object file failed : %s\n", strerror(libbpf_get_error(obj)));
@@ -55,10 +55,7 @@ int main(int argc, char **argv)
 		printf("Attach success\n");
 	}
 
-	for (int i = 0; i < 10; i++){
-		syscall(__NR_hello);
-		usleep(1000);
-	}
+	recursively_handle(100000); // capped out
 
 	bpf_link__disconnect(link);
 	//read_trace_pipe();
@@ -66,9 +63,6 @@ int main(int argc, char **argv)
 cleanup:
 	bpf_link__destroy(link);
 	bpf_object__close(obj);
-
-	recursively_handle(100000); // capped out
-	//handle_helper_case();
 }
 
 void recursively_handle(int iters) {
@@ -78,49 +72,10 @@ void recursively_handle(int iters) {
 }
 
 int handle_helper_case() {
-	struct bpf_link *link = NULL;
-	struct bpf_program *prog;
-	struct bpf_object *obj;
-	char *filename = "single_get_stackid.kern.o";
-	obj = bpf_object__open_file(filename, NULL);
-	if (libbpf_get_error(obj)) {
-		fprintf(stderr, "ERROR: opening BPF object file failed : %s\n", strerror(libbpf_get_error(obj)));
-		return 0;
-	}
-
-	prog = bpf_object__find_program_by_name(obj, "tracepoint_exit_saterm_connect4");
-	if (!prog) {
-		fprintf(stderr, "ERROR: fiding a prog in obj file failed\n");
-		goto cleanup2;
-	}
-
-	if (bpf_object__load(obj)) {
-		fprintf(stderr, "ERROR: loading BPF object file failed\n");
-		goto cleanup2;
-	}
-
-
-	link = bpf_program__attach(prog);
-	if (libbpf_get_error(link)) {
-		fprintf(stderr, "ERROR: bpf_program__attach failed : %ld\n", libbpf_get_error(link));
-		link = NULL;
-		goto cleanup2;
-	} else {
-		printf("Attach success\n");
-	}
-
-	for (int i = 0; i < 10; i++){
+	for (int i = 0; i < 20; i++){
 		syscall(__NR_hello);
-		usleep(1000);
+		// removing the extra pause seems to help for consistency
+		//usleep(1000);
 	}
-
-	bpf_link__disconnect(link);
-	//read_trace_pipe();
-
-cleanup2:
-	bpf_link__destroy(link);
-	bpf_object__close(obj);
-
-	exit(0);
 }
 
