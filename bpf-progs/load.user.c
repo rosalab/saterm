@@ -45,9 +45,5 @@ int main(int argc, char *argv[])
 
     bpf_program__attach(program);
 
-    while (1) {
-        sleep(1);
-    }
-
     return 0;
 }
