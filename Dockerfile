@@ -20,6 +20,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install --fix-missing -y git build-es
  iputils-ping kmod \
  zstd
 
+# Added as a separate step so that this can be clipped off as needed.
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y vim cron net-tools sysstat
+
 RUN wget https://apt.llvm.org/llvm.sh
 RUN chmod +x llvm.sh
 RUN ./llvm.sh 19
