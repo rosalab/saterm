@@ -1,15 +1,18 @@
-#include <sys/socket.h>
 #include <arpa/inet.h>
-#include <stdint.h>
 #include <assert.h>
-#include <errno.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include <bpf/bpf.h>
 #include <bpf/libbpf.h>
+#include <errno.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/socket.h>
+#include <unistd.h>
 
 //#include "bpf_util.h"
 //#include "trace_helpers.h"
+
+#define __NR_hello 463
 
 int main(int argc, char **argv)
 {
@@ -50,6 +53,8 @@ int main(int argc, char **argv)
 	} else {
 		printf("Attach success\n");
 	}
+
+	syscall(__NR_hello);
 
 	bpf_link__disconnect(link);
 	//read_trace_pipe();

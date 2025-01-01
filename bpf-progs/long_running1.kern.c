@@ -24,18 +24,34 @@ struct
 } 
 my_map SEC(".maps");
 
-void map_access()
+static int map_access(void *ctx)
 {
-	int k = bpf_get_prandom_u32() % MAX_DICT_SIZE;
-	int v = bpf_get_prandom_u32() % MAX_DICT_VAL;
-	bpf_map_update_elem(&my_map, &k, &v, BPF_ANY);
+	for (int i = 0; i < 8; i++) {
+		int k = bpf_get_prandom_u32() % MAX_DICT_SIZE;
+		int v = bpf_get_prandom_u32() % MAX_DICT_VAL;
+		bpf_map_update_elem(&my_map, &k, &v, BPF_ANY);
+	}
+	return 0;
 }
+
 
 SEC("tracepoint/syscalls/sys_exit_saterm_test")
 int tracepoint_exit_saterm_connect1(struct pt_regs *ctx)
 {
+	unsigned long start_time = bpf_ktime_get_ns();
+
 	// TODO: this should be like Listing 1
-	map_access();
+	int iterations = 1 << 23; // 1 << 23 is max
+	bpf_loop(iterations, map_access, NULL, 0);
+	//map_access();
+
+	unsigned long end_time = bpf_ktime_get_ns();
+	unsigned long time_ns = end_time - start_time;
+	bpf_printk("Time motiv: %lu ns\n", time_ns);
+	long time_ms = time_ns / (1000 * 1000);
+	bpf_printk("Time motiv: %lu ms\n", time_ms);
+	long time_s = time_ms / (1000);
+	bpf_printk("Time motiv: %lu s\n", time_s);
 	return 0;
 }
 
