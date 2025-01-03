@@ -3,16 +3,20 @@
 #include <bpf/bpf.h>
 #include <bpf/libbpf.h>
 #include <errno.h>
+#include <spawn.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/socket.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
 //#include "bpf_util.h"
 //#include "trace_helpers.h"
 
 #define __NR_hello 463
+
+extern char **environ;
 
 int main(int argc, char **argv)
 {
@@ -54,7 +58,20 @@ int main(int argc, char **argv)
 		printf("Attach success\n");
 	}
 
-	syscall(__NR_hello);
+	//syscall(__NR_hello);
+	pid_t pid;
+	char *argv_new[] = {"./saterm.test", "15", (char *)NULL};
+	
+	printf("e 1\n");
+	posix_spawn(&pid, "./saterm.test", NULL, NULL, argv_new, environ);
+	printf("e 2\n");
+
+	sleep(3);
+	printf("e 3\n");
+	system("bpftool prog terminate `bpftool prog show | awk 'NR==1 {gsub(\":\", \"\", $1); print $1}'`");
+	printf("e 4\n");
+	waitpid(pid, NULL, 0);
+	printf("e 5\n");
 
 	bpf_link__disconnect(link);
 	//read_trace_pipe();
