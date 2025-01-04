@@ -4,6 +4,7 @@
 #include <bpf/libbpf.h>
 #include <errno.h>
 #include <spawn.h>
+#include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,13 +21,16 @@ extern char **environ;
 
 int main(int argc, char **argv)
 {
+	char *bpf_program = argv[1];
+	bool should_terminate = argv[2] ? (strcmp(argv[2], "term") == 0) : true;
+
 	struct bpf_link *link = NULL;
 	struct bpf_program *prog;
 	struct bpf_object *obj;
 	//char filename[256];
 	//snprintf(filename, sizeof(filename), "%s.kern.o", argv[0]);
-	char *filename = "long_running1.kern.o";
-	obj = bpf_object__open_file(filename, NULL);
+	//char *filename = "long_running1.kern.o";
+	obj = bpf_object__open_file(bpf_program, NULL);
 	if (libbpf_get_error(obj)) {
 		fprintf(stderr, "ERROR: opening BPF object file failed : %s\n", strerror(libbpf_get_error(obj)));
 		return 0;
@@ -60,19 +64,25 @@ int main(int argc, char **argv)
 
 	//syscall(__NR_hello);
 	pid_t pid;
-	char *argv_new[] = {"./saterm.test", "15", (char *)NULL};
+	char *argv_new[] = {"./saterm.test", "50", (char *)NULL};
 	
-	printf("e 1\n");
 	posix_spawn(&pid, "./saterm.test", NULL, NULL, argv_new, environ);
-	printf("e 2\n");
 
 	sleep(3);
-	printf("e 3\n");
-	system("bpftool prog terminate `bpftool prog show | awk 'NR==1 {gsub(\":\", \"\", $1); print $1}'`");
-	printf("e 4\n");
-	waitpid(pid, NULL, 0);
-	printf("e 5\n");
 
+	if (should_terminate) {
+		system("bpftool prog terminate `bpftool prog show | awk 'NR==1 {gsub(\":\", \"\", $1); print $1}'`");
+	} else {
+		bpf_link__disconnect(link);
+		bpf_link__destroy(link);
+		bpf_object__close(obj);
+	}
+
+	waitpid(pid, NULL, 0);
+
+
+	if (!should_terminate) return 0;
+	
 	bpf_link__disconnect(link);
 	//read_trace_pipe();
 
