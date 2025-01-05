@@ -27,9 +27,6 @@ int main(int argc, char **argv)
 	struct bpf_link *link = NULL;
 	struct bpf_program *prog;
 	struct bpf_object *obj;
-	//char filename[256];
-	//snprintf(filename, sizeof(filename), "%s.kern.o", argv[0]);
-	//char *filename = "long_running1.kern.o";
 	obj = bpf_object__open_file(bpf_program, NULL);
 	if (libbpf_get_error(obj)) {
 		fprintf(stderr, "ERROR: opening BPF object file failed : %s\n", strerror(libbpf_get_error(obj)));
@@ -64,7 +61,7 @@ int main(int argc, char **argv)
 
 	//syscall(__NR_hello);
 	pid_t pid;
-	char *argv_new[] = {"./saterm.test", "50", (char *)NULL};
+	char *argv_new[] = {"./saterm.test", "30", (char *)NULL};
 	
 	posix_spawn(&pid, "./saterm.test", NULL, NULL, argv_new, environ);
 
@@ -73,9 +70,11 @@ int main(int argc, char **argv)
 	if (should_terminate) {
 		system("bpftool prog terminate `bpftool prog show | awk 'NR==1 {gsub(\":\", \"\", $1); print $1}'`");
 	} else {
+		printf("About to delink!\n");
 		bpf_link__disconnect(link);
 		bpf_link__destroy(link);
 		bpf_object__close(obj);
+		exit(0);
 	}
 
 	waitpid(pid, NULL, 0);
