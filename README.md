@@ -20,6 +20,8 @@ git submodule update
 
 ```
 make vmlinux
+make headers-install
+make modules-install
 ```
 
 Also, do
@@ -52,7 +54,7 @@ In an another terminal
 ```
 cd linux
 gdb vmlinux
-target remote:1234
+target remote:60002
 c
 ```
 then set your breakpoints and debug more
@@ -85,6 +87,3 @@ There is also a bpf-progs directory that has a make file to make building bpf pr
 There is a naming scheme where programs of the form `*.kern.c` are built as BPF objects, while programs of the form `*.user.c` are
 built as user space programs.
 
-## crap
-* `make header_install` in main Linux dir
-* Then `make` in samples/bpf/
