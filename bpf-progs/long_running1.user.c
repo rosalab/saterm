@@ -21,6 +21,15 @@ extern char **environ;
 
 int main(int argc, char **argv)
 {
+	// 1. Spawn throughput tester
+	pid_t pid;
+	char *argv_new[] = {"./saterm.test", "30", (char *)NULL};
+	posix_spawn(&pid, "./saterm.test", NULL, NULL, argv_new, environ);
+
+	// 2. Sleep 2 sec
+	sleep(2);
+
+	// 3. Attach eBPF program
 	char *bpf_program = argv[1];
 	bool should_terminate = argv[2] ? (strcmp(argv[2], "term") == 0) : true;
 
@@ -59,18 +68,18 @@ int main(int argc, char **argv)
 		printf("Attach success\n");
 	}
 
-	//syscall(__NR_hello);
-	pid_t pid;
-	char *argv_new[] = {"./saterm.test", "30", (char *)NULL};
-	
-	posix_spawn(&pid, "./saterm.test", NULL, NULL, argv_new, environ);
-
+	// 4. Sleep 3 sec
 	sleep(3);
 
+	// 5. Either terminate or delink eBPF program
 	if (should_terminate) {
 		system("bpftool prog terminate `bpftool prog show | awk 'NR==1 {gsub(\":\", \"\", $1); print $1}'`");
 	} else {
-		printf("About to delink!\n");
+		// Delinking through these functions doesn't seem to fully work
+		// But exiting seems to cause a delinking
+		// Yes it makes a zombie process, blah blah best practice, not important
+
+		//printf("About to delink!\n");
 		bpf_link__disconnect(link);
 		bpf_link__destroy(link);
 		bpf_object__close(obj);
