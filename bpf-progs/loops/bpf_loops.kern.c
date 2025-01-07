@@ -3,7 +3,7 @@
 #include <linux/version.h>
 #include <bpf/bpf_helpers.h>
 
-#define ITERS 1 << 5
+#define ITERS 1 << 8
 
 int callback_selector;
 int callback_selector2;
