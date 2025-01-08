@@ -5,6 +5,7 @@ LOGFILE="/var/log/system_healthcheck.log"
 
 # Function to collect and append system information
 monitor_system() {
+    echo "------ Start of Health check script ------"
     echo "------ System Check at $(date) ------" >> "$LOGFILE"
 
     # CPU Usage
@@ -30,6 +31,7 @@ monitor_system() {
     rm -f largefile.txt  # Remove the dummy file after use
 
     echo "" >> "$LOGFILE"
+    echo "------ End of Health check script ------"
 }
 
 # Run the health check function

@@ -3,71 +3,48 @@
 # Log file for tracking output
 LOGFILE="/var/log/bpf_monitor.log"
 
-# Step 1: Simulate concurrent workloads
-echo "Starting concurrent workloads..." >> "$LOGFILE"
-# CPU-intensive workload
-echo "Starting CPU-intensive workload..." >> "$LOGFILE"
-while :; do md5sum /dev/zero &>/dev/null; done &
-CPU_WORKLOAD_PID=$!
+# Define the duration for running the script (in seconds)
+DURATION=$((60 * 60 * 8))  # 8 hours
+START_TIME=$(date +%s)
 
-# Memory-intensive workload
-#echo "Starting memory-intensive workload..." >> "$LOGFILE"
-#stress --vm 1 --vm-bytes 512M --timeout 60 &
-#MEM_WORKLOAD_PID=$!
+# Function to terminate and restart the BPF program
+terminate_and_restart() {
+    # Compile the binaries
+    echo "Compiling BPF binaries..." >> "$LOGFILE"
+    cd /linux-dev-env/bpf-progs/loops || exit
+    make clean
+    make -j"$(nproc)"
 
-# I/O-intensive workload
-#echo "Starting I/O-intensive workload..." >> "$LOGFILE"
-#dd if=/dev/zero of=tempfile bs=1M count=1024 oflag=direct &
-#IO_WORKLOAD_PID=$!
+    # Run the binaries
+    echo "Starting /linux-dev-env/bpf-progs/loops/bpf_loops.user in background..." >> "$LOGFILE"
+    ./bpf_loops.user &  # Run first binary in background
+    sleep 1
+    echo "Starting /linux-dev-env/bpf-progs/loops/trigger in background..." >> "$LOGFILE"
+    ./trigger &  # Run second binary in background
 
-# Track all workload PIDs for cleanup
-WORKLOAD_PIDS="$CPU_WORKLOAD_PID"
+    # Find the BPF program ID
+    echo "Fetching BPF program ID..." >> "$LOGFILE"
+    bpf_prog_id=$(/linux/tools/bpf/bpftool/bpftool prog show | awk '/tracepoint_exit_saterm/ {print $1}' | tr -d ':')
 
-# Step 2: Compile the binaries
-echo "Compiling BPF binaries..." >> "$LOGFILE"
-cd /linux-dev-env/bpf-progs/loops || exit
-make clean
-make -j"$(nproc)"
+    if [ -n "$bpf_prog_id" ]; then
+        echo "Found BPF program ID: $bpf_prog_id" >> "$LOGFILE"
 
-# Step 3: Run the binaries in sequence
-echo "Starting /linux-dev-env/bpf-progs/loops/bpf_loops.user in background..." >> "$LOGFILE"
-./bpf_loops.user &  # Run first binary in background
-sleep 1         # Wait for 1 second
-echo "Starting /linux-dev-env/bpf-progs/loops/trigger in background..." >> "$LOGFILE"
-./trigger &  # Run second binary in background
+        # Terminate the BPF program
+        echo "Terminating BPF program ID $bpf_prog_id..." >> "$LOGFILE"
+        /linux/tools/bpf/bpftool/bpftool prog terminate "$bpf_prog_id"
+        echo "Terminated BPF program ID $bpf_prog_id..." >> "$LOGFILE"
+    else
+        echo "BPF program ID not found. Ensure the BPF program is loaded." >> "$LOGFILE"
+    fi
 
-# Step 4: Find the BPF program ID
-echo "Fetching BPF program ID..." >> "$LOGFILE"
-bpf_prog_id=$(/linux/tools/bpf/bpftool/bpftool prog show | awk '/tracepoint_exit_saterm/ {print $1}' | tr -d ':')
+    # Sleep for a short interval before restarting
+    sleep 10
+}
 
-if [ -n "$bpf_prog_id" ]; then
-    echo "Found BPF program ID: $bpf_prog_id" >> "$LOGFILE"
+# Main loop to run the termination process for the specified duration
+echo "Starting overnight BPF termination process..." >> "$LOGFILE"
+while [ $(( $(date +%s) - START_TIME )) -lt $DURATION ]; do
+    terminate_and_restart
+done
 
-    # Step 5: Terminate the BPF program
-    echo "Terminating BPF program ID $bpf_prog_id..." >> "$LOGFILE"
-    /linux/tools/bpf/bpftool/bpftool prog terminate "$bpf_prog_id"
-    echo "Terminated BPF program ID $bpf_prog_id..." >> "$LOGFILE"
-
-    # Step 6: Measure impact on other processes
-    echo "Measuring impact on workloads..." >> "$LOGFILE"
-    ps -p $WORKLOAD_PIDS -o pid,cmd,%cpu,%mem >> "$LOGFILE"
-
-    # Measure task latency (e.g., sort operation)
-#    echo "Measuring latency of a sort operation..." >> "$LOGFILE"
-#    start=$(date +%s.%N)
-#    sort largefile.txt > /dev/null
-#    end=$(date +%s.%N)
-#    echo "Sort operation time: $(echo "$end - $start" | bc) seconds" >> "$LOGFILE"
-
-    # Step 7: Capture Termination Handler Time from trace_pipe
-    echo "Capturing termination handler logs..." >> "$LOGFILE"
-    dmesg | grep -i -E "bpf|termination|verifier" | tail -n 10 >> "$LOGFILE"
-else
-    echo "BPF program ID not found. Ensure the BPF program is loaded." >> "$LOGFILE"
-fi
-
-# Step 8: Cleanup
-echo "Cleaning up background workloads..." >> "$LOGFILE"
-kill $WORKLOAD_PIDS
-#rm tempfile  # Remove temporary file created by dd
-echo "Cleanup complete." >> "$LOGFILE"
+echo "Overnight BPF termination process complete." >> "$LOGFILE"N
