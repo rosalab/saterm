@@ -1,12 +1,13 @@
-# Makefile for setting up dependencies, creating a dummy file, and running healthcheck script
+# Makefile for setting up dependencies, creating a dummy file, running healthcheck, and terminate scripts
 
 # Define variables
 SCRIPT = healthcheck.sh
+TERMINATE_SCRIPT = terminate.sh
 LOGFILE = /var/log/system_healthcheck.log
 DUMMYFILE = largefile.txt
 
 # Default target
-all: install create_dummy run
+all: install create_dummy run terminate
 
 # Target to install dependencies
 install:
@@ -25,6 +26,11 @@ run:
 	./$(SCRIPT)
 	@echo "Removing $(DUMMYFILE) after script execution..."
 	rm -f $(DUMMYFILE)
+
+# Target to run the terminate script
+terminate:
+	@echo "Running $(TERMINATE_SCRIPT)..."
+	./$(TERMINATE_SCRIPT)
 
 # Target to clean logs and dummy file
 clean:
