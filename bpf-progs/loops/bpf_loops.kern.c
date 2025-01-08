@@ -5,6 +5,19 @@
 
 #define ITERS 1 << 5
 
+// This isn't needed for the kern program but for the user
+#define MAX_DICT_SIZE 1000
+#define MAX_DICT_VAL  10000
+
+struct
+{
+	__uint(type, BPF_MAP_TYPE_LRU_HASH);
+	__uint(max_entries, MAX_DICT_SIZE);
+        __type(key, int);
+        __type(value, int);
+}
+my_map SEC(".maps");
+
 int callback_selector;
 int callback_selector2;
 

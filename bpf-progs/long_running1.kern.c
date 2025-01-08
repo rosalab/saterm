@@ -36,14 +36,13 @@ static int map_access(void *ctx)
 
 
 SEC("tracepoint/syscalls/sys_exit_saterm_test")
-int tracepoint_exit_saterm_connect1(struct pt_regs *ctx)
+int tracepoint_exit_saterm(struct pt_regs *ctx)
 {
+	bpf_printk("Hello world!\n");
 	unsigned long start_time = bpf_ktime_get_ns();
 
-	// TODO: this should be like Listing 1
 	int iterations = 1 << 23; // 1 << 23 is max
 	bpf_loop(iterations, map_access, NULL, 0);
-	//map_access();
 
 	unsigned long end_time = bpf_ktime_get_ns();
 	unsigned long time_ns = end_time - start_time;
@@ -52,6 +51,13 @@ int tracepoint_exit_saterm_connect1(struct pt_regs *ctx)
 	bpf_printk("Time motiv: %lu ms\n", time_ms);
 	long time_s = time_ms / (1000);
 	bpf_printk("Time motiv: %lu s\n", time_s);
+	
+	// This helper should be stubbed to bpf_dummy_int
+	// Both our dummies return either -1 or 0 
+	if (bpf_ktime_get_ns() != -1 && bpf_ktime_get_ns() != 0) {
+		int cpu = bpf_get_smp_processor_id();
+		bpf_printk("If terminated, this should not run. CPU: %d\n", cpu);
+	}
 	return 0;
 }
 
