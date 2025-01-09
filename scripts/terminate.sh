@@ -24,7 +24,8 @@ terminate_and_restart() {
 
     # Find the BPF program ID
     echo "Fetching BPF program ID..." >> "$LOGFILE"
-    bpf_prog_id=$(/linux/tools/bpf/bpftool/bpftool prog show | awk '/tracepoint_exit_saterm/ {print $1}' | tr -d ':')
+#    bpf_prog_id=$(/linux/tools/bpf/bpftool/bpftool prog show | awk '/tracepoint_exit_saterm/ {print $1}' | tr -d ':')
+    bpf_prog_id=$(/linux/tools/bpf/bpftool/bpftool prog show | awk '/tracepoint_exit_saterm/ {print $1}' | tr -d ':' | tail -n 1)
 
     if [ -n "$bpf_prog_id" ]; then
         echo "Found BPF program ID: $bpf_prog_id" >> "$LOGFILE"
