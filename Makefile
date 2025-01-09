@@ -23,7 +23,7 @@ qemu-run:
 
 # TODO: should have this get port from var
 qemu-stop:
-	docker stop $(docker ps --filter "publish=60002" -q)
+	@docker ps --filter "publish=60002" --format "{{.ID}}" | xargs -r docker stop
 
 # connect running qemu by ssh
 qemu-ssh:
