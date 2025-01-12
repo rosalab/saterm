@@ -26,8 +26,8 @@ int main(int argc, char **argv)
 	char *argv_new[] = {"./saterm.test", "30", (char *)NULL};
 	posix_spawn(&pid, "./saterm.test", NULL, NULL, argv_new, environ);
 
-	// 2. Sleep 2 sec
-	sleep(2);
+	// 2. Sleep 4 sec
+	sleep(4);
 
 	// 3. Attach eBPF program
 	char *bpf_program = argv[1];
@@ -68,8 +68,8 @@ int main(int argc, char **argv)
 		printf("Attach success\n");
 	}
 
-	// 4. Sleep 3 sec
-	sleep(3);
+	// 4. Sleep 9 sec
+	sleep(9);
 
 	// 5. Either terminate or delink eBPF program
 	if (should_terminate) {
