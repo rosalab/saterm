@@ -3,7 +3,7 @@
 #include <linux/version.h>
 #include <bpf/bpf_helpers.h>
 
-#define ITERS 1 << 8
+#define ITERS 1 << 10
 
 // This isn't needed for the kern program but for the user
 #define MAX_DICT_SIZE 1000

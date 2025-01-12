@@ -21,7 +21,8 @@ int main(int argc, char **argv)
 	struct bpf_program *prog;
 	struct bpf_object *obj;
 
-	char *filename = "bpf_loops.kern.o";
+//	char *filename = "bpf_loops.kern.o";
+    char *filename= "long_running1.kern.o";
 	obj = bpf_object__open_file(filename, NULL);
 	if (libbpf_get_error(obj)) {
 		fprintf(stderr, "ERROR: opening BPF object file failed : %s\n", strerror(libbpf_get_error(obj)));
