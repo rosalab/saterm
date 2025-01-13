@@ -93,5 +93,12 @@ cd bpf-progs
 ./no_helpers_v_helpers.sh
 ```
 
+### Figure 3/7
+```sh
+cd bpf-prog
+./test_all.sh
+```
+This will take around 2 minutes. The results are in `noterm.txt` and `term.txt`.
+
 The results are logged in the second window.
 
