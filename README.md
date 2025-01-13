@@ -1,12 +1,12 @@
-# Linux Development Environment
+# SATerm Development Environment
 
 This repo contains the workflow for testing SAterm (stub-accelerated termination).
 
-#### Build Docker Container
+## Build Docker Container
 
 ``` make docker ```
 
-#### Update git submodules
+### Update git submodules
 The `linux` directory contains a forked linux kernel source tree as a git submodule. The below commands help you to update it.
 
 ```sh
@@ -16,7 +16,7 @@ git submodule init
 git submodule update
 ```
 
-#### Build linux
+### Build linux
 
 ```
 make vmlinux
@@ -31,22 +31,22 @@ make bpftool
 cd bpf-progs && make && cd ..
 ```
 
-#### Run Qemu
+### Run Qemu
 ```
 make qemu-run
 ```
 
-#### If you want to ssh into the qemu
+### If you want to ssh into the qemu
 ```
 make qemu-ssh
 ```
 
-#### If you want to enter the docker container where qemu is running
+### If you want to enter the docker container where qemu is running
 ```
 make enter-docker
 ```
 
-#### If you want to debug the kernel using gdb
+### If you want to debug the kernel using gdb
 ```
 make qemu-run-gdb
 ```
@@ -60,7 +60,7 @@ c
 then set your breakpoints and debug more
 
 
-## Adding Ports to QEMU
+### Adding Ports to QEMU
 By default host port 52223 is connected to port 52223 inside the QEMU virtual machine.
 If you need to be able to connect to more than one port (or a specific port) on your custom kernel from the host, you will have to add new rules.
 The needed rules are in `q-script/yifei-q` and in the Makefile.
@@ -77,13 +77,21 @@ In the q-script you must append a new rule.
 Find the line that starts with `"net += -netdev user..."`.
 Then at the end of the line add the text ```"hostfwd=tcp::DOCKER_PORT-:QEMU_PORT"```
 
-## BPF Enabled
-This branch has BPF enabled.
-You can use `make libbpf` to build libbpf inside the docker container.
-You can use `make bpftool` to build bpftool inside the docker container.
-Both have a respective clean target to clean these.
+## Figure reproduction
 
-There is also a bpf-progs directory that has a make file to make building bpf programs easy.
-There is a naming scheme where programs of the form `*.kern.c` are built as BPF objects, while programs of the form `*.user.c` are
-built as user space programs.
+### Figure 2
+In a second window, open a tracelog:
+
+```
+make qemu-ssh
+clear && bpftool prog tracelog
+```
+
+Then in the main window:
+```
+cd bpf-progs
+./no_helpers_v_helpers.sh
+```
+
+The results are logged in the second window.
 
