@@ -55,7 +55,9 @@ int main(int argc, char **argv)
 		printf("Attach success\n");
 	}
 
-	recursively_handle(100000); // capped out
+	recursively_handle(200000);
+	//recursively_handle(1);
+	//handle_helper_case();
 
 	bpf_link__disconnect(link);
 	//read_trace_pipe();
@@ -68,7 +70,6 @@ cleanup:
 void recursively_handle(int iters) {
 	if (iters == 0) handle_helper_case();
 	recursively_handle(iters - 1);
-	volatile i = 1;
 }
 
 int handle_helper_case() {
@@ -77,5 +78,6 @@ int handle_helper_case() {
 		// removing the extra pause seems to help for consistency
 		//usleep(1000);
 	}
+	exit(0);
 }
 
