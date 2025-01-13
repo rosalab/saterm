@@ -26,7 +26,7 @@ my_map SEC(".maps");
 
 static int map_access(void *ctx)
 {
-	for (int i = 0; i < 8; i++) {
+	for (int i = 0; i <= 10; i++) {
 		int k = bpf_get_prandom_u32() % MAX_DICT_SIZE;
 		int v = bpf_get_prandom_u32() % MAX_DICT_VAL;
 		bpf_map_update_elem(&my_map, &k, &v, BPF_ANY);
