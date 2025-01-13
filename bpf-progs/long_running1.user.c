@@ -74,6 +74,11 @@ int main(int argc, char **argv)
 	// 5. Either terminate or delink eBPF program
 	if (should_terminate) {
 		system("bpftool prog terminate `bpftool prog show | awk 'NR==1 {gsub(\":\", \"\", $1); print $1}'`");
+		// This frees remaining memory (otherwise refcount is not decremented)
+		bpf_link__disconnect(link);
+		bpf_link__destroy(link);
+		bpf_object__close(obj);
+		exit(0);
 	} else {
 		// Delinking through these functions doesn't seem to fully work
 		// But exiting seems to cause a delinking

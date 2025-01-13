@@ -98,7 +98,7 @@ cd bpf-progs
 cd bpf-prog
 ./test_all.sh
 ```
-This will take around 2 minutes. The results are in `noterm.txt` and `term.txt`.
+This will take around 2-3 minutes. The results are in `noterm.txt` and `term.txt`.
 
 The results are logged in the second window.
 
