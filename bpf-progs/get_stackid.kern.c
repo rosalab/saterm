@@ -32,7 +32,7 @@ SEC("tracepoint/syscalls/sys_exit_saterm_test")
 int tracepoint_exit_saterm_connect3(struct pt_regs *ctx)
 {
 	int start_time = bpf_ktime_get_ns();
-	for (int i = 0; i < 30; i++) {
+	for (int i = 0; i < 50; i++) {
 		volatile long user_stack_id = bpf_get_stackid(ctx, &stack_traces, 0 | BPF_F_USER_STACK);
 	}
 	int end_time = bpf_ktime_get_ns();
