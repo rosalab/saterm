@@ -3,8 +3,9 @@
 
 char LISENSE[] SEC("license") = "Dual BSD/GPL";
 
-SEC("tp/syscalls/sys_enter_getcwd")
+SEC("tracepoint/syscalls/sys_exit_saterm_test")
 int empty(void *ctx)
 {
     return 0;
 }
+
