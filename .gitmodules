@@ -1,4 +1,4 @@
 [submodule "linux"]
 	path = linux
-	url = git@github.com:rosalab/linux.git
-	branch = new-termination
+	url = git@github.com:egol2/bpf.git
+	branch = RFCv3/bpf_term/v1
