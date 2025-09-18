@@ -22,9 +22,15 @@ extern char **environ;
 int main(int argc, char **argv)
 {
 	// 1. Spawn throughput tester
-	pid_t pid;
-	char *argv_new[] = {"./saterm.test", "30", (char *)NULL};
-	posix_spawn(&pid, "./saterm.test", NULL, NULL, argv_new, environ);
+	// Pin to CPU 1 (0-based): taskset -c 1 ./saterm.test 30
+	pid_t pid;    
+	char *const argv_new[] = { "taskset", "-c", "1", "./saterm.test", "30", NULL };
+
+    	int rc = posix_spawnp(&pid, "taskset", NULL, NULL, argv_new, environ);
+    	if (rc != 0) {
+        	fprintf(stderr, "posix_spawnp(taskset) failed: %s\n", strerror(rc));
+        	return -1;
+    	}
 
 	// 2. Sleep 4 sec
 	sleep(4);
