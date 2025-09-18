@@ -45,8 +45,8 @@
 #         echo "Starting /linux-dev-env/bpf-progs/loops/trigger in background..." >> "$LOGFILE"
 #         ./trigger &  # Run second binary in background
 #         echo "Terminating BPF program ID $bpf_prog_id..." >> "$LOGFILE"
-         /linux/tools/bpf/bpftool/bpftool prog terminate "$bpf_prog_id"
-         echo "Terminated BPF program ID $bpf_prog_id." >> "$LOGFILE"
+         # /linux/tools/bpf/bpftool/bpftool prog terminate "$bpf_prog_id"
+         # echo "Terminated BPF program ID $bpf_prog_id." >> "$LOGFILE"
      else
           echo "BPF program ID not found. Ensure the BPF program is loaded." >> "$LOGFILE"
      fi

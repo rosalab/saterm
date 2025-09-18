@@ -67,13 +67,13 @@ int main(int argc, char **argv)
 	} else {
 		printf("Attach success\n");
 	}
-
+	// getchar();
 	// 4. Sleep 9 sec
 	sleep(9);
 
 	// 5. Either terminate or delink eBPF program
 	if (should_terminate) {
-		system("bpftool prog terminate `bpftool prog show | awk 'NR==1 {gsub(\":\", \"\", $1); print $1}'`");
+		system("bpftool prog terminate id `bpftool prog show | awk 'NR==1 {gsub(\":\", \"\", $1); print $1}'`");
 		// This frees remaining memory (otherwise refcount is not decremented)
 		bpf_link__disconnect(link);
 		bpf_link__destroy(link);
@@ -95,7 +95,7 @@ int main(int argc, char **argv)
 
 
 	if (!should_terminate) return 0;
-	
+
 	bpf_link__disconnect(link);
 	//read_trace_pipe();
 

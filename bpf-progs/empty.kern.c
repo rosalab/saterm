@@ -8,4 +8,3 @@ int empty(void *ctx)
 {
     return 0;
 }
-

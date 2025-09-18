@@ -4,7 +4,8 @@
 #include <stdlib.h>
 #include <sys/syscall.h>
 
-#define __NR_hello 463
+#define __NR_hello 470
+// #define __NR_hello 79
 #define DEFAULT_S 60
 #define DELAY_S 1
 
@@ -28,10 +29,9 @@ int main(int argc, char* argv[]){
 		printf("%f:%d\n", total_time, num_calls);
 		//cnt++;
 		total_time += ((double)(now - start_clock)) / CLOCKS_PER_SEC;
-		
+
 		num_calls=0;
 	}
-	
+
 	return 0;
 }
-

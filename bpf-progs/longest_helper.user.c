@@ -79,4 +79,3 @@ int handle_helper_case() {
 	}
 	exit(0);
 }
-

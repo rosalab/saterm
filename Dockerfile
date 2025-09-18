@@ -1,6 +1,6 @@
 FROM ubuntu:24.04 AS linux-builder
 
-ENV LINUX=/linux 
+ENV LINUX=/linux
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
@@ -29,5 +29,4 @@ RUN ./llvm.sh 19
 RUN ln -s /usr/bin/clang-19 /usr/bin/clang
 RUN ln -s /usr/bin/clang++-19 /usr/bin/clang++
 RUN ln -s /usr/bin/ld.lld-19 /usr/bin/ld.lld
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --fix-missing -y curl
-
+RUN DEBIAN_FRONTEND=noninteractive apt-get install --fix-missing -y curl htop

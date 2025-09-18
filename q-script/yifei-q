@@ -208,7 +208,7 @@ guest() {
   local ip_address=$(ip -4 addr show $iface | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
   local default_route=$(ip route | grep default)
   if [[ -z "$ip_address" ]]; then
-      ip a add 10.0.2.15/24 dev eth0 
+      ip a add 10.0.2.15/24 dev eth0
   fi
   if [[ -z "$default_route" ]]; then
     ip route add default via 10.0.2.2
@@ -257,7 +257,7 @@ source $KERNEL/tools/bpf/bpftool/bash-completion/bpftool
 eval \$(resize)
 EOF
 
-	cd linux-dev-env 
+	cd linux-dev-env
 
 	if [ -n "$ARGS" ]; then
 		say non-interactive bash script
@@ -284,8 +284,8 @@ SSH=n
 CMDLINE=""
 QEMUARG=""
 
-NRCPU=4
-MEMORY=2048
+NRCPU=8
+MEMORY=32768
 
 while getopts "hgmsk:c:a:H:N:M:q:" opt; do
 	case $opt in

@@ -12,12 +12,15 @@ INCLUDE := -I../linux/usr/include/ -I../linux/tools/lib/
 USER-CFLAGS := -g -I../linux/usr/include -I../linux/tools/lib/ -L../linux/tools/lib/bpf/
 
 
-all: $(FILES) $(USER) saterm.test
-	
+all: $(FILES) $(USER) saterm.test test_syscall
+
 test: test.c
 	$(BPF-CLANG) $(INCLUDE) $(BPF_CLANG_CFLAGS) -o test test.c
 
 saterm.test: saterm.test.c
+	gcc $(USER-CFLAGS) $< -o $@
+
+test_syscall: test_syscall.c
 	gcc $(USER-CFLAGS) $< -o $@
 
 $(FILES) : %.o : %.c

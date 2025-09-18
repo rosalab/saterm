@@ -15,7 +15,7 @@
 //#include "bpf_util.h"
 //#include "trace_helpers.h"
 
-#define __NR_hello 463
+#define __NR_hello 470
 
 extern char **environ;
 
@@ -80,4 +80,3 @@ int handle_helper_case() {
 	}
 	exit(0);
 }
-
