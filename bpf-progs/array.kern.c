@@ -17,6 +17,7 @@ struct {
  * hookpoint has been hit
  */
 SEC("tp/syscalls/sys_enter_getcwd")
+// SEC("tracepoint/syscalls/sys_exit_saterm_test")
 int array(void *ctx)
 {
     __u32 key = 0;

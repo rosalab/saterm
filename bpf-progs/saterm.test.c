@@ -6,7 +6,7 @@
 
 #define __NR_hello 470
 #define DEFAULT_TOTAL_SECS 60.0
-#define DEFAULT_INTERVAL_SECS 0.5
+#define DEFAULT_INTERVAL_SECS 0.1
 
 static inline double now_sec(void) {
     struct timespec ts;
@@ -59,4 +59,3 @@ int main(int argc, char* argv[]) {
 
     return 0;
 }
-
