@@ -12,7 +12,7 @@ INCLUDE := -I../linux/usr/include/ -I../linux/tools/lib/
 USER-CFLAGS := -g -I../linux/usr/include -I../linux/tools/lib/ -L../linux/tools/lib/bpf/
 
 
-all: $(FILES) $(USER) saterm.test test_syscall
+all: $(FILES) $(USER) saterm.test test_syscall verify_bpf_throw
 
 test: test.c
 	$(BPF-CLANG) $(INCLUDE) $(BPF_CLANG_CFLAGS) -o test test.c
@@ -23,6 +23,9 @@ saterm.test: saterm.test.c
 test_syscall: test_syscall.c
 	gcc $(USER-CFLAGS) $< -o $@
 
+verify_bpf_throw: verify_bpf_throw.c
+	gcc $(USER-CFLAGS) $< -lbpf -o $@
+
 $(FILES) : %.o : %.c
 	$(BPF-CLANG) $(INCLUDE) $(BPF_CLANG_CFLAGS) -o $@ $<
 
@@ -32,4 +35,4 @@ $(USER) : % : %.c
 .PHONY : clean
 
 clean :
-	rm -f $(FILES) $(USER) saterm.test
+	rm -f $(FILES) $(USER) saterm.test test_syscall verify_bpf_throw

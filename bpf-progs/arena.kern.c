@@ -40,7 +40,7 @@ SEC("tracepoint/syscalls/sys_exit_saterm_test")
 // SEC("kprobe/__x64_sys_saterm_test")
 int stream_arena_subprog_fault(void *ctx)
 {
-    bpf_printk("ARENA prog entered\n");
+    // bpf_printk("ARENA prog entered\n");
 	subprog();
 	return 0;
 }
