@@ -1,4 +1,4 @@
 [submodule "linux"]
 	path = linux
 	url = git@github.com:egol2/bpf.git
-	branch = RFCv3/bpf_term/v1
+	branch = egor/bpf_term/v1
