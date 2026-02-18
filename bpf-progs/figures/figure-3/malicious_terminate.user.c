@@ -213,6 +213,29 @@ int main(int argc, char **argv)
                "--json-out-file results.json\n", test_time);
     }
 
+    // Measure baseline throughput (no BPF program attached)
+    double baseline_ops = 0.0;
+    if (ssh_memtier) {
+        printf("\n=== Measuring baseline (no BPF) ===\n");
+        printf("Running memtier benchmark on deimos-vm (this takes ~%u seconds)...\n", test_time);
+        fflush(stdout);
+        char *json = NULL;
+        if (run_memtier_ssh_json(&json, test_time) != 0 || !json) {
+            fprintf(stderr, "Baseline memtier ssh command failed\n");
+        } else {
+            printf("Baseline benchmark completed, parsing results...\n");
+            const char *totals = find_totals_block(json);
+            double avg_lat = 0.0;
+            if (extract_metric(totals, "Ops/sec", &baseline_ops) != 0 ||
+                extract_metric(totals, "Average Latency", &avg_lat) != 0) {
+                fprintf(stderr, "Failed to parse baseline memtier JSON metrics\n");
+            } else {
+                printf("Baseline: %.2f ops/sec, %.2f ms avg latency\n\n", baseline_ops, avg_lat);
+            }
+            free(json);
+        }
+    }
+
     struct bpf_object *obj = bpf_object__open_file("malicious_terminate.kern.o", NULL);
     if (!obj) {
         fprintf(stderr, "Failed to open BPF object\n");
@@ -277,7 +300,11 @@ int main(int argc, char **argv)
             bpf_object__close(obj);
             return 1;
         }
-        fprintf(csv, "die_after,ops_sec,avg_latency_ms\n");
+        fprintf(csv, "die_after,ops_sec,avg_latency_ms,baseline_ops_sec\n");
+        // Write baseline as a comment for reference
+        if (baseline_ops > 0) {
+            fprintf(csv, "# Baseline (no BPF): %.2f ops/sec\n", baseline_ops);
+        }
     }
 
     if (have_max) {
@@ -312,9 +339,10 @@ int main(int argc, char **argv)
                 fprintf(stderr, "Failed to parse memtier JSON metrics\n");
             }
 
-            fprintf(csv, "%u,%.2f,%.2f\n", ctl.die_after, ops, avg_lat);
+            fprintf(csv, "%u,%.2f,%.2f,%.2f\n", ctl.die_after, ops, avg_lat, baseline_ops);
             fflush(csv);
-            printf("  -> Ops/sec: %.2f, Avg latency: %.2f ms\n", ops, avg_lat);
+            double loss_pct = baseline_ops > 0 ? (1.0 - ops/baseline_ops) * 100 : 0;
+            printf("  -> Ops/sec: %.2f, Avg latency: %.2f ms, Loss: %.1f%%\n", ops, avg_lat, loss_pct);
             free(json);
         }
         if (csv)
@@ -351,9 +379,10 @@ int main(int argc, char **argv)
                 extract_metric(totals, "Average Latency", &avg_lat) != 0) {
                 fprintf(stderr, "Failed to parse memtier JSON metrics\n");
             } else if (csv) {
-                fprintf(csv, "%u,%.2f,%.2f\n", ctl.die_after, ops, avg_lat);
+                fprintf(csv, "%u,%.2f,%.2f,%.2f\n", ctl.die_after, ops, avg_lat, baseline_ops);
                 fflush(csv);
-                printf("Ops/sec: %.2f, Avg latency: %.2f ms\n", ops, avg_lat);
+                double loss_pct = baseline_ops > 0 ? (1.0 - ops/baseline_ops) * 100 : 0;
+                printf("Ops/sec: %.2f, Avg latency: %.2f ms, Loss: %.1f%%\n", ops, avg_lat, loss_pct);
             }
             free(json);
         }

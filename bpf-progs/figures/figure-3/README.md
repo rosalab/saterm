@@ -20,7 +20,9 @@ make
 
 By default, the loader will:
 1. Start redis-server locally
-2. Run memtier benchmark via SSH to deimos-vm (120 second test by default)
+2. Run baseline memtier benchmark (no BPF attached) to measure reference throughput
+3. Attach the BPF program to the specified tracepoint
+4. Run memtier benchmark via SSH to deimos-vm (120 second test by default)
 
 Manual setup (if not using defaults):
 1. On phobos VM (B), start redis:
@@ -69,3 +71,24 @@ sudo ./malicious_terminate.user --tracepoint raw_syscalls:sys_enter \
 
 The tracepoint is intentionally a placeholder so you can select a high-traffic
 event at runtime via `--tracepoint`.
+
+## Plotting results
+
+After collecting data, plot the results:
+
+```bash
+python3 plot_results.py [csv_path] [output_path]
+```
+
+Example:
+```bash
+python3 plot_results.py figure3_results.csv figure3.png
+```
+
+This generates:
+- A dual-panel plot showing:
+  - **Left**: App throughput loss (%) vs iterations until termination (relative to baseline with no BPF)
+  - **Right**: Average latency vs iterations until termination
+- Summary statistics of the performance impact
+
+The CSV file includes a baseline measurement (first run with no BPF program attached) for calculating throughput loss.

@@ -1,0 +1,6 @@
+kernel_type,num_objects,run,termination_time_ns,stack_walk_time_ns
+kflex,0,1,6215,6112
+kflex,0,2,8095,7986
+kflex,0,3,4166,4107
+kflex,0,4,16434,16171
+kflex,0,5,3244,3201

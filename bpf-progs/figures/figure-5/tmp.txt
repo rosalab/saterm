@@ -1,0 +1,4236 @@
+[DEBUG] Opening CSV output file: results.csv
+[DEBUG] Successfully opened CSV file
+[DEBUG] Wrote CSV header
+[DEBUG] Starting tests for 3 programs
+[DEBUG] ========================================
+[DEBUG] Testing program 1/3: nested_long
+[DEBUG] ========================================
+[DEBUG] --- Testing iteration count: 1 ---
+[DEBUG] Testing program: tracepoint_exit_runtime_nested_long (display: nested_long) at iteration count: 1
+[DEBUG] Opening BPF object file: runtime_nested_long.kern.o
+libbpf: loading object from runtime_nested_long.kern.o
+libbpf: elf: section(2) .text, size 328, link 0, flags 6, type=1
+libbpf: sec '.text': found program 'loop2' at insn offset 0 (0 bytes), code size 17 insns (136 bytes)
+libbpf: sec '.text': found program 'loop3' at insn offset 17 (136 bytes), code size 17 insns (136 bytes)
+libbpf: sec '.text': found program 'simple' at insn offset 34 (272 bytes), code size 7 insns (56 bytes)
+libbpf: elf: section(3) .rel.text, size 64, link 28, flags 40, type=9
+libbpf: elf: section(4) tracepoint/syscalls/sys_exit_saterm_test, size 136, link 0, flags 6, type=1
+libbpf: sec 'tracepoint/syscalls/sys_exit_saterm_test': found program 'tracepoint_exit_runtime_nested_long' at insn offset 0 (0 bytes), code size 17 insns (136 bytes)
+libbpf: elf: section(5) .reltracepoint/syscalls/sys_exit_saterm_test, size 32, link 28, flags 40, type=9
+libbpf: elf: section(6) license, size 13, link 0, flags 3, type=1
+libbpf: license of runtime_nested_long.kern.o is Dual BSD/GPL
+libbpf: elf: section(7) .maps, size 32, link 0, flags 3, type=1
+libbpf: elf: section(18) .BTF, size 1177, link 0, flags 0, type=1
+libbpf: elf: section(20) .BTF.ext, size 504, link 0, flags 0, type=1
+libbpf: elf: section(28) .symtab, size 528, link 1, flags 0, type=2
+libbpf: looking for externs among 22 symbols...
+libbpf: collected 0 externs total
+libbpf: map 'control_map': at sec_idx 7, offset 0.
+libbpf: map 'control_map': found type = 2.
+libbpf: map 'control_map': found key [8], sz = 4.
+libbpf: map 'control_map': found value [8], sz = 4.
+libbpf: map 'control_map': found max_entries = 1.
+libbpf: sec '.rel.text': collecting relocation for section(2) '.text'
+libbpf: sec '.rel.text': relo #0: insn #4 against 'control_map'
+libbpf: prog 'loop2': found map 0 (control_map, sec 7, off 0) for insn #4
+libbpf: sec '.rel.text': relo #1: insn #10 against '.text'
+libbpf: sec '.rel.text': relo #2: insn #21 against 'control_map'
+libbpf: prog 'loop3': found map 0 (control_map, sec 7, off 0) for insn #4
+libbpf: sec '.rel.text': relo #3: insn #27 against '.text'
+libbpf: sec '.reltracepoint/syscalls/sys_exit_saterm_test': collecting relocation for section(4) 'tracepoint/syscalls/sys_exit_saterm_test'
+libbpf: sec '.reltracepoint/syscalls/sys_exit_saterm_test': relo #0: insn #4 against 'control_map'
+libbpf: prog 'tracepoint_exit_runtime_nested_long': found map 0 (control_map, sec 7, off 0) for insn #4
+libbpf: sec '.reltracepoint/syscalls/sys_exit_saterm_test': relo #1: insn #10 against '.text'
+[DEBUG] Successfully opened BPF object file
+[DEBUG] Loading BPF program into kernel...
+libbpf: object 'runtime_nested_': failed (-95) to create BPF token from '/sys/fs/bpf', skipping optional step...
+libbpf: prog 'tracepoint_exit_runtime_nested_long': added 17 insns from sub-prog 'loop2'
+libbpf: prog 'tracepoint_exit_runtime_nested_long': added 17 insns from sub-prog 'loop3'
+libbpf: prog 'tracepoint_exit_runtime_nested_long': added 7 insns from sub-prog 'simple'
+libbpf: prog 'loop3': insn #10 relocated, imm 6 points to subprog 'simple' (now at 51 offset)
+libbpf: prog 'loop2': insn #10 relocated, imm 6 points to subprog 'loop3' (now at 34 offset)
+libbpf: prog 'tracepoint_exit_runtime_nested_long': insn #10 relocated, imm 6 points to subprog 'loop2' (now at 17 offset)
+libbpf: map 'control_map': created successfully, fd=5
+[DEBUG] Successfully loaded BPF program
+[DEBUG] Finding program by name: tracepoint_exit_runtime_nested_long
+[DEBUG] Found program: tracepoint_exit_runtime_nested_long
+[DEBUG] Program FD: 6
+[DEBUG] Program info - ID: 117, Type: 5, JIT: yes
+[DEBUG] JIT program length: 603 bytes
+[DEBUG] JIT Instructions (initial, before first trigger) (disassembled via bpftool):
+[DEBUG] ----------------------------------------
+[DEBUG] Using bpftool at: /home/rosa/saterm/linux/tools/bpf/bpftool/bpftool
+[DEBUG] int tracepoint_exit_runtime_nested_long(struct pt_regs * ctx):
+[DEBUG] bpf_prog_b50ec6f2ce90d6aa_tracepoint_exit_runtime_nested_long:
+[DEBUG] ; int tracepoint_exit_runtime_nested_long(struct pt_regs *ctx) {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$32, %rsp
+[DEBUG] 	48 81 ec 20 00 00 00 
+[DEBUG]   13:	pushq	%rbx
+[DEBUG] 	53 
+[DEBUG]   14:	pushq	%r13
+[DEBUG] 	41 55 
+[DEBUG]   16:	pushq	%r14
+[DEBUG] 	41 56 
+[DEBUG]   18:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; __u32 key = 0;
+[DEBUG]   1a:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG]   1d:	movq	%rbp, %rsi
+[DEBUG] 	48 89 ee 
+[DEBUG]   20:	addq	$-4, %rsi
+[DEBUG] 	48 83 c6 fc 
+[DEBUG] ; __u32 *iters = bpf_map_lookup_elem(&control_map, &key);
+[DEBUG]   24:	movabsq	$-128988314925056, %rdi
+[DEBUG] 	48 bf 00 08 4f 91 af 8a ff ff 
+[DEBUG]   2e:	addq	$264, %rdi
+[DEBUG] 	48 81 c7 08 01 00 00 
+[DEBUG]   35:	movl	(%rsi), %eax
+[DEBUG] 	8b 46 00 
+[DEBUG]   38:	cmpq	$1, %rax
+[DEBUG] 	48 83 f8 01 
+[DEBUG]   3c:	jae	0xffffffffc0425873
+[DEBUG] 	73 09 
+[DEBUG]   3e:	shlq	$3, %rax
+[DEBUG] 	48 c1 e0 03 
+[DEBUG]   42:	addq	%rdi, %rax
+[DEBUG] 	48 01 f8 
+[DEBUG]   45:	jmp	0xffffffffc0425875
+[DEBUG] 	eb 02 
+[DEBUG]   47:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   49:	movl	$32, %edi
+[DEBUG] 	bf 20 00 00 00 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   4e:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   51:	je	0xffffffffc0425882
+[DEBUG] 	74 03 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   53:	movl	(%rax), %edi
+[DEBUG] 	8b 78 00 
+[DEBUG] ; bpf_loop(count, loop2, NULL, 0);
+[DEBUG]   56:	movq	$-1069393620, %rsi
+[DEBUG] 	48 c7 c6 2c 59 42 c0 
+[DEBUG]   5d:	xorl	%edx, %edx
+[DEBUG] 	31 d2 
+[DEBUG]   5f:	xorl	%ecx, %ecx
+[DEBUG] 	31 c9 
+[DEBUG]   61:	cmpq	$8388608, %rdi
+[DEBUG] 	48 81 ff 00 00 80 00 
+[DEBUG]   68:	jbe	0xffffffffc042589d
+[DEBUG] 	76 07 
+[DEBUG]   6a:	movl	$4294967289, %eax
+[DEBUG] 	b8 f9 ff ff ff 
+[DEBUG]   6f:	jmp	0xffffffffc04258da
+[DEBUG] 	eb 3d 
+[DEBUG]   71:	movq	%rbx, -32(%rbp)
+[DEBUG] 	48 89 5d e0 
+[DEBUG]   75:	movq	%r13, -24(%rbp)
+[DEBUG] 	4c 89 6d e8 
+[DEBUG]   79:	movq	%r14, -16(%rbp)
+[DEBUG] 	4c 89 75 f0 
+[DEBUG]   7d:	movq	%rdi, %rbx
+[DEBUG] 	48 89 fb 
+[DEBUG]   80:	xorl	%r13d, %r13d
+[DEBUG] 	45 31 ed 
+[DEBUG]   83:	movq	%rdx, %r14
+[DEBUG] 	49 89 d6 
+[DEBUG]   86:	cmpq	%rbx, %r13
+[DEBUG] 	49 39 dd 
+[DEBUG]   89:	jae	0xffffffffc04258cb
+[DEBUG] 	73 14 
+[DEBUG]   8b:	movq	%r13, %rdi
+[DEBUG] 	4c 89 ef 
+[DEBUG]   8e:	movq	%r14, %rsi
+[DEBUG] 	4c 89 f6 
+[DEBUG]   91:	callq	0xffffffffc042592c
+[DEBUG] 	e8 6a 00 00 00 
+[DEBUG]   96:	addq	$1, %r13
+[DEBUG] 	49 83 c5 01 
+[DEBUG]   9a:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   9d:	je	0xffffffffc04258b2
+[DEBUG] 	74 e7 
+[DEBUG]   9f:	movq	%r13, %rax
+[DEBUG] 	4c 89 e8 
+[DEBUG]   a2:	movq	-32(%rbp), %rbx
+[DEBUG] 	48 8b 5d e0 
+[DEBUG]   a6:	movq	-24(%rbp), %r13
+[DEBUG] 	4c 8b 6d e8 
+[DEBUG]   aa:	movq	-16(%rbp), %r14
+[DEBUG] 	4c 8b 75 f0 
+[DEBUG] ; return 0;
+[DEBUG]   ae:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   b0:	popq	%r14
+[DEBUG] 	41 5e 
+[DEBUG]   b2:	popq	%r13
+[DEBUG] 	41 5d 
+[DEBUG]   b4:	popq	%rbx
+[DEBUG] 	5b 
+[DEBUG]   b5:	leave
+[DEBUG] 	c9 
+[DEBUG]   b6:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 39 90 03 c5 
+[DEBUG] 
+[DEBUG] int loop2():
+[DEBUG] bpf_prog_3f128170d468b262_loop2:
+[DEBUG] ; static int loop2() {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$32, %rsp
+[DEBUG] 	48 81 ec 20 00 00 00 
+[DEBUG]   13:	pushq	%rbx
+[DEBUG] 	53 
+[DEBUG]   14:	pushq	%r13
+[DEBUG] 	41 55 
+[DEBUG]   16:	pushq	%r14
+[DEBUG] 	41 56 
+[DEBUG]   18:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; __u32 key = 0;
+[DEBUG]   1a:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG]   1d:	movq	%rbp, %rsi
+[DEBUG] 	48 89 ee 
+[DEBUG]   20:	addq	$-4, %rsi
+[DEBUG] 	48 83 c6 fc 
+[DEBUG] ; __u32 *iters = bpf_map_lookup_elem(&control_map, &key);
+[DEBUG]   24:	movabsq	$-128988314925056, %rdi
+[DEBUG] 	48 bf 00 08 4f 91 af 8a ff ff 
+[DEBUG]   2e:	addq	$264, %rdi
+[DEBUG] 	48 81 c7 08 01 00 00 
+[DEBUG]   35:	movl	(%rsi), %eax
+[DEBUG] 	8b 46 00 
+[DEBUG]   38:	cmpq	$1, %rax
+[DEBUG] 	48 83 f8 01 
+[DEBUG]   3c:	jae	0xffffffffc0425973
+[DEBUG] 	73 09 
+[DEBUG]   3e:	shlq	$3, %rax
+[DEBUG] 	48 c1 e0 03 
+[DEBUG]   42:	addq	%rdi, %rax
+[DEBUG] 	48 01 f8 
+[DEBUG]   45:	jmp	0xffffffffc0425975
+[DEBUG] 	eb 02 
+[DEBUG]   47:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   49:	movl	$32, %edi
+[DEBUG] 	bf 20 00 00 00 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   4e:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   51:	je	0xffffffffc0425982
+[DEBUG] 	74 03 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   53:	movl	(%rax), %edi
+[DEBUG] 	8b 78 00 
+[DEBUG] ; bpf_loop(count, loop3, NULL, 0);
+[DEBUG]   56:	movq	$-1069393380, %rsi
+[DEBUG] 	48 c7 c6 1c 5a 42 c0 
+[DEBUG]   5d:	xorl	%edx, %edx
+[DEBUG] 	31 d2 
+[DEBUG]   5f:	xorl	%ecx, %ecx
+[DEBUG] 	31 c9 
+[DEBUG]   61:	cmpq	$8388608, %rdi
+[DEBUG] 	48 81 ff 00 00 80 00 
+[DEBUG]   68:	jbe	0xffffffffc042599d
+[DEBUG] 	76 07 
+[DEBUG]   6a:	movl	$4294967289, %eax
+[DEBUG] 	b8 f9 ff ff ff 
+[DEBUG]   6f:	jmp	0xffffffffc04259da
+[DEBUG] 	eb 3d 
+[DEBUG]   71:	movq	%rbx, -32(%rbp)
+[DEBUG] 	48 89 5d e0 
+[DEBUG]   75:	movq	%r13, -24(%rbp)
+[DEBUG] 	4c 89 6d e8 
+[DEBUG]   79:	movq	%r14, -16(%rbp)
+[DEBUG] 	4c 89 75 f0 
+[DEBUG]   7d:	movq	%rdi, %rbx
+[DEBUG] 	48 89 fb 
+[DEBUG]   80:	xorl	%r13d, %r13d
+[DEBUG] 	45 31 ed 
+[DEBUG]   83:	movq	%rdx, %r14
+[DEBUG] 	49 89 d6 
+[DEBUG]   86:	cmpq	%rbx, %r13
+[DEBUG] 	49 39 dd 
+[DEBUG]   89:	jae	0xffffffffc04259cb
+[DEBUG] 	73 14 
+[DEBUG]   8b:	movq	%r13, %rdi
+[DEBUG] 	4c 89 ef 
+[DEBUG]   8e:	movq	%r14, %rsi
+[DEBUG] 	4c 89 f6 
+[DEBUG]   91:	callq	0xffffffffc0425a1c
+[DEBUG] 	e8 5a 00 00 00 
+[DEBUG]   96:	addq	$1, %r13
+[DEBUG] 	49 83 c5 01 
+[DEBUG]   9a:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   9d:	je	0xffffffffc04259b2
+[DEBUG] 	74 e7 
+[DEBUG]   9f:	movq	%r13, %rax
+[DEBUG] 	4c 89 e8 
+[DEBUG]   a2:	movq	-32(%rbp), %rbx
+[DEBUG] 	48 8b 5d e0 
+[DEBUG]   a6:	movq	-24(%rbp), %r13
+[DEBUG] 	4c 8b 6d e8 
+[DEBUG]   aa:	movq	-16(%rbp), %r14
+[DEBUG] 	4c 8b 75 f0 
+[DEBUG] ; return 0;
+[DEBUG]   ae:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   b0:	popq	%r14
+[DEBUG] 	41 5e 
+[DEBUG]   b2:	popq	%r13
+[DEBUG] 	41 5d 
+[DEBUG]   b4:	popq	%rbx
+[DEBUG] 	5b 
+[DEBUG]   b5:	leave
+[DEBUG] 	c9 
+[DEBUG]   b6:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 39 8f 03 c5 
+[DEBUG] 
+[DEBUG] int loop3():
+[DEBUG] bpf_prog_b50dd0ba4ef23762_loop3:
+[DEBUG] ; static int loop3() {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$32, %rsp
+[DEBUG] 	48 81 ec 20 00 00 00 
+[DEBUG]   13:	pushq	%rbx
+[DEBUG] 	53 
+[DEBUG]   14:	pushq	%r13
+[DEBUG] 	41 55 
+[DEBUG]   16:	pushq	%r14
+[DEBUG] 	41 56 
+[DEBUG]   18:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; __u32 key = 0;
+[DEBUG]   1a:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG]   1d:	movq	%rbp, %rsi
+[DEBUG] 	48 89 ee 
+[DEBUG]   20:	addq	$-4, %rsi
+[DEBUG] 	48 83 c6 fc 
+[DEBUG] ; __u32 *iters = bpf_map_lookup_elem(&control_map, &key);
+[DEBUG]   24:	movabsq	$-128988314925056, %rdi
+[DEBUG] 	48 bf 00 08 4f 91 af 8a ff ff 
+[DEBUG]   2e:	addq	$264, %rdi
+[DEBUG] 	48 81 c7 08 01 00 00 
+[DEBUG]   35:	movl	(%rsi), %eax
+[DEBUG] 	8b 46 00 
+[DEBUG]   38:	cmpq	$1, %rax
+[DEBUG] 	48 83 f8 01 
+[DEBUG]   3c:	jae	0xffffffffc0425a63
+[DEBUG] 	73 09 
+[DEBUG]   3e:	shlq	$3, %rax
+[DEBUG] 	48 c1 e0 03 
+[DEBUG]   42:	addq	%rdi, %rax
+[DEBUG] 	48 01 f8 
+[DEBUG]   45:	jmp	0xffffffffc0425a65
+[DEBUG] 	eb 02 
+[DEBUG]   47:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   49:	movl	$32, %edi
+[DEBUG] 	bf 20 00 00 00 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   4e:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   51:	je	0xffffffffc0425a72
+[DEBUG] 	74 03 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   53:	movl	(%rax), %edi
+[DEBUG] 	8b 78 00 
+[DEBUG] ; bpf_loop(count, simple, NULL, 0);
+[DEBUG]   56:	movq	$-1069393112, %rsi
+[DEBUG] 	48 c7 c6 28 5b 42 c0 
+[DEBUG]   5d:	xorl	%edx, %edx
+[DEBUG] 	31 d2 
+[DEBUG]   5f:	xorl	%ecx, %ecx
+[DEBUG] 	31 c9 
+[DEBUG]   61:	cmpq	$8388608, %rdi
+[DEBUG] 	48 81 ff 00 00 80 00 
+[DEBUG]   68:	jbe	0xffffffffc0425a8d
+[DEBUG] 	76 07 
+[DEBUG]   6a:	movl	$4294967289, %eax
+[DEBUG] 	b8 f9 ff ff ff 
+[DEBUG]   6f:	jmp	0xffffffffc0425aca
+[DEBUG] 	eb 3d 
+[DEBUG]   71:	movq	%rbx, -32(%rbp)
+[DEBUG] 	48 89 5d e0 
+[DEBUG]   75:	movq	%r13, -24(%rbp)
+[DEBUG] 	4c 89 6d e8 
+[DEBUG]   79:	movq	%r14, -16(%rbp)
+[DEBUG] 	4c 89 75 f0 
+[DEBUG]   7d:	movq	%rdi, %rbx
+[DEBUG] 	48 89 fb 
+[DEBUG]   80:	xorl	%r13d, %r13d
+[DEBUG] 	45 31 ed 
+[DEBUG]   83:	movq	%rdx, %r14
+[DEBUG] 	49 89 d6 
+[DEBUG]   86:	cmpq	%rbx, %r13
+[DEBUG] 	49 39 dd 
+[DEBUG]   89:	jae	0xffffffffc0425abb
+[DEBUG] 	73 14 
+[DEBUG]   8b:	movq	%r13, %rdi
+[DEBUG] 	4c 89 ef 
+[DEBUG]   8e:	movq	%r14, %rsi
+[DEBUG] 	4c 89 f6 
+[DEBUG]   91:	callq	0xffffffffc0425b28
+[DEBUG] 	e8 76 00 00 00 
+[DEBUG]   96:	addq	$1, %r13
+[DEBUG] 	49 83 c5 01 
+[DEBUG]   9a:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   9d:	je	0xffffffffc0425aa2
+[DEBUG] 	74 e7 
+[DEBUG]   9f:	movq	%r13, %rax
+[DEBUG] 	4c 89 e8 
+[DEBUG]   a2:	movq	-32(%rbp), %rbx
+[DEBUG] 	48 8b 5d e0 
+[DEBUG]   a6:	movq	-24(%rbp), %r13
+[DEBUG] 	4c 8b 6d e8 
+[DEBUG]   aa:	movq	-16(%rbp), %r14
+[DEBUG] 	4c 8b 75 f0 
+[DEBUG] ; return 0;
+[DEBUG]   ae:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   b0:	popq	%r14
+[DEBUG] 	41 5e 
+[DEBUG]   b2:	popq	%r13
+[DEBUG] 	41 5d 
+[DEBUG]   b4:	popq	%rbx
+[DEBUG] 	5b 
+[DEBUG]   b5:	leave
+[DEBUG] 	c9 
+[DEBUG]   b6:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 49 8e 03 c5 
+[DEBUG] 
+[DEBUG] int simple():
+[DEBUG] bpf_prog_95c04b6fbfe01bb4_simple:
+[DEBUG] ; static int simple() {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$8, %rsp
+[DEBUG] 	48 81 ec 08 00 00 00 
+[DEBUG]   13:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; volatile int dummy = 0;
+[DEBUG]   15:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG] ; dummy++;
+[DEBUG]   18:	movl	-4(%rbp), %edi
+[DEBUG] 	8b 7d fc 
+[DEBUG]   1b:	addq	$1, %rdi
+[DEBUG] 	48 83 c7 01 
+[DEBUG]   1f:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG] ; return 0;
+[DEBUG]   22:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   24:	leave
+[DEBUG] 	c9 
+[DEBUG]   25:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 ce 8d 03 c5 
+[DEBUG] 
+[DEBUG] ----------------------------------------
+[DEBUG] Finding control_map...
+[DEBUG] Found control_map, FD: 5
+[DEBUG] Setting iteration count to 1 in control_map
+[DEBUG] Successfully set iteration count
+[DEBUG] Attaching program to tracepoint...
+[DEBUG] Successfully attached program to tracepoint
+[DEBUG] Starting 1 measurement runs...
+[DEBUG] JIT Instructions (after first trigger) (disassembled via bpftool):
+[DEBUG] ----------------------------------------
+[DEBUG] Using bpftool at: /home/rosa/saterm/linux/tools/bpf/bpftool/bpftool
+[DEBUG] int tracepoint_exit_runtime_nested_long(struct pt_regs * ctx):
+[DEBUG] bpf_prog_b50ec6f2ce90d6aa_tracepoint_exit_runtime_nested_long:
+[DEBUG] ; int tracepoint_exit_runtime_nested_long(struct pt_regs *ctx) {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$32, %rsp
+[DEBUG] 	48 81 ec 20 00 00 00 
+[DEBUG]   13:	pushq	%rbx
+[DEBUG] 	53 
+[DEBUG]   14:	pushq	%r13
+[DEBUG] 	41 55 
+[DEBUG]   16:	pushq	%r14
+[DEBUG] 	41 56 
+[DEBUG]   18:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; __u32 key = 0;
+[DEBUG]   1a:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG]   1d:	movq	%rbp, %rsi
+[DEBUG] 	48 89 ee 
+[DEBUG]   20:	addq	$-4, %rsi
+[DEBUG] 	48 83 c6 fc 
+[DEBUG] ; __u32 *iters = bpf_map_lookup_elem(&control_map, &key);
+[DEBUG]   24:	movabsq	$-128988314925056, %rdi
+[DEBUG] 	48 bf 00 08 4f 91 af 8a ff ff 
+[DEBUG]   2e:	addq	$264, %rdi
+[DEBUG] 	48 81 c7 08 01 00 00 
+[DEBUG]   35:	movl	(%rsi), %eax
+[DEBUG] 	8b 46 00 
+[DEBUG]   38:	cmpq	$1, %rax
+[DEBUG] 	48 83 f8 01 
+[DEBUG]   3c:	jae	0xffffffffc0425873
+[DEBUG] 	73 09 
+[DEBUG]   3e:	shlq	$3, %rax
+[DEBUG] 	48 c1 e0 03 
+[DEBUG]   42:	addq	%rdi, %rax
+[DEBUG] 	48 01 f8 
+[DEBUG]   45:	jmp	0xffffffffc0425875
+[DEBUG] 	eb 02 
+[DEBUG]   47:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   49:	movl	$32, %edi
+[DEBUG] 	bf 20 00 00 00 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   4e:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   51:	je	0xffffffffc0425882
+[DEBUG] 	74 03 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   53:	movl	(%rax), %edi
+[DEBUG] 	8b 78 00 
+[DEBUG] ; bpf_loop(count, loop2, NULL, 0);
+[DEBUG]   56:	movq	$-1069393620, %rsi
+[DEBUG] 	48 c7 c6 2c 59 42 c0 
+[DEBUG]   5d:	xorl	%edx, %edx
+[DEBUG] 	31 d2 
+[DEBUG]   5f:	xorl	%ecx, %ecx
+[DEBUG] 	31 c9 
+[DEBUG]   61:	cmpq	$8388608, %rdi
+[DEBUG] 	48 81 ff 00 00 80 00 
+[DEBUG]   68:	jbe	0xffffffffc042589d
+[DEBUG] 	76 07 
+[DEBUG]   6a:	movl	$4294967289, %eax
+[DEBUG] 	b8 f9 ff ff ff 
+[DEBUG]   6f:	jmp	0xffffffffc04258da
+[DEBUG] 	eb 3d 
+[DEBUG]   71:	movq	%rbx, -32(%rbp)
+[DEBUG] 	48 89 5d e0 
+[DEBUG]   75:	movq	%r13, -24(%rbp)
+[DEBUG] 	4c 89 6d e8 
+[DEBUG]   79:	movq	%r14, -16(%rbp)
+[DEBUG] 	4c 89 75 f0 
+[DEBUG]   7d:	movq	%rdi, %rbx
+[DEBUG] 	48 89 fb 
+[DEBUG]   80:	xorl	%r13d, %r13d
+[DEBUG] 	45 31 ed 
+[DEBUG]   83:	movq	%rdx, %r14
+[DEBUG] 	49 89 d6 
+[DEBUG]   86:	cmpq	%rbx, %r13
+[DEBUG] 	49 39 dd 
+[DEBUG]   89:	jae	0xffffffffc04258cb
+[DEBUG] 	73 14 
+[DEBUG]   8b:	movq	%r13, %rdi
+[DEBUG] 	4c 89 ef 
+[DEBUG]   8e:	movq	%r14, %rsi
+[DEBUG] 	4c 89 f6 
+[DEBUG]   91:	callq	0xffffffffc042592c
+[DEBUG] 	e8 6a 00 00 00 
+[DEBUG]   96:	addq	$1, %r13
+[DEBUG] 	49 83 c5 01 
+[DEBUG]   9a:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   9d:	je	0xffffffffc04258b2
+[DEBUG] 	74 e7 
+[DEBUG]   9f:	movq	%r13, %rax
+[DEBUG] 	4c 89 e8 
+[DEBUG]   a2:	movq	-32(%rbp), %rbx
+[DEBUG] 	48 8b 5d e0 
+[DEBUG]   a6:	movq	-24(%rbp), %r13
+[DEBUG] 	4c 8b 6d e8 
+[DEBUG]   aa:	movq	-16(%rbp), %r14
+[DEBUG] 	4c 8b 75 f0 
+[DEBUG] ; return 0;
+[DEBUG]   ae:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   b0:	popq	%r14
+[DEBUG] 	41 5e 
+[DEBUG]   b2:	popq	%r13
+[DEBUG] 	41 5d 
+[DEBUG]   b4:	popq	%rbx
+[DEBUG] 	5b 
+[DEBUG]   b5:	leave
+[DEBUG] 	c9 
+[DEBUG]   b6:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 39 90 03 c5 
+[DEBUG] 
+[DEBUG] int loop2():
+[DEBUG] bpf_prog_3f128170d468b262_loop2:
+[DEBUG] ; static int loop2() {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$32, %rsp
+[DEBUG] 	48 81 ec 20 00 00 00 
+[DEBUG]   13:	pushq	%rbx
+[DEBUG] 	53 
+[DEBUG]   14:	pushq	%r13
+[DEBUG] 	41 55 
+[DEBUG]   16:	pushq	%r14
+[DEBUG] 	41 56 
+[DEBUG]   18:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; __u32 key = 0;
+[DEBUG]   1a:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG]   1d:	movq	%rbp, %rsi
+[DEBUG] 	48 89 ee 
+[DEBUG]   20:	addq	$-4, %rsi
+[DEBUG] 	48 83 c6 fc 
+[DEBUG] ; __u32 *iters = bpf_map_lookup_elem(&control_map, &key);
+[DEBUG]   24:	movabsq	$-128988314925056, %rdi
+[DEBUG] 	48 bf 00 08 4f 91 af 8a ff ff 
+[DEBUG]   2e:	addq	$264, %rdi
+[DEBUG] 	48 81 c7 08 01 00 00 
+[DEBUG]   35:	movl	(%rsi), %eax
+[DEBUG] 	8b 46 00 
+[DEBUG]   38:	cmpq	$1, %rax
+[DEBUG] 	48 83 f8 01 
+[DEBUG]   3c:	jae	0xffffffffc0425973
+[DEBUG] 	73 09 
+[DEBUG]   3e:	shlq	$3, %rax
+[DEBUG] 	48 c1 e0 03 
+[DEBUG]   42:	addq	%rdi, %rax
+[DEBUG] 	48 01 f8 
+[DEBUG]   45:	jmp	0xffffffffc0425975
+[DEBUG] 	eb 02 
+[DEBUG]   47:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   49:	movl	$32, %edi
+[DEBUG] 	bf 20 00 00 00 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   4e:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   51:	je	0xffffffffc0425982
+[DEBUG] 	74 03 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   53:	movl	(%rax), %edi
+[DEBUG] 	8b 78 00 
+[DEBUG] ; bpf_loop(count, loop3, NULL, 0);
+[DEBUG]   56:	movq	$-1069393380, %rsi
+[DEBUG] 	48 c7 c6 1c 5a 42 c0 
+[DEBUG]   5d:	xorl	%edx, %edx
+[DEBUG] 	31 d2 
+[DEBUG]   5f:	xorl	%ecx, %ecx
+[DEBUG] 	31 c9 
+[DEBUG]   61:	cmpq	$8388608, %rdi
+[DEBUG] 	48 81 ff 00 00 80 00 
+[DEBUG]   68:	jbe	0xffffffffc042599d
+[DEBUG] 	76 07 
+[DEBUG]   6a:	movl	$4294967289, %eax
+[DEBUG] 	b8 f9 ff ff ff 
+[DEBUG]   6f:	jmp	0xffffffffc04259da
+[DEBUG] 	eb 3d 
+[DEBUG]   71:	movq	%rbx, -32(%rbp)
+[DEBUG] 	48 89 5d e0 
+[DEBUG]   75:	movq	%r13, -24(%rbp)
+[DEBUG] 	4c 89 6d e8 
+[DEBUG]   79:	movq	%r14, -16(%rbp)
+[DEBUG] 	4c 89 75 f0 
+[DEBUG]   7d:	movq	%rdi, %rbx
+[DEBUG] 	48 89 fb 
+[DEBUG]   80:	xorl	%r13d, %r13d
+[DEBUG] 	45 31 ed 
+[DEBUG]   83:	movq	%rdx, %r14
+[DEBUG] 	49 89 d6 
+[DEBUG]   86:	cmpq	%rbx, %r13
+[DEBUG] 	49 39 dd 
+[DEBUG]   89:	jae	0xffffffffc04259cb
+[DEBUG] 	73 14 
+[DEBUG]   8b:	movq	%r13, %rdi
+[DEBUG] 	4c 89 ef 
+[DEBUG]   8e:	movq	%r14, %rsi
+[DEBUG] 	4c 89 f6 
+[DEBUG]   91:	callq	0xffffffffc0425a1c
+[DEBUG] 	e8 5a 00 00 00 
+[DEBUG]   96:	addq	$1, %r13
+[DEBUG] 	49 83 c5 01 
+[DEBUG]   9a:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   9d:	je	0xffffffffc04259b2
+[DEBUG] 	74 e7 
+[DEBUG]   9f:	movq	%r13, %rax
+[DEBUG] 	4c 89 e8 
+[DEBUG]   a2:	movq	-32(%rbp), %rbx
+[DEBUG] 	48 8b 5d e0 
+[DEBUG]   a6:	movq	-24(%rbp), %r13
+[DEBUG] 	4c 8b 6d e8 
+[DEBUG]   aa:	movq	-16(%rbp), %r14
+[DEBUG] 	4c 8b 75 f0 
+[DEBUG] ; return 0;
+[DEBUG]   ae:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   b0:	popq	%r14
+[DEBUG] 	41 5e 
+[DEBUG]   b2:	popq	%r13
+[DEBUG] 	41 5d 
+[DEBUG]   b4:	popq	%rbx
+[DEBUG] 	5b 
+[DEBUG]   b5:	leave
+[DEBUG] 	c9 
+[DEBUG]   b6:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 39 8f 03 c5 
+[DEBUG] 
+[DEBUG] int loop3():
+[DEBUG] bpf_prog_b50dd0ba4ef23762_loop3:
+[DEBUG] ; static int loop3() {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$32, %rsp
+[DEBUG] 	48 81 ec 20 00 00 00 
+[DEBUG]   13:	pushq	%rbx
+[DEBUG] 	53 
+[DEBUG]   14:	pushq	%r13
+[DEBUG] 	41 55 
+[DEBUG]   16:	pushq	%r14
+[DEBUG] 	41 56 
+[DEBUG]   18:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; __u32 key = 0;
+[DEBUG]   1a:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG]   1d:	movq	%rbp, %rsi
+[DEBUG] 	48 89 ee 
+[DEBUG]   20:	addq	$-4, %rsi
+[DEBUG] 	48 83 c6 fc 
+[DEBUG] ; __u32 *iters = bpf_map_lookup_elem(&control_map, &key);
+[DEBUG]   24:	movabsq	$-128988314925056, %rdi
+[DEBUG] 	48 bf 00 08 4f 91 af 8a ff ff 
+[DEBUG]   2e:	addq	$264, %rdi
+[DEBUG] 	48 81 c7 08 01 00 00 
+[DEBUG]   35:	movl	(%rsi), %eax
+[DEBUG] 	8b 46 00 
+[DEBUG]   38:	cmpq	$1, %rax
+[DEBUG] 	48 83 f8 01 
+[DEBUG]   3c:	jae	0xffffffffc0425a63
+[DEBUG] 	73 09 
+[DEBUG]   3e:	shlq	$3, %rax
+[DEBUG] 	48 c1 e0 03 
+[DEBUG]   42:	addq	%rdi, %rax
+[DEBUG] 	48 01 f8 
+[DEBUG]   45:	jmp	0xffffffffc0425a65
+[DEBUG] 	eb 02 
+[DEBUG]   47:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   49:	movl	$32, %edi
+[DEBUG] 	bf 20 00 00 00 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   4e:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   51:	je	0xffffffffc0425a72
+[DEBUG] 	74 03 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   53:	movl	(%rax), %edi
+[DEBUG] 	8b 78 00 
+[DEBUG] ; bpf_loop(count, simple, NULL, 0);
+[DEBUG]   56:	movq	$-1069393112, %rsi
+[DEBUG] 	48 c7 c6 28 5b 42 c0 
+[DEBUG]   5d:	xorl	%edx, %edx
+[DEBUG] 	31 d2 
+[DEBUG]   5f:	xorl	%ecx, %ecx
+[DEBUG] 	31 c9 
+[DEBUG]   61:	cmpq	$8388608, %rdi
+[DEBUG] 	48 81 ff 00 00 80 00 
+[DEBUG]   68:	jbe	0xffffffffc0425a8d
+[DEBUG] 	76 07 
+[DEBUG]   6a:	movl	$4294967289, %eax
+[DEBUG] 	b8 f9 ff ff ff 
+[DEBUG]   6f:	jmp	0xffffffffc0425aca
+[DEBUG] 	eb 3d 
+[DEBUG]   71:	movq	%rbx, -32(%rbp)
+[DEBUG] 	48 89 5d e0 
+[DEBUG]   75:	movq	%r13, -24(%rbp)
+[DEBUG] 	4c 89 6d e8 
+[DEBUG]   79:	movq	%r14, -16(%rbp)
+[DEBUG] 	4c 89 75 f0 
+[DEBUG]   7d:	movq	%rdi, %rbx
+[DEBUG] 	48 89 fb 
+[DEBUG]   80:	xorl	%r13d, %r13d
+[DEBUG] 	45 31 ed 
+[DEBUG]   83:	movq	%rdx, %r14
+[DEBUG] 	49 89 d6 
+[DEBUG]   86:	cmpq	%rbx, %r13
+[DEBUG] 	49 39 dd 
+[DEBUG]   89:	jae	0xffffffffc0425abb
+[DEBUG] 	73 14 
+[DEBUG]   8b:	movq	%r13, %rdi
+[DEBUG] 	4c 89 ef 
+[DEBUG]   8e:	movq	%r14, %rsi
+[DEBUG] 	4c 89 f6 
+[DEBUG]   91:	callq	0xffffffffc0425b28
+[DEBUG] 	e8 76 00 00 00 
+[DEBUG]   96:	addq	$1, %r13
+[DEBUG] 	49 83 c5 01 
+[DEBUG]   9a:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   9d:	je	0xffffffffc0425aa2
+[DEBUG] 	74 e7 
+[DEBUG]   9f:	movq	%r13, %rax
+[DEBUG] 	4c 89 e8 
+[DEBUG]   a2:	movq	-32(%rbp), %rbx
+[DEBUG] 	48 8b 5d e0 
+[DEBUG]   a6:	movq	-24(%rbp), %r13
+[DEBUG] 	4c 8b 6d e8 
+[DEBUG]   aa:	movq	-16(%rbp), %r14
+[DEBUG] 	4c 8b 75 f0 
+[DEBUG] ; return 0;
+[DEBUG]   ae:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   b0:	popq	%r14
+[DEBUG] 	41 5e 
+[DEBUG]   b2:	popq	%r13
+[DEBUG] 	41 5d 
+[DEBUG]   b4:	popq	%rbx
+[DEBUG] 	5b 
+[DEBUG]   b5:	leave
+[DEBUG] 	c9 
+[DEBUG]   b6:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 49 8e 03 c5 
+[DEBUG] 
+[DEBUG] int simple():
+[DEBUG] bpf_prog_95c04b6fbfe01bb4_simple:
+[DEBUG] ; static int simple() {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$8, %rsp
+[DEBUG] 	48 81 ec 08 00 00 00 
+[DEBUG]   13:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; volatile int dummy = 0;
+[DEBUG]   15:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG] ; dummy++;
+[DEBUG]   18:	movl	-4(%rbp), %edi
+[DEBUG] 	8b 7d fc 
+[DEBUG]   1b:	addq	$1, %rdi
+[DEBUG] 	48 83 c7 01 
+[DEBUG]   1f:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG] ; return 0;
+[DEBUG]   22:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   24:	leave
+[DEBUG] 	c9 
+[DEBUG]   25:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 ce 8d 03 c5 
+[DEBUG] 
+[DEBUG] ----------------------------------------
+[DEBUG] Completed all 1 measurement runs
+[DEBUG] Destroying BPF link...
+[DEBUG] Closing BPF object...
+[DEBUG] Cleanup complete for nested_long
+[DEBUG] --- Completed iteration count: 1 ---
+[DEBUG] --- Testing iteration count: 101 ---
+[DEBUG] Testing program: tracepoint_exit_runtime_nested_long (display: nested_long) at iteration count: 101
+[DEBUG] Opening BPF object file: runtime_nested_long.kern.o
+libbpf: loading object from runtime_nested_long.kern.o
+libbpf: elf: section(2) .text, size 328, link 0, flags 6, type=1
+libbpf: sec '.text': found program 'loop2' at insn offset 0 (0 bytes), code size 17 insns (136 bytes)
+libbpf: sec '.text': found program 'loop3' at insn offset 17 (136 bytes), code size 17 insns (136 bytes)
+libbpf: sec '.text': found program 'simple' at insn offset 34 (272 bytes), code size 7 insns (56 bytes)
+libbpf: elf: section(3) .rel.text, size 64, link 28, flags 40, type=9
+libbpf: elf: section(4) tracepoint/syscalls/sys_exit_saterm_test, size 136, link 0, flags 6, type=1
+libbpf: sec 'tracepoint/syscalls/sys_exit_saterm_test': found program 'tracepoint_exit_runtime_nested_long' at insn offset 0 (0 bytes), code size 17 insns (136 bytes)
+libbpf: elf: section(5) .reltracepoint/syscalls/sys_exit_saterm_test, size 32, link 28, flags 40, type=9
+libbpf: elf: section(6) license, size 13, link 0, flags 3, type=1
+libbpf: license of runtime_nested_long.kern.o is Dual BSD/GPL
+libbpf: elf: section(7) .maps, size 32, link 0, flags 3, type=1
+libbpf: elf: section(18) .BTF, size 1177, link 0, flags 0, type=1
+libbpf: elf: section(20) .BTF.ext, size 504, link 0, flags 0, type=1
+libbpf: elf: section(28) .symtab, size 528, link 1, flags 0, type=2
+libbpf: looking for externs among 22 symbols...
+libbpf: collected 0 externs total
+libbpf: map 'control_map': at sec_idx 7, offset 0.
+libbpf: map 'control_map': found type = 2.
+libbpf: map 'control_map': found key [8], sz = 4.
+libbpf: map 'control_map': found value [8], sz = 4.
+libbpf: map 'control_map': found max_entries = 1.
+libbpf: sec '.rel.text': collecting relocation for section(2) '.text'
+libbpf: sec '.rel.text': relo #0: insn #4 against 'control_map'
+libbpf: prog 'loop2': found map 0 (control_map, sec 7, off 0) for insn #4
+libbpf: sec '.rel.text': relo #1: insn #10 against '.text'
+libbpf: sec '.rel.text': relo #2: insn #21 against 'control_map'
+libbpf: prog 'loop3': found map 0 (control_map, sec 7, off 0) for insn #4
+libbpf: sec '.rel.text': relo #3: insn #27 against '.text'
+libbpf: sec '.reltracepoint/syscalls/sys_exit_saterm_test': collecting relocation for section(4) 'tracepoint/syscalls/sys_exit_saterm_test'
+libbpf: sec '.reltracepoint/syscalls/sys_exit_saterm_test': relo #0: insn #4 against 'control_map'
+libbpf: prog 'tracepoint_exit_runtime_nested_long': found map 0 (control_map, sec 7, off 0) for insn #4
+libbpf: sec '.reltracepoint/syscalls/sys_exit_saterm_test': relo #1: insn #10 against '.text'
+[DEBUG] Successfully opened BPF object file
+[DEBUG] Loading BPF program into kernel...
+libbpf: object 'runtime_nested_': failed (-95) to create BPF token from '/sys/fs/bpf', skipping optional step...
+libbpf: prog 'tracepoint_exit_runtime_nested_long': added 17 insns from sub-prog 'loop2'
+libbpf: prog 'tracepoint_exit_runtime_nested_long': added 17 insns from sub-prog 'loop3'
+libbpf: prog 'tracepoint_exit_runtime_nested_long': added 7 insns from sub-prog 'simple'
+libbpf: prog 'loop3': insn #10 relocated, imm 6 points to subprog 'simple' (now at 51 offset)
+libbpf: prog 'loop2': insn #10 relocated, imm 6 points to subprog 'loop3' (now at 34 offset)
+libbpf: prog 'tracepoint_exit_runtime_nested_long': insn #10 relocated, imm 6 points to subprog 'loop2' (now at 17 offset)
+libbpf: map 'control_map': created successfully, fd=5
+[DEBUG] Successfully loaded BPF program
+[DEBUG] Finding program by name: tracepoint_exit_runtime_nested_long
+[DEBUG] Found program: tracepoint_exit_runtime_nested_long
+[DEBUG] Program FD: 6
+[DEBUG] Program info - ID: 120, Type: 5, JIT: yes
+[DEBUG] JIT program length: 603 bytes
+[DEBUG] JIT Instructions (initial, before first trigger) (disassembled via bpftool):
+[DEBUG] ----------------------------------------
+[DEBUG] Using bpftool at: /home/rosa/saterm/linux/tools/bpf/bpftool/bpftool
+[DEBUG] int tracepoint_exit_runtime_nested_long(struct pt_regs * ctx):
+[DEBUG] bpf_prog_b50ec6f2ce90d6aa_tracepoint_exit_runtime_nested_long:
+[DEBUG] ; int tracepoint_exit_runtime_nested_long(struct pt_regs *ctx) {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$32, %rsp
+[DEBUG] 	48 81 ec 20 00 00 00 
+[DEBUG]   13:	pushq	%rbx
+[DEBUG] 	53 
+[DEBUG]   14:	pushq	%r13
+[DEBUG] 	41 55 
+[DEBUG]   16:	pushq	%r14
+[DEBUG] 	41 56 
+[DEBUG]   18:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; __u32 key = 0;
+[DEBUG]   1a:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG]   1d:	movq	%rbp, %rsi
+[DEBUG] 	48 89 ee 
+[DEBUG]   20:	addq	$-4, %rsi
+[DEBUG] 	48 83 c6 fc 
+[DEBUG] ; __u32 *iters = bpf_map_lookup_elem(&control_map, &key);
+[DEBUG]   24:	movabsq	$-128988314918400, %rdi
+[DEBUG] 	48 bf 00 22 4f 91 af 8a ff ff 
+[DEBUG]   2e:	addq	$264, %rdi
+[DEBUG] 	48 81 c7 08 01 00 00 
+[DEBUG]   35:	movl	(%rsi), %eax
+[DEBUG] 	8b 46 00 
+[DEBUG]   38:	cmpq	$1, %rax
+[DEBUG] 	48 83 f8 01 
+[DEBUG]   3c:	jae	0xffffffffc0425767
+[DEBUG] 	73 09 
+[DEBUG]   3e:	shlq	$3, %rax
+[DEBUG] 	48 c1 e0 03 
+[DEBUG]   42:	addq	%rdi, %rax
+[DEBUG] 	48 01 f8 
+[DEBUG]   45:	jmp	0xffffffffc0425769
+[DEBUG] 	eb 02 
+[DEBUG]   47:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   49:	movl	$32, %edi
+[DEBUG] 	bf 20 00 00 00 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   4e:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   51:	je	0xffffffffc0425776
+[DEBUG] 	74 03 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   53:	movl	(%rax), %edi
+[DEBUG] 	8b 78 00 
+[DEBUG] ; bpf_loop(count, loop2, NULL, 0);
+[DEBUG]   56:	movq	$-1069392984, %rsi
+[DEBUG] 	48 c7 c6 a8 5b 42 c0 
+[DEBUG]   5d:	xorl	%edx, %edx
+[DEBUG] 	31 d2 
+[DEBUG]   5f:	xorl	%ecx, %ecx
+[DEBUG] 	31 c9 
+[DEBUG]   61:	cmpq	$8388608, %rdi
+[DEBUG] 	48 81 ff 00 00 80 00 
+[DEBUG]   68:	jbe	0xffffffffc0425791
+[DEBUG] 	76 07 
+[DEBUG]   6a:	movl	$4294967289, %eax
+[DEBUG] 	b8 f9 ff ff ff 
+[DEBUG]   6f:	jmp	0xffffffffc04257ce
+[DEBUG] 	eb 3d 
+[DEBUG]   71:	movq	%rbx, -32(%rbp)
+[DEBUG] 	48 89 5d e0 
+[DEBUG]   75:	movq	%r13, -24(%rbp)
+[DEBUG] 	4c 89 6d e8 
+[DEBUG]   79:	movq	%r14, -16(%rbp)
+[DEBUG] 	4c 89 75 f0 
+[DEBUG]   7d:	movq	%rdi, %rbx
+[DEBUG] 	48 89 fb 
+[DEBUG]   80:	xorl	%r13d, %r13d
+[DEBUG] 	45 31 ed 
+[DEBUG]   83:	movq	%rdx, %r14
+[DEBUG] 	49 89 d6 
+[DEBUG]   86:	cmpq	%rbx, %r13
+[DEBUG] 	49 39 dd 
+[DEBUG]   89:	jae	0xffffffffc04257bf
+[DEBUG] 	73 14 
+[DEBUG]   8b:	movq	%r13, %rdi
+[DEBUG] 	4c 89 ef 
+[DEBUG]   8e:	movq	%r14, %rsi
+[DEBUG] 	4c 89 f6 
+[DEBUG]   91:	callq	0xffffffffc0425ba8
+[DEBUG] 	e8 f2 03 00 00 
+[DEBUG]   96:	addq	$1, %r13
+[DEBUG] 	49 83 c5 01 
+[DEBUG]   9a:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   9d:	je	0xffffffffc04257a6
+[DEBUG] 	74 e7 
+[DEBUG]   9f:	movq	%r13, %rax
+[DEBUG] 	4c 89 e8 
+[DEBUG]   a2:	movq	-32(%rbp), %rbx
+[DEBUG] 	48 8b 5d e0 
+[DEBUG]   a6:	movq	-24(%rbp), %r13
+[DEBUG] 	4c 8b 6d e8 
+[DEBUG]   aa:	movq	-16(%rbp), %r14
+[DEBUG] 	4c 8b 75 f0 
+[DEBUG] ; return 0;
+[DEBUG]   ae:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   b0:	popq	%r14
+[DEBUG] 	41 5e 
+[DEBUG]   b2:	popq	%r13
+[DEBUG] 	41 5d 
+[DEBUG]   b4:	popq	%rbx
+[DEBUG] 	5b 
+[DEBUG]   b5:	leave
+[DEBUG] 	c9 
+[DEBUG]   b6:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 45 91 03 c5 
+[DEBUG] 
+[DEBUG] int loop2():
+[DEBUG] bpf_prog_3f128170d468b262_loop2:
+[DEBUG] ; static int loop2() {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$32, %rsp
+[DEBUG] 	48 81 ec 20 00 00 00 
+[DEBUG]   13:	pushq	%rbx
+[DEBUG] 	53 
+[DEBUG]   14:	pushq	%r13
+[DEBUG] 	41 55 
+[DEBUG]   16:	pushq	%r14
+[DEBUG] 	41 56 
+[DEBUG]   18:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; __u32 key = 0;
+[DEBUG]   1a:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG]   1d:	movq	%rbp, %rsi
+[DEBUG] 	48 89 ee 
+[DEBUG]   20:	addq	$-4, %rsi
+[DEBUG] 	48 83 c6 fc 
+[DEBUG] ; __u32 *iters = bpf_map_lookup_elem(&control_map, &key);
+[DEBUG]   24:	movabsq	$-128988314918400, %rdi
+[DEBUG] 	48 bf 00 22 4f 91 af 8a ff ff 
+[DEBUG]   2e:	addq	$264, %rdi
+[DEBUG] 	48 81 c7 08 01 00 00 
+[DEBUG]   35:	movl	(%rsi), %eax
+[DEBUG] 	8b 46 00 
+[DEBUG]   38:	cmpq	$1, %rax
+[DEBUG] 	48 83 f8 01 
+[DEBUG]   3c:	jae	0xffffffffc0425bef
+[DEBUG] 	73 09 
+[DEBUG]   3e:	shlq	$3, %rax
+[DEBUG] 	48 c1 e0 03 
+[DEBUG]   42:	addq	%rdi, %rax
+[DEBUG] 	48 01 f8 
+[DEBUG]   45:	jmp	0xffffffffc0425bf1
+[DEBUG] 	eb 02 
+[DEBUG]   47:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   49:	movl	$32, %edi
+[DEBUG] 	bf 20 00 00 00 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   4e:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   51:	je	0xffffffffc0425bfe
+[DEBUG] 	74 03 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   53:	movl	(%rax), %edi
+[DEBUG] 	8b 78 00 
+[DEBUG] ; bpf_loop(count, loop3, NULL, 0);
+[DEBUG]   56:	movq	$-1069392752, %rsi
+[DEBUG] 	48 c7 c6 90 5c 42 c0 
+[DEBUG]   5d:	xorl	%edx, %edx
+[DEBUG] 	31 d2 
+[DEBUG]   5f:	xorl	%ecx, %ecx
+[DEBUG] 	31 c9 
+[DEBUG]   61:	cmpq	$8388608, %rdi
+[DEBUG] 	48 81 ff 00 00 80 00 
+[DEBUG]   68:	jbe	0xffffffffc0425c19
+[DEBUG] 	76 07 
+[DEBUG]   6a:	movl	$4294967289, %eax
+[DEBUG] 	b8 f9 ff ff ff 
+[DEBUG]   6f:	jmp	0xffffffffc0425c56
+[DEBUG] 	eb 3d 
+[DEBUG]   71:	movq	%rbx, -32(%rbp)
+[DEBUG] 	48 89 5d e0 
+[DEBUG]   75:	movq	%r13, -24(%rbp)
+[DEBUG] 	4c 89 6d e8 
+[DEBUG]   79:	movq	%r14, -16(%rbp)
+[DEBUG] 	4c 89 75 f0 
+[DEBUG]   7d:	movq	%rdi, %rbx
+[DEBUG] 	48 89 fb 
+[DEBUG]   80:	xorl	%r13d, %r13d
+[DEBUG] 	45 31 ed 
+[DEBUG]   83:	movq	%rdx, %r14
+[DEBUG] 	49 89 d6 
+[DEBUG]   86:	cmpq	%rbx, %r13
+[DEBUG] 	49 39 dd 
+[DEBUG]   89:	jae	0xffffffffc0425c47
+[DEBUG] 	73 14 
+[DEBUG]   8b:	movq	%r13, %rdi
+[DEBUG] 	4c 89 ef 
+[DEBUG]   8e:	movq	%r14, %rsi
+[DEBUG] 	4c 89 f6 
+[DEBUG]   91:	callq	0xffffffffc0425c90
+[DEBUG] 	e8 52 00 00 00 
+[DEBUG]   96:	addq	$1, %r13
+[DEBUG] 	49 83 c5 01 
+[DEBUG]   9a:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   9d:	je	0xffffffffc0425c2e
+[DEBUG] 	74 e7 
+[DEBUG]   9f:	movq	%r13, %rax
+[DEBUG] 	4c 89 e8 
+[DEBUG]   a2:	movq	-32(%rbp), %rbx
+[DEBUG] 	48 8b 5d e0 
+[DEBUG]   a6:	movq	-24(%rbp), %r13
+[DEBUG] 	4c 8b 6d e8 
+[DEBUG]   aa:	movq	-16(%rbp), %r14
+[DEBUG] 	4c 8b 75 f0 
+[DEBUG] ; return 0;
+[DEBUG]   ae:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   b0:	popq	%r14
+[DEBUG] 	41 5e 
+[DEBUG]   b2:	popq	%r13
+[DEBUG] 	41 5d 
+[DEBUG]   b4:	popq	%rbx
+[DEBUG] 	5b 
+[DEBUG]   b5:	leave
+[DEBUG] 	c9 
+[DEBUG]   b6:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 bd 8c 03 c5 
+[DEBUG] 
+[DEBUG] int loop3():
+[DEBUG] bpf_prog_b50dd0ba4ef23762_loop3:
+[DEBUG] ; static int loop3() {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$32, %rsp
+[DEBUG] 	48 81 ec 20 00 00 00 
+[DEBUG]   13:	pushq	%rbx
+[DEBUG] 	53 
+[DEBUG]   14:	pushq	%r13
+[DEBUG] 	41 55 
+[DEBUG]   16:	pushq	%r14
+[DEBUG] 	41 56 
+[DEBUG]   18:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; __u32 key = 0;
+[DEBUG]   1a:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG]   1d:	movq	%rbp, %rsi
+[DEBUG] 	48 89 ee 
+[DEBUG]   20:	addq	$-4, %rsi
+[DEBUG] 	48 83 c6 fc 
+[DEBUG] ; __u32 *iters = bpf_map_lookup_elem(&control_map, &key);
+[DEBUG]   24:	movabsq	$-128988314918400, %rdi
+[DEBUG] 	48 bf 00 22 4f 91 af 8a ff ff 
+[DEBUG]   2e:	addq	$264, %rdi
+[DEBUG] 	48 81 c7 08 01 00 00 
+[DEBUG]   35:	movl	(%rsi), %eax
+[DEBUG] 	8b 46 00 
+[DEBUG]   38:	cmpq	$1, %rax
+[DEBUG] 	48 83 f8 01 
+[DEBUG]   3c:	jae	0xffffffffc0425cd7
+[DEBUG] 	73 09 
+[DEBUG]   3e:	shlq	$3, %rax
+[DEBUG] 	48 c1 e0 03 
+[DEBUG]   42:	addq	%rdi, %rax
+[DEBUG] 	48 01 f8 
+[DEBUG]   45:	jmp	0xffffffffc0425cd9
+[DEBUG] 	eb 02 
+[DEBUG]   47:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   49:	movl	$32, %edi
+[DEBUG] 	bf 20 00 00 00 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   4e:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   51:	je	0xffffffffc0425ce6
+[DEBUG] 	74 03 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   53:	movl	(%rax), %edi
+[DEBUG] 	8b 78 00 
+[DEBUG] ; bpf_loop(count, simple, NULL, 0);
+[DEBUG]   56:	movq	$-1069392492, %rsi
+[DEBUG] 	48 c7 c6 94 5d 42 c0 
+[DEBUG]   5d:	xorl	%edx, %edx
+[DEBUG] 	31 d2 
+[DEBUG]   5f:	xorl	%ecx, %ecx
+[DEBUG] 	31 c9 
+[DEBUG]   61:	cmpq	$8388608, %rdi
+[DEBUG] 	48 81 ff 00 00 80 00 
+[DEBUG]   68:	jbe	0xffffffffc0425d01
+[DEBUG] 	76 07 
+[DEBUG]   6a:	movl	$4294967289, %eax
+[DEBUG] 	b8 f9 ff ff ff 
+[DEBUG]   6f:	jmp	0xffffffffc0425d3e
+[DEBUG] 	eb 3d 
+[DEBUG]   71:	movq	%rbx, -32(%rbp)
+[DEBUG] 	48 89 5d e0 
+[DEBUG]   75:	movq	%r13, -24(%rbp)
+[DEBUG] 	4c 89 6d e8 
+[DEBUG]   79:	movq	%r14, -16(%rbp)
+[DEBUG] 	4c 89 75 f0 
+[DEBUG]   7d:	movq	%rdi, %rbx
+[DEBUG] 	48 89 fb 
+[DEBUG]   80:	xorl	%r13d, %r13d
+[DEBUG] 	45 31 ed 
+[DEBUG]   83:	movq	%rdx, %r14
+[DEBUG] 	49 89 d6 
+[DEBUG]   86:	cmpq	%rbx, %r13
+[DEBUG] 	49 39 dd 
+[DEBUG]   89:	jae	0xffffffffc0425d2f
+[DEBUG] 	73 14 
+[DEBUG]   8b:	movq	%r13, %rdi
+[DEBUG] 	4c 89 ef 
+[DEBUG]   8e:	movq	%r14, %rsi
+[DEBUG] 	4c 89 f6 
+[DEBUG]   91:	callq	0xffffffffc0425d94
+[DEBUG] 	e8 6e 00 00 00 
+[DEBUG]   96:	addq	$1, %r13
+[DEBUG] 	49 83 c5 01 
+[DEBUG]   9a:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   9d:	je	0xffffffffc0425d16
+[DEBUG] 	74 e7 
+[DEBUG]   9f:	movq	%r13, %rax
+[DEBUG] 	4c 89 e8 
+[DEBUG]   a2:	movq	-32(%rbp), %rbx
+[DEBUG] 	48 8b 5d e0 
+[DEBUG]   a6:	movq	-24(%rbp), %r13
+[DEBUG] 	4c 8b 6d e8 
+[DEBUG]   aa:	movq	-16(%rbp), %r14
+[DEBUG] 	4c 8b 75 f0 
+[DEBUG] ; return 0;
+[DEBUG]   ae:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   b0:	popq	%r14
+[DEBUG] 	41 5e 
+[DEBUG]   b2:	popq	%r13
+[DEBUG] 	41 5d 
+[DEBUG]   b4:	popq	%rbx
+[DEBUG] 	5b 
+[DEBUG]   b5:	leave
+[DEBUG] 	c9 
+[DEBUG]   b6:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 d5 8b 03 c5 
+[DEBUG] 
+[DEBUG] int simple():
+[DEBUG] bpf_prog_95c04b6fbfe01bb4_simple:
+[DEBUG] ; static int simple() {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$8, %rsp
+[DEBUG] 	48 81 ec 08 00 00 00 
+[DEBUG]   13:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; volatile int dummy = 0;
+[DEBUG]   15:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG] ; dummy++;
+[DEBUG]   18:	movl	-4(%rbp), %edi
+[DEBUG] 	8b 7d fc 
+[DEBUG]   1b:	addq	$1, %rdi
+[DEBUG] 	48 83 c7 01 
+[DEBUG]   1f:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG] ; return 0;
+[DEBUG]   22:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   24:	leave
+[DEBUG] 	c9 
+[DEBUG]   25:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 62 8b 03 c5 
+[DEBUG] 
+[DEBUG] ----------------------------------------
+[DEBUG] Finding control_map...
+[DEBUG] Found control_map, FD: 5
+[DEBUG] Setting iteration count to 101 in control_map
+[DEBUG] Successfully set iteration count
+[DEBUG] Attaching program to tracepoint...
+[DEBUG] Successfully attached program to tracepoint
+[DEBUG] Starting 1 measurement runs...
+[DEBUG] JIT Instructions (after first trigger) (disassembled via bpftool):
+[DEBUG] ----------------------------------------
+[DEBUG] Using bpftool at: /home/rosa/saterm/linux/tools/bpf/bpftool/bpftool
+[DEBUG] int tracepoint_exit_runtime_nested_long(struct pt_regs * ctx):
+[DEBUG] bpf_prog_b50ec6f2ce90d6aa_tracepoint_exit_runtime_nested_long:
+[DEBUG] ; int tracepoint_exit_runtime_nested_long(struct pt_regs *ctx) {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$32, %rsp
+[DEBUG] 	48 81 ec 20 00 00 00 
+[DEBUG]   13:	pushq	%rbx
+[DEBUG] 	53 
+[DEBUG]   14:	pushq	%r13
+[DEBUG] 	41 55 
+[DEBUG]   16:	pushq	%r14
+[DEBUG] 	41 56 
+[DEBUG]   18:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; __u32 key = 0;
+[DEBUG]   1a:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG]   1d:	movq	%rbp, %rsi
+[DEBUG] 	48 89 ee 
+[DEBUG]   20:	addq	$-4, %rsi
+[DEBUG] 	48 83 c6 fc 
+[DEBUG] ; __u32 *iters = bpf_map_lookup_elem(&control_map, &key);
+[DEBUG]   24:	movabsq	$-128988314918400, %rdi
+[DEBUG] 	48 bf 00 22 4f 91 af 8a ff ff 
+[DEBUG]   2e:	addq	$264, %rdi
+[DEBUG] 	48 81 c7 08 01 00 00 
+[DEBUG]   35:	movl	(%rsi), %eax
+[DEBUG] 	8b 46 00 
+[DEBUG]   38:	cmpq	$1, %rax
+[DEBUG] 	48 83 f8 01 
+[DEBUG]   3c:	jae	0xffffffffc0425767
+[DEBUG] 	73 09 
+[DEBUG]   3e:	shlq	$3, %rax
+[DEBUG] 	48 c1 e0 03 
+[DEBUG]   42:	addq	%rdi, %rax
+[DEBUG] 	48 01 f8 
+[DEBUG]   45:	jmp	0xffffffffc0425769
+[DEBUG] 	eb 02 
+[DEBUG]   47:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   49:	movl	$32, %edi
+[DEBUG] 	bf 20 00 00 00 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   4e:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   51:	je	0xffffffffc0425776
+[DEBUG] 	74 03 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   53:	movl	(%rax), %edi
+[DEBUG] 	8b 78 00 
+[DEBUG] ; bpf_loop(count, loop2, NULL, 0);
+[DEBUG]   56:	movq	$-1069392984, %rsi
+[DEBUG] 	48 c7 c6 a8 5b 42 c0 
+[DEBUG]   5d:	xorl	%edx, %edx
+[DEBUG] 	31 d2 
+[DEBUG]   5f:	xorl	%ecx, %ecx
+[DEBUG] 	31 c9 
+[DEBUG]   61:	cmpq	$8388608, %rdi
+[DEBUG] 	48 81 ff 00 00 80 00 
+[DEBUG]   68:	jbe	0xffffffffc0425791
+[DEBUG] 	76 07 
+[DEBUG]   6a:	movl	$4294967289, %eax
+[DEBUG] 	b8 f9 ff ff ff 
+[DEBUG]   6f:	jmp	0xffffffffc04257ce
+[DEBUG] 	eb 3d 
+[DEBUG]   71:	movq	%rbx, -32(%rbp)
+[DEBUG] 	48 89 5d e0 
+[DEBUG]   75:	movq	%r13, -24(%rbp)
+[DEBUG] 	4c 89 6d e8 
+[DEBUG]   79:	movq	%r14, -16(%rbp)
+[DEBUG] 	4c 89 75 f0 
+[DEBUG]   7d:	movq	%rdi, %rbx
+[DEBUG] 	48 89 fb 
+[DEBUG]   80:	xorl	%r13d, %r13d
+[DEBUG] 	45 31 ed 
+[DEBUG]   83:	movq	%rdx, %r14
+[DEBUG] 	49 89 d6 
+[DEBUG]   86:	cmpq	%rbx, %r13
+[DEBUG] 	49 39 dd 
+[DEBUG]   89:	jae	0xffffffffc04257bf
+[DEBUG] 	73 14 
+[DEBUG]   8b:	movq	%r13, %rdi
+[DEBUG] 	4c 89 ef 
+[DEBUG]   8e:	movq	%r14, %rsi
+[DEBUG] 	4c 89 f6 
+[DEBUG]   91:	callq	0xffffffffc0425ba8
+[DEBUG] 	e8 f2 03 00 00 
+[DEBUG]   96:	addq	$1, %r13
+[DEBUG] 	49 83 c5 01 
+[DEBUG]   9a:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   9d:	je	0xffffffffc04257a6
+[DEBUG] 	74 e7 
+[DEBUG]   9f:	movq	%r13, %rax
+[DEBUG] 	4c 89 e8 
+[DEBUG]   a2:	movq	-32(%rbp), %rbx
+[DEBUG] 	48 8b 5d e0 
+[DEBUG]   a6:	movq	-24(%rbp), %r13
+[DEBUG] 	4c 8b 6d e8 
+[DEBUG]   aa:	movq	-16(%rbp), %r14
+[DEBUG] 	4c 8b 75 f0 
+[DEBUG] ; return 0;
+[DEBUG]   ae:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   b0:	popq	%r14
+[DEBUG] 	41 5e 
+[DEBUG]   b2:	popq	%r13
+[DEBUG] 	41 5d 
+[DEBUG]   b4:	popq	%rbx
+[DEBUG] 	5b 
+[DEBUG]   b5:	leave
+[DEBUG] 	c9 
+[DEBUG]   b6:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 45 91 03 c5 
+[DEBUG] 
+[DEBUG] int loop2():
+[DEBUG] bpf_prog_3f128170d468b262_loop2:
+[DEBUG] ; static int loop2() {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$32, %rsp
+[DEBUG] 	48 81 ec 20 00 00 00 
+[DEBUG]   13:	pushq	%rbx
+[DEBUG] 	53 
+[DEBUG]   14:	pushq	%r13
+[DEBUG] 	41 55 
+[DEBUG]   16:	pushq	%r14
+[DEBUG] 	41 56 
+[DEBUG]   18:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; __u32 key = 0;
+[DEBUG]   1a:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG]   1d:	movq	%rbp, %rsi
+[DEBUG] 	48 89 ee 
+[DEBUG]   20:	addq	$-4, %rsi
+[DEBUG] 	48 83 c6 fc 
+[DEBUG] ; __u32 *iters = bpf_map_lookup_elem(&control_map, &key);
+[DEBUG]   24:	movabsq	$-128988314918400, %rdi
+[DEBUG] 	48 bf 00 22 4f 91 af 8a ff ff 
+[DEBUG]   2e:	addq	$264, %rdi
+[DEBUG] 	48 81 c7 08 01 00 00 
+[DEBUG]   35:	movl	(%rsi), %eax
+[DEBUG] 	8b 46 00 
+[DEBUG]   38:	cmpq	$1, %rax
+[DEBUG] 	48 83 f8 01 
+[DEBUG]   3c:	jae	0xffffffffc0425bef
+[DEBUG] 	73 09 
+[DEBUG]   3e:	shlq	$3, %rax
+[DEBUG] 	48 c1 e0 03 
+[DEBUG]   42:	addq	%rdi, %rax
+[DEBUG] 	48 01 f8 
+[DEBUG]   45:	jmp	0xffffffffc0425bf1
+[DEBUG] 	eb 02 
+[DEBUG]   47:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   49:	movl	$32, %edi
+[DEBUG] 	bf 20 00 00 00 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   4e:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   51:	je	0xffffffffc0425bfe
+[DEBUG] 	74 03 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   53:	movl	(%rax), %edi
+[DEBUG] 	8b 78 00 
+[DEBUG] ; bpf_loop(count, loop3, NULL, 0);
+[DEBUG]   56:	movq	$-1069392752, %rsi
+[DEBUG] 	48 c7 c6 90 5c 42 c0 
+[DEBUG]   5d:	xorl	%edx, %edx
+[DEBUG] 	31 d2 
+[DEBUG]   5f:	xorl	%ecx, %ecx
+[DEBUG] 	31 c9 
+[DEBUG]   61:	cmpq	$8388608, %rdi
+[DEBUG] 	48 81 ff 00 00 80 00 
+[DEBUG]   68:	jbe	0xffffffffc0425c19
+[DEBUG] 	76 07 
+[DEBUG]   6a:	movl	$4294967289, %eax
+[DEBUG] 	b8 f9 ff ff ff 
+[DEBUG]   6f:	jmp	0xffffffffc0425c56
+[DEBUG] 	eb 3d 
+[DEBUG]   71:	movq	%rbx, -32(%rbp)
+[DEBUG] 	48 89 5d e0 
+[DEBUG]   75:	movq	%r13, -24(%rbp)
+[DEBUG] 	4c 89 6d e8 
+[DEBUG]   79:	movq	%r14, -16(%rbp)
+[DEBUG] 	4c 89 75 f0 
+[DEBUG]   7d:	movq	%rdi, %rbx
+[DEBUG] 	48 89 fb 
+[DEBUG]   80:	xorl	%r13d, %r13d
+[DEBUG] 	45 31 ed 
+[DEBUG]   83:	movq	%rdx, %r14
+[DEBUG] 	49 89 d6 
+[DEBUG]   86:	cmpq	%rbx, %r13
+[DEBUG] 	49 39 dd 
+[DEBUG]   89:	jae	0xffffffffc0425c47
+[DEBUG] 	73 14 
+[DEBUG]   8b:	movq	%r13, %rdi
+[DEBUG] 	4c 89 ef 
+[DEBUG]   8e:	movq	%r14, %rsi
+[DEBUG] 	4c 89 f6 
+[DEBUG]   91:	callq	0xffffffffc0425c90
+[DEBUG] 	e8 52 00 00 00 
+[DEBUG]   96:	addq	$1, %r13
+[DEBUG] 	49 83 c5 01 
+[DEBUG]   9a:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   9d:	je	0xffffffffc0425c2e
+[DEBUG] 	74 e7 
+[DEBUG]   9f:	movq	%r13, %rax
+[DEBUG] 	4c 89 e8 
+[DEBUG]   a2:	movq	-32(%rbp), %rbx
+[DEBUG] 	48 8b 5d e0 
+[DEBUG]   a6:	movq	-24(%rbp), %r13
+[DEBUG] 	4c 8b 6d e8 
+[DEBUG]   aa:	movq	-16(%rbp), %r14
+[DEBUG] 	4c 8b 75 f0 
+[DEBUG] ; return 0;
+[DEBUG]   ae:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   b0:	popq	%r14
+[DEBUG] 	41 5e 
+[DEBUG]   b2:	popq	%r13
+[DEBUG] 	41 5d 
+[DEBUG]   b4:	popq	%rbx
+[DEBUG] 	5b 
+[DEBUG]   b5:	leave
+[DEBUG] 	c9 
+[DEBUG]   b6:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 bd 8c 03 c5 
+[DEBUG] 
+[DEBUG] int loop3():
+[DEBUG] bpf_prog_b50dd0ba4ef23762_loop3:
+[DEBUG] ; static int loop3() {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$32, %rsp
+[DEBUG] 	48 81 ec 20 00 00 00 
+[DEBUG]   13:	pushq	%rbx
+[DEBUG] 	53 
+[DEBUG]   14:	pushq	%r13
+[DEBUG] 	41 55 
+[DEBUG]   16:	pushq	%r14
+[DEBUG] 	41 56 
+[DEBUG]   18:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; __u32 key = 0;
+[DEBUG]   1a:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG]   1d:	movq	%rbp, %rsi
+[DEBUG] 	48 89 ee 
+[DEBUG]   20:	addq	$-4, %rsi
+[DEBUG] 	48 83 c6 fc 
+[DEBUG] ; __u32 *iters = bpf_map_lookup_elem(&control_map, &key);
+[DEBUG]   24:	movabsq	$-128988314918400, %rdi
+[DEBUG] 	48 bf 00 22 4f 91 af 8a ff ff 
+[DEBUG]   2e:	addq	$264, %rdi
+[DEBUG] 	48 81 c7 08 01 00 00 
+[DEBUG]   35:	movl	(%rsi), %eax
+[DEBUG] 	8b 46 00 
+[DEBUG]   38:	cmpq	$1, %rax
+[DEBUG] 	48 83 f8 01 
+[DEBUG]   3c:	jae	0xffffffffc0425cd7
+[DEBUG] 	73 09 
+[DEBUG]   3e:	shlq	$3, %rax
+[DEBUG] 	48 c1 e0 03 
+[DEBUG]   42:	addq	%rdi, %rax
+[DEBUG] 	48 01 f8 
+[DEBUG]   45:	jmp	0xffffffffc0425cd9
+[DEBUG] 	eb 02 
+[DEBUG]   47:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   49:	movl	$32, %edi
+[DEBUG] 	bf 20 00 00 00 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   4e:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   51:	je	0xffffffffc0425ce6
+[DEBUG] 	74 03 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   53:	movl	(%rax), %edi
+[DEBUG] 	8b 78 00 
+[DEBUG] ; bpf_loop(count, simple, NULL, 0);
+[DEBUG]   56:	movq	$-1069392492, %rsi
+[DEBUG] 	48 c7 c6 94 5d 42 c0 
+[DEBUG]   5d:	xorl	%edx, %edx
+[DEBUG] 	31 d2 
+[DEBUG]   5f:	xorl	%ecx, %ecx
+[DEBUG] 	31 c9 
+[DEBUG]   61:	cmpq	$8388608, %rdi
+[DEBUG] 	48 81 ff 00 00 80 00 
+[DEBUG]   68:	jbe	0xffffffffc0425d01
+[DEBUG] 	76 07 
+[DEBUG]   6a:	movl	$4294967289, %eax
+[DEBUG] 	b8 f9 ff ff ff 
+[DEBUG]   6f:	jmp	0xffffffffc0425d3e
+[DEBUG] 	eb 3d 
+[DEBUG]   71:	movq	%rbx, -32(%rbp)
+[DEBUG] 	48 89 5d e0 
+[DEBUG]   75:	movq	%r13, -24(%rbp)
+[DEBUG] 	4c 89 6d e8 
+[DEBUG]   79:	movq	%r14, -16(%rbp)
+[DEBUG] 	4c 89 75 f0 
+[DEBUG]   7d:	movq	%rdi, %rbx
+[DEBUG] 	48 89 fb 
+[DEBUG]   80:	xorl	%r13d, %r13d
+[DEBUG] 	45 31 ed 
+[DEBUG]   83:	movq	%rdx, %r14
+[DEBUG] 	49 89 d6 
+[DEBUG]   86:	cmpq	%rbx, %r13
+[DEBUG] 	49 39 dd 
+[DEBUG]   89:	jae	0xffffffffc0425d2f
+[DEBUG] 	73 14 
+[DEBUG]   8b:	movq	%r13, %rdi
+[DEBUG] 	4c 89 ef 
+[DEBUG]   8e:	movq	%r14, %rsi
+[DEBUG] 	4c 89 f6 
+[DEBUG]   91:	callq	0xffffffffc0425d94
+[DEBUG] 	e8 6e 00 00 00 
+[DEBUG]   96:	addq	$1, %r13
+[DEBUG] 	49 83 c5 01 
+[DEBUG]   9a:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   9d:	je	0xffffffffc0425d16
+[DEBUG] 	74 e7 
+[DEBUG]   9f:	movq	%r13, %rax
+[DEBUG] 	4c 89 e8 
+[DEBUG]   a2:	movq	-32(%rbp), %rbx
+[DEBUG] 	48 8b 5d e0 
+[DEBUG]   a6:	movq	-24(%rbp), %r13
+[DEBUG] 	4c 8b 6d e8 
+[DEBUG]   aa:	movq	-16(%rbp), %r14
+[DEBUG] 	4c 8b 75 f0 
+[DEBUG] ; return 0;
+[DEBUG]   ae:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   b0:	popq	%r14
+[DEBUG] 	41 5e 
+[DEBUG]   b2:	popq	%r13
+[DEBUG] 	41 5d 
+[DEBUG]   b4:	popq	%rbx
+[DEBUG] 	5b 
+[DEBUG]   b5:	leave
+[DEBUG] 	c9 
+[DEBUG]   b6:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 d5 8b 03 c5 
+[DEBUG] 
+[DEBUG] int simple():
+[DEBUG] bpf_prog_95c04b6fbfe01bb4_simple:
+[DEBUG] ; static int simple() {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$8, %rsp
+[DEBUG] 	48 81 ec 08 00 00 00 
+[DEBUG]   13:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; volatile int dummy = 0;
+[DEBUG]   15:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG] ; dummy++;
+[DEBUG]   18:	movl	-4(%rbp), %edi
+[DEBUG] 	8b 7d fc 
+[DEBUG]   1b:	addq	$1, %rdi
+[DEBUG] 	48 83 c7 01 
+[DEBUG]   1f:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG] ; return 0;
+[DEBUG]   22:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   24:	leave
+[DEBUG] 	c9 
+[DEBUG]   25:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 62 8b 03 c5 
+[DEBUG] 
+[DEBUG] ----------------------------------------
+[DEBUG] Completed all 1 measurement runs
+[DEBUG] Destroying BPF link...
+[DEBUG] Closing BPF object...
+[DEBUG] Cleanup complete for nested_long
+[DEBUG] --- Completed iteration count: 101 ---
+[DEBUG] Completed all tests for program: nested_long
+[DEBUG] ========================================
+[DEBUG] Testing program 2/3: single_linear
+[DEBUG] ========================================
+[DEBUG] --- Testing iteration count: 1 ---
+[DEBUG] Testing program: tracepoint_exit_runtime_single_linear (display: single_linear) at iteration count: 1
+[DEBUG] Opening BPF object file: runtime_single_linear.kern.o
+libbpf: loading object from runtime_single_linear.kern.o
+libbpf: elf: section(2) .text, size 56, link 0, flags 6, type=1
+libbpf: sec '.text': found program 'simple' at insn offset 0 (0 bytes), code size 7 insns (56 bytes)
+libbpf: elf: section(3) tracepoint/syscalls/sys_exit_saterm_test, size 136, link 0, flags 6, type=1
+libbpf: sec 'tracepoint/syscalls/sys_exit_saterm_test': found program 'tracepoint_exit_runtime_single_linear' at insn offset 0 (0 bytes), code size 17 insns (136 bytes)
+libbpf: elf: section(4) .reltracepoint/syscalls/sys_exit_saterm_test, size 32, link 27, flags 40, type=9
+libbpf: elf: section(5) license, size 13, link 0, flags 3, type=1
+libbpf: license of runtime_single_linear.kern.o is Dual BSD/GPL
+libbpf: elf: section(6) .maps, size 32, link 0, flags 3, type=1
+libbpf: elf: section(17) .BTF, size 1011, link 0, flags 0, type=1
+libbpf: elf: section(19) .BTF.ext, size 264, link 0, flags 0, type=1
+libbpf: elf: section(27) .symtab, size 432, link 1, flags 0, type=2
+libbpf: looking for externs among 18 symbols...
+libbpf: collected 0 externs total
+libbpf: map 'control_map': at sec_idx 6, offset 0.
+libbpf: map 'control_map': found type = 2.
+libbpf: map 'control_map': found key [8], sz = 4.
+libbpf: map 'control_map': found value [8], sz = 4.
+libbpf: map 'control_map': found max_entries = 1.
+libbpf: sec '.reltracepoint/syscalls/sys_exit_saterm_test': collecting relocation for section(3) 'tracepoint/syscalls/sys_exit_saterm_test'
+libbpf: sec '.reltracepoint/syscalls/sys_exit_saterm_test': relo #0: insn #4 against 'control_map'
+libbpf: prog 'tracepoint_exit_runtime_single_linear': found map 0 (control_map, sec 6, off 0) for insn #4
+libbpf: sec '.reltracepoint/syscalls/sys_exit_saterm_test': relo #1: insn #10 against '.text'
+[DEBUG] Successfully opened BPF object file
+[DEBUG] Loading BPF program into kernel...
+libbpf: object 'runtime_single_': failed (-95) to create BPF token from '/sys/fs/bpf', skipping optional step...
+libbpf: prog 'tracepoint_exit_runtime_single_linear': added 7 insns from sub-prog 'simple'
+libbpf: prog 'tracepoint_exit_runtime_single_linear': insn #10 relocated, imm 6 points to subprog 'simple' (now at 17 offset)
+libbpf: map 'control_map': created successfully, fd=5
+[DEBUG] Successfully loaded BPF program
+[DEBUG] Finding program by name: tracepoint_exit_runtime_single_linear
+[DEBUG] Found program: tracepoint_exit_runtime_single_linear
+[DEBUG] Program FD: 6
+[DEBUG] Program info - ID: 122, Type: 5, JIT: yes
+[DEBUG] JIT program length: 229 bytes
+[DEBUG] JIT Instructions (initial, before first trigger) (disassembled via bpftool):
+[DEBUG] ----------------------------------------
+[DEBUG] Using bpftool at: /home/rosa/saterm/linux/tools/bpf/bpftool/bpftool
+[DEBUG] int tracepoint_exit_runtime_single_linear(struct pt_regs * ctx):
+[DEBUG] bpf_prog_a52e3b036e657a55_tracepoint_exit_runtime_single_linear:
+[DEBUG] ; int tracepoint_exit_runtime_single_linear(struct pt_regs *ctx) {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$32, %rsp
+[DEBUG] 	48 81 ec 20 00 00 00 
+[DEBUG]   13:	pushq	%rbx
+[DEBUG] 	53 
+[DEBUG]   14:	pushq	%r13
+[DEBUG] 	41 55 
+[DEBUG]   16:	pushq	%r14
+[DEBUG] 	41 56 
+[DEBUG]   18:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; __u32 key = 0;
+[DEBUG]   1a:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG]   1d:	movq	%rbp, %rsi
+[DEBUG] 	48 89 ee 
+[DEBUG]   20:	addq	$-4, %rsi
+[DEBUG] 	48 83 c6 fc 
+[DEBUG] ; __u32 *iters = bpf_map_lookup_elem(&control_map, &key);
+[DEBUG]   24:	movabsq	$-128988314913792, %rdi
+[DEBUG] 	48 bf 00 34 4f 91 af 8a ff ff 
+[DEBUG]   2e:	addq	$264, %rdi
+[DEBUG] 	48 81 c7 08 01 00 00 
+[DEBUG]   35:	movl	(%rsi), %eax
+[DEBUG] 	8b 46 00 
+[DEBUG]   38:	cmpq	$1, %rax
+[DEBUG] 	48 83 f8 01 
+[DEBUG]   3c:	jae	0xffffffffc042587b
+[DEBUG] 	73 09 
+[DEBUG]   3e:	shlq	$3, %rax
+[DEBUG] 	48 c1 e0 03 
+[DEBUG]   42:	addq	%rdi, %rax
+[DEBUG] 	48 01 f8 
+[DEBUG]   45:	jmp	0xffffffffc042587d
+[DEBUG] 	eb 02 
+[DEBUG]   47:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   49:	movl	$32, %edi
+[DEBUG] 	bf 20 00 00 00 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   4e:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   51:	je	0xffffffffc042588a
+[DEBUG] 	74 03 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   53:	movl	(%rax), %edi
+[DEBUG] 	8b 78 00 
+[DEBUG] ; bpf_loop(count, simple, NULL, 0);
+[DEBUG]   56:	movq	$-1069393636, %rsi
+[DEBUG] 	48 c7 c6 1c 59 42 c0 
+[DEBUG]   5d:	xorl	%edx, %edx
+[DEBUG] 	31 d2 
+[DEBUG]   5f:	xorl	%ecx, %ecx
+[DEBUG] 	31 c9 
+[DEBUG]   61:	cmpq	$8388608, %rdi
+[DEBUG] 	48 81 ff 00 00 80 00 
+[DEBUG]   68:	jbe	0xffffffffc04258a5
+[DEBUG] 	76 07 
+[DEBUG]   6a:	movl	$4294967289, %eax
+[DEBUG] 	b8 f9 ff ff ff 
+[DEBUG]   6f:	jmp	0xffffffffc04258e2
+[DEBUG] 	eb 3d 
+[DEBUG]   71:	movq	%rbx, -32(%rbp)
+[DEBUG] 	48 89 5d e0 
+[DEBUG]   75:	movq	%r13, -24(%rbp)
+[DEBUG] 	4c 89 6d e8 
+[DEBUG]   79:	movq	%r14, -16(%rbp)
+[DEBUG] 	4c 89 75 f0 
+[DEBUG]   7d:	movq	%rdi, %rbx
+[DEBUG] 	48 89 fb 
+[DEBUG]   80:	xorl	%r13d, %r13d
+[DEBUG] 	45 31 ed 
+[DEBUG]   83:	movq	%rdx, %r14
+[DEBUG] 	49 89 d6 
+[DEBUG]   86:	cmpq	%rbx, %r13
+[DEBUG] 	49 39 dd 
+[DEBUG]   89:	jae	0xffffffffc04258d3
+[DEBUG] 	73 14 
+[DEBUG]   8b:	movq	%r13, %rdi
+[DEBUG] 	4c 89 ef 
+[DEBUG]   8e:	movq	%r14, %rsi
+[DEBUG] 	4c 89 f6 
+[DEBUG]   91:	callq	0xffffffffc042591c
+[DEBUG] 	e8 52 00 00 00 
+[DEBUG]   96:	addq	$1, %r13
+[DEBUG] 	49 83 c5 01 
+[DEBUG]   9a:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   9d:	je	0xffffffffc04258ba
+[DEBUG] 	74 e7 
+[DEBUG]   9f:	movq	%r13, %rax
+[DEBUG] 	4c 89 e8 
+[DEBUG]   a2:	movq	-32(%rbp), %rbx
+[DEBUG] 	48 8b 5d e0 
+[DEBUG]   a6:	movq	-24(%rbp), %r13
+[DEBUG] 	4c 8b 6d e8 
+[DEBUG]   aa:	movq	-16(%rbp), %r14
+[DEBUG] 	4c 8b 75 f0 
+[DEBUG] ; return 0;
+[DEBUG]   ae:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   b0:	popq	%r14
+[DEBUG] 	41 5e 
+[DEBUG]   b2:	popq	%r13
+[DEBUG] 	41 5d 
+[DEBUG]   b4:	popq	%rbx
+[DEBUG] 	5b 
+[DEBUG]   b5:	leave
+[DEBUG] 	c9 
+[DEBUG]   b6:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 31 90 03 c5 
+[DEBUG] 
+[DEBUG] int simple():
+[DEBUG] bpf_prog_95c04b6fbfe01bb4_simple:
+[DEBUG] ; static int simple() {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$8, %rsp
+[DEBUG] 	48 81 ec 08 00 00 00 
+[DEBUG]   13:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; volatile int dummy = 0;
+[DEBUG]   15:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG] ; dummy++;
+[DEBUG]   18:	movl	-4(%rbp), %edi
+[DEBUG] 	8b 7d fc 
+[DEBUG]   1b:	addq	$1, %rdi
+[DEBUG] 	48 83 c7 01 
+[DEBUG]   1f:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG] ; return 0;
+[DEBUG]   22:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   24:	leave
+[DEBUG] 	c9 
+[DEBUG]   25:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 da 8f 03 c5 
+[DEBUG] 
+[DEBUG] ----------------------------------------
+[DEBUG] Finding control_map...
+[DEBUG] Found control_map, FD: 5
+[DEBUG] Setting iteration count to 1 in control_map
+[DEBUG] Successfully set iteration count
+[DEBUG] Attaching program to tracepoint...
+[DEBUG] Successfully attached program to tracepoint
+[DEBUG] Starting 1 measurement runs...
+[DEBUG] JIT Instructions (after first trigger) (disassembled via bpftool):
+[DEBUG] ----------------------------------------
+[DEBUG] Using bpftool at: /home/rosa/saterm/linux/tools/bpf/bpftool/bpftool
+[DEBUG] int tracepoint_exit_runtime_single_linear(struct pt_regs * ctx):
+[DEBUG] bpf_prog_a52e3b036e657a55_tracepoint_exit_runtime_single_linear:
+[DEBUG] ; int tracepoint_exit_runtime_single_linear(struct pt_regs *ctx) {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$32, %rsp
+[DEBUG] 	48 81 ec 20 00 00 00 
+[DEBUG]   13:	pushq	%rbx
+[DEBUG] 	53 
+[DEBUG]   14:	pushq	%r13
+[DEBUG] 	41 55 
+[DEBUG]   16:	pushq	%r14
+[DEBUG] 	41 56 
+[DEBUG]   18:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; __u32 key = 0;
+[DEBUG]   1a:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG]   1d:	movq	%rbp, %rsi
+[DEBUG] 	48 89 ee 
+[DEBUG]   20:	addq	$-4, %rsi
+[DEBUG] 	48 83 c6 fc 
+[DEBUG] ; __u32 *iters = bpf_map_lookup_elem(&control_map, &key);
+[DEBUG]   24:	movabsq	$-128988314913792, %rdi
+[DEBUG] 	48 bf 00 34 4f 91 af 8a ff ff 
+[DEBUG]   2e:	addq	$264, %rdi
+[DEBUG] 	48 81 c7 08 01 00 00 
+[DEBUG]   35:	movl	(%rsi), %eax
+[DEBUG] 	8b 46 00 
+[DEBUG]   38:	cmpq	$1, %rax
+[DEBUG] 	48 83 f8 01 
+[DEBUG]   3c:	jae	0xffffffffc042587b
+[DEBUG] 	73 09 
+[DEBUG]   3e:	shlq	$3, %rax
+[DEBUG] 	48 c1 e0 03 
+[DEBUG]   42:	addq	%rdi, %rax
+[DEBUG] 	48 01 f8 
+[DEBUG]   45:	jmp	0xffffffffc042587d
+[DEBUG] 	eb 02 
+[DEBUG]   47:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   49:	movl	$32, %edi
+[DEBUG] 	bf 20 00 00 00 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   4e:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   51:	je	0xffffffffc042588a
+[DEBUG] 	74 03 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   53:	movl	(%rax), %edi
+[DEBUG] 	8b 78 00 
+[DEBUG] ; bpf_loop(count, simple, NULL, 0);
+[DEBUG]   56:	movq	$-1069393636, %rsi
+[DEBUG] 	48 c7 c6 1c 59 42 c0 
+[DEBUG]   5d:	xorl	%edx, %edx
+[DEBUG] 	31 d2 
+[DEBUG]   5f:	xorl	%ecx, %ecx
+[DEBUG] 	31 c9 
+[DEBUG]   61:	cmpq	$8388608, %rdi
+[DEBUG] 	48 81 ff 00 00 80 00 
+[DEBUG]   68:	jbe	0xffffffffc04258a5
+[DEBUG] 	76 07 
+[DEBUG]   6a:	movl	$4294967289, %eax
+[DEBUG] 	b8 f9 ff ff ff 
+[DEBUG]   6f:	jmp	0xffffffffc04258e2
+[DEBUG] 	eb 3d 
+[DEBUG]   71:	movq	%rbx, -32(%rbp)
+[DEBUG] 	48 89 5d e0 
+[DEBUG]   75:	movq	%r13, -24(%rbp)
+[DEBUG] 	4c 89 6d e8 
+[DEBUG]   79:	movq	%r14, -16(%rbp)
+[DEBUG] 	4c 89 75 f0 
+[DEBUG]   7d:	movq	%rdi, %rbx
+[DEBUG] 	48 89 fb 
+[DEBUG]   80:	xorl	%r13d, %r13d
+[DEBUG] 	45 31 ed 
+[DEBUG]   83:	movq	%rdx, %r14
+[DEBUG] 	49 89 d6 
+[DEBUG]   86:	cmpq	%rbx, %r13
+[DEBUG] 	49 39 dd 
+[DEBUG]   89:	jae	0xffffffffc04258d3
+[DEBUG] 	73 14 
+[DEBUG]   8b:	movq	%r13, %rdi
+[DEBUG] 	4c 89 ef 
+[DEBUG]   8e:	movq	%r14, %rsi
+[DEBUG] 	4c 89 f6 
+[DEBUG]   91:	callq	0xffffffffc042591c
+[DEBUG] 	e8 52 00 00 00 
+[DEBUG]   96:	addq	$1, %r13
+[DEBUG] 	49 83 c5 01 
+[DEBUG]   9a:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   9d:	je	0xffffffffc04258ba
+[DEBUG] 	74 e7 
+[DEBUG]   9f:	movq	%r13, %rax
+[DEBUG] 	4c 89 e8 
+[DEBUG]   a2:	movq	-32(%rbp), %rbx
+[DEBUG] 	48 8b 5d e0 
+[DEBUG]   a6:	movq	-24(%rbp), %r13
+[DEBUG] 	4c 8b 6d e8 
+[DEBUG]   aa:	movq	-16(%rbp), %r14
+[DEBUG] 	4c 8b 75 f0 
+[DEBUG] ; return 0;
+[DEBUG]   ae:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   b0:	popq	%r14
+[DEBUG] 	41 5e 
+[DEBUG]   b2:	popq	%r13
+[DEBUG] 	41 5d 
+[DEBUG]   b4:	popq	%rbx
+[DEBUG] 	5b 
+[DEBUG]   b5:	leave
+[DEBUG] 	c9 
+[DEBUG]   b6:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 31 90 03 c5 
+[DEBUG] 
+[DEBUG] int simple():
+[DEBUG] bpf_prog_95c04b6fbfe01bb4_simple:
+[DEBUG] ; static int simple() {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$8, %rsp
+[DEBUG] 	48 81 ec 08 00 00 00 
+[DEBUG]   13:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; volatile int dummy = 0;
+[DEBUG]   15:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG] ; dummy++;
+[DEBUG]   18:	movl	-4(%rbp), %edi
+[DEBUG] 	8b 7d fc 
+[DEBUG]   1b:	addq	$1, %rdi
+[DEBUG] 	48 83 c7 01 
+[DEBUG]   1f:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG] ; return 0;
+[DEBUG]   22:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   24:	leave
+[DEBUG] 	c9 
+[DEBUG]   25:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 da 8f 03 c5 
+[DEBUG] 
+[DEBUG] ----------------------------------------
+[DEBUG] Completed all 1 measurement runs
+[DEBUG] Destroying BPF link...
+[DEBUG] Closing BPF object...
+[DEBUG] Cleanup complete for single_linear
+[DEBUG] --- Completed iteration count: 1 ---
+[DEBUG] --- Testing iteration count: 101 ---
+[DEBUG] Testing program: tracepoint_exit_runtime_single_linear (display: single_linear) at iteration count: 101
+[DEBUG] Opening BPF object file: runtime_single_linear.kern.o
+libbpf: loading object from runtime_single_linear.kern.o
+libbpf: elf: section(2) .text, size 56, link 0, flags 6, type=1
+libbpf: sec '.text': found program 'simple' at insn offset 0 (0 bytes), code size 7 insns (56 bytes)
+libbpf: elf: section(3) tracepoint/syscalls/sys_exit_saterm_test, size 136, link 0, flags 6, type=1
+libbpf: sec 'tracepoint/syscalls/sys_exit_saterm_test': found program 'tracepoint_exit_runtime_single_linear' at insn offset 0 (0 bytes), code size 17 insns (136 bytes)
+libbpf: elf: section(4) .reltracepoint/syscalls/sys_exit_saterm_test, size 32, link 27, flags 40, type=9
+libbpf: elf: section(5) license, size 13, link 0, flags 3, type=1
+libbpf: license of runtime_single_linear.kern.o is Dual BSD/GPL
+libbpf: elf: section(6) .maps, size 32, link 0, flags 3, type=1
+libbpf: elf: section(17) .BTF, size 1011, link 0, flags 0, type=1
+libbpf: elf: section(19) .BTF.ext, size 264, link 0, flags 0, type=1
+libbpf: elf: section(27) .symtab, size 432, link 1, flags 0, type=2
+libbpf: looking for externs among 18 symbols...
+libbpf: collected 0 externs total
+libbpf: map 'control_map': at sec_idx 6, offset 0.
+libbpf: map 'control_map': found type = 2.
+libbpf: map 'control_map': found key [8], sz = 4.
+libbpf: map 'control_map': found value [8], sz = 4.
+libbpf: map 'control_map': found max_entries = 1.
+libbpf: sec '.reltracepoint/syscalls/sys_exit_saterm_test': collecting relocation for section(3) 'tracepoint/syscalls/sys_exit_saterm_test'
+libbpf: sec '.reltracepoint/syscalls/sys_exit_saterm_test': relo #0: insn #4 against 'control_map'
+libbpf: prog 'tracepoint_exit_runtime_single_linear': found map 0 (control_map, sec 6, off 0) for insn #4
+libbpf: sec '.reltracepoint/syscalls/sys_exit_saterm_test': relo #1: insn #10 against '.text'
+[DEBUG] Successfully opened BPF object file
+[DEBUG] Loading BPF program into kernel...
+libbpf: object 'runtime_single_': failed (-95) to create BPF token from '/sys/fs/bpf', skipping optional step...
+libbpf: prog 'tracepoint_exit_runtime_single_linear': added 7 insns from sub-prog 'simple'
+libbpf: prog 'tracepoint_exit_runtime_single_linear': insn #10 relocated, imm 6 points to subprog 'simple' (now at 17 offset)
+libbpf: map 'control_map': created successfully, fd=5
+[DEBUG] Successfully loaded BPF program
+[DEBUG] Finding program by name: tracepoint_exit_runtime_single_linear
+[DEBUG] Found program: tracepoint_exit_runtime_single_linear
+[DEBUG] Program FD: 6
+[DEBUG] Program info - ID: 124, Type: 5, JIT: yes
+[DEBUG] JIT program length: 229 bytes
+[DEBUG] JIT Instructions (initial, before first trigger) (disassembled via bpftool):
+[DEBUG] ----------------------------------------
+[DEBUG] Using bpftool at: /home/rosa/saterm/linux/tools/bpf/bpftool/bpftool
+[DEBUG] int tracepoint_exit_runtime_single_linear(struct pt_regs * ctx):
+[DEBUG] bpf_prog_a52e3b036e657a55_tracepoint_exit_runtime_single_linear:
+[DEBUG] ; int tracepoint_exit_runtime_single_linear(struct pt_regs *ctx) {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$32, %rsp
+[DEBUG] 	48 81 ec 20 00 00 00 
+[DEBUG]   13:	pushq	%rbx
+[DEBUG] 	53 
+[DEBUG]   14:	pushq	%r13
+[DEBUG] 	41 55 
+[DEBUG]   16:	pushq	%r14
+[DEBUG] 	41 56 
+[DEBUG]   18:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; __u32 key = 0;
+[DEBUG]   1a:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG]   1d:	movq	%rbp, %rsi
+[DEBUG] 	48 89 ee 
+[DEBUG]   20:	addq	$-4, %rsi
+[DEBUG] 	48 83 c6 fc 
+[DEBUG] ; __u32 *iters = bpf_map_lookup_elem(&control_map, &key);
+[DEBUG]   24:	movabsq	$-128988314926592, %rdi
+[DEBUG] 	48 bf 00 02 4f 91 af 8a ff ff 
+[DEBUG]   2e:	addq	$264, %rdi
+[DEBUG] 	48 81 c7 08 01 00 00 
+[DEBUG]   35:	movl	(%rsi), %eax
+[DEBUG] 	8b 46 00 
+[DEBUG]   38:	cmpq	$1, %rax
+[DEBUG] 	48 83 f8 01 
+[DEBUG]   3c:	jae	0xffffffffc042574f
+[DEBUG] 	73 09 
+[DEBUG]   3e:	shlq	$3, %rax
+[DEBUG] 	48 c1 e0 03 
+[DEBUG]   42:	addq	%rdi, %rax
+[DEBUG] 	48 01 f8 
+[DEBUG]   45:	jmp	0xffffffffc0425751
+[DEBUG] 	eb 02 
+[DEBUG]   47:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   49:	movl	$32, %edi
+[DEBUG] 	bf 20 00 00 00 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   4e:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   51:	je	0xffffffffc042575e
+[DEBUG] 	74 03 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   53:	movl	(%rax), %edi
+[DEBUG] 	8b 78 00 
+[DEBUG] ; bpf_loop(count, simple, NULL, 0);
+[DEBUG]   56:	movq	$-1069393476, %rsi
+[DEBUG] 	48 c7 c6 bc 59 42 c0 
+[DEBUG]   5d:	xorl	%edx, %edx
+[DEBUG] 	31 d2 
+[DEBUG]   5f:	xorl	%ecx, %ecx
+[DEBUG] 	31 c9 
+[DEBUG]   61:	cmpq	$8388608, %rdi
+[DEBUG] 	48 81 ff 00 00 80 00 
+[DEBUG]   68:	jbe	0xffffffffc0425779
+[DEBUG] 	76 07 
+[DEBUG]   6a:	movl	$4294967289, %eax
+[DEBUG] 	b8 f9 ff ff ff 
+[DEBUG]   6f:	jmp	0xffffffffc04257b6
+[DEBUG] 	eb 3d 
+[DEBUG]   71:	movq	%rbx, -32(%rbp)
+[DEBUG] 	48 89 5d e0 
+[DEBUG]   75:	movq	%r13, -24(%rbp)
+[DEBUG] 	4c 89 6d e8 
+[DEBUG]   79:	movq	%r14, -16(%rbp)
+[DEBUG] 	4c 89 75 f0 
+[DEBUG]   7d:	movq	%rdi, %rbx
+[DEBUG] 	48 89 fb 
+[DEBUG]   80:	xorl	%r13d, %r13d
+[DEBUG] 	45 31 ed 
+[DEBUG]   83:	movq	%rdx, %r14
+[DEBUG] 	49 89 d6 
+[DEBUG]   86:	cmpq	%rbx, %r13
+[DEBUG] 	49 39 dd 
+[DEBUG]   89:	jae	0xffffffffc04257a7
+[DEBUG] 	73 14 
+[DEBUG]   8b:	movq	%r13, %rdi
+[DEBUG] 	4c 89 ef 
+[DEBUG]   8e:	movq	%r14, %rsi
+[DEBUG] 	4c 89 f6 
+[DEBUG]   91:	callq	0xffffffffc04259bc
+[DEBUG] 	e8 1e 02 00 00 
+[DEBUG]   96:	addq	$1, %r13
+[DEBUG] 	49 83 c5 01 
+[DEBUG]   9a:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   9d:	je	0xffffffffc042578e
+[DEBUG] 	74 e7 
+[DEBUG]   9f:	movq	%r13, %rax
+[DEBUG] 	4c 89 e8 
+[DEBUG]   a2:	movq	-32(%rbp), %rbx
+[DEBUG] 	48 8b 5d e0 
+[DEBUG]   a6:	movq	-24(%rbp), %r13
+[DEBUG] 	4c 8b 6d e8 
+[DEBUG]   aa:	movq	-16(%rbp), %r14
+[DEBUG] 	4c 8b 75 f0 
+[DEBUG] ; return 0;
+[DEBUG]   ae:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   b0:	popq	%r14
+[DEBUG] 	41 5e 
+[DEBUG]   b2:	popq	%r13
+[DEBUG] 	41 5d 
+[DEBUG]   b4:	popq	%rbx
+[DEBUG] 	5b 
+[DEBUG]   b5:	leave
+[DEBUG] 	c9 
+[DEBUG]   b6:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 5d 91 03 c5 
+[DEBUG] 
+[DEBUG] int simple():
+[DEBUG] bpf_prog_95c04b6fbfe01bb4_simple:
+[DEBUG] ; static int simple() {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$8, %rsp
+[DEBUG] 	48 81 ec 08 00 00 00 
+[DEBUG]   13:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; volatile int dummy = 0;
+[DEBUG]   15:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG] ; dummy++;
+[DEBUG]   18:	movl	-4(%rbp), %edi
+[DEBUG] 	8b 7d fc 
+[DEBUG]   1b:	addq	$1, %rdi
+[DEBUG] 	48 83 c7 01 
+[DEBUG]   1f:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG] ; return 0;
+[DEBUG]   22:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   24:	leave
+[DEBUG] 	c9 
+[DEBUG]   25:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 3a 8f 03 c5 
+[DEBUG] 
+[DEBUG] ----------------------------------------
+[DEBUG] Finding control_map...
+[DEBUG] Found control_map, FD: 5
+[DEBUG] Setting iteration count to 101 in control_map
+[DEBUG] Successfully set iteration count
+[DEBUG] Attaching program to tracepoint...
+[DEBUG] Successfully attached program to tracepoint
+[DEBUG] Starting 1 measurement runs...
+[DEBUG] JIT Instructions (after first trigger) (disassembled via bpftool):
+[DEBUG] ----------------------------------------
+[DEBUG] Using bpftool at: /home/rosa/saterm/linux/tools/bpf/bpftool/bpftool
+[DEBUG] int tracepoint_exit_runtime_single_linear(struct pt_regs * ctx):
+[DEBUG] bpf_prog_a52e3b036e657a55_tracepoint_exit_runtime_single_linear:
+[DEBUG] ; int tracepoint_exit_runtime_single_linear(struct pt_regs *ctx) {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$32, %rsp
+[DEBUG] 	48 81 ec 20 00 00 00 
+[DEBUG]   13:	pushq	%rbx
+[DEBUG] 	53 
+[DEBUG]   14:	pushq	%r13
+[DEBUG] 	41 55 
+[DEBUG]   16:	pushq	%r14
+[DEBUG] 	41 56 
+[DEBUG]   18:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; __u32 key = 0;
+[DEBUG]   1a:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG]   1d:	movq	%rbp, %rsi
+[DEBUG] 	48 89 ee 
+[DEBUG]   20:	addq	$-4, %rsi
+[DEBUG] 	48 83 c6 fc 
+[DEBUG] ; __u32 *iters = bpf_map_lookup_elem(&control_map, &key);
+[DEBUG]   24:	movabsq	$-128988314926592, %rdi
+[DEBUG] 	48 bf 00 02 4f 91 af 8a ff ff 
+[DEBUG]   2e:	addq	$264, %rdi
+[DEBUG] 	48 81 c7 08 01 00 00 
+[DEBUG]   35:	movl	(%rsi), %eax
+[DEBUG] 	8b 46 00 
+[DEBUG]   38:	cmpq	$1, %rax
+[DEBUG] 	48 83 f8 01 
+[DEBUG]   3c:	jae	0xffffffffc042574f
+[DEBUG] 	73 09 
+[DEBUG]   3e:	shlq	$3, %rax
+[DEBUG] 	48 c1 e0 03 
+[DEBUG]   42:	addq	%rdi, %rax
+[DEBUG] 	48 01 f8 
+[DEBUG]   45:	jmp	0xffffffffc0425751
+[DEBUG] 	eb 02 
+[DEBUG]   47:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   49:	movl	$32, %edi
+[DEBUG] 	bf 20 00 00 00 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   4e:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   51:	je	0xffffffffc042575e
+[DEBUG] 	74 03 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   53:	movl	(%rax), %edi
+[DEBUG] 	8b 78 00 
+[DEBUG] ; bpf_loop(count, simple, NULL, 0);
+[DEBUG]   56:	movq	$-1069393476, %rsi
+[DEBUG] 	48 c7 c6 bc 59 42 c0 
+[DEBUG]   5d:	xorl	%edx, %edx
+[DEBUG] 	31 d2 
+[DEBUG]   5f:	xorl	%ecx, %ecx
+[DEBUG] 	31 c9 
+[DEBUG]   61:	cmpq	$8388608, %rdi
+[DEBUG] 	48 81 ff 00 00 80 00 
+[DEBUG]   68:	jbe	0xffffffffc0425779
+[DEBUG] 	76 07 
+[DEBUG]   6a:	movl	$4294967289, %eax
+[DEBUG] 	b8 f9 ff ff ff 
+[DEBUG]   6f:	jmp	0xffffffffc04257b6
+[DEBUG] 	eb 3d 
+[DEBUG]   71:	movq	%rbx, -32(%rbp)
+[DEBUG] 	48 89 5d e0 
+[DEBUG]   75:	movq	%r13, -24(%rbp)
+[DEBUG] 	4c 89 6d e8 
+[DEBUG]   79:	movq	%r14, -16(%rbp)
+[DEBUG] 	4c 89 75 f0 
+[DEBUG]   7d:	movq	%rdi, %rbx
+[DEBUG] 	48 89 fb 
+[DEBUG]   80:	xorl	%r13d, %r13d
+[DEBUG] 	45 31 ed 
+[DEBUG]   83:	movq	%rdx, %r14
+[DEBUG] 	49 89 d6 
+[DEBUG]   86:	cmpq	%rbx, %r13
+[DEBUG] 	49 39 dd 
+[DEBUG]   89:	jae	0xffffffffc04257a7
+[DEBUG] 	73 14 
+[DEBUG]   8b:	movq	%r13, %rdi
+[DEBUG] 	4c 89 ef 
+[DEBUG]   8e:	movq	%r14, %rsi
+[DEBUG] 	4c 89 f6 
+[DEBUG]   91:	callq	0xffffffffc04259bc
+[DEBUG] 	e8 1e 02 00 00 
+[DEBUG]   96:	addq	$1, %r13
+[DEBUG] 	49 83 c5 01 
+[DEBUG]   9a:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   9d:	je	0xffffffffc042578e
+[DEBUG] 	74 e7 
+[DEBUG]   9f:	movq	%r13, %rax
+[DEBUG] 	4c 89 e8 
+[DEBUG]   a2:	movq	-32(%rbp), %rbx
+[DEBUG] 	48 8b 5d e0 
+[DEBUG]   a6:	movq	-24(%rbp), %r13
+[DEBUG] 	4c 8b 6d e8 
+[DEBUG]   aa:	movq	-16(%rbp), %r14
+[DEBUG] 	4c 8b 75 f0 
+[DEBUG] ; return 0;
+[DEBUG]   ae:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   b0:	popq	%r14
+[DEBUG] 	41 5e 
+[DEBUG]   b2:	popq	%r13
+[DEBUG] 	41 5d 
+[DEBUG]   b4:	popq	%rbx
+[DEBUG] 	5b 
+[DEBUG]   b5:	leave
+[DEBUG] 	c9 
+[DEBUG]   b6:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 5d 91 03 c5 
+[DEBUG] 
+[DEBUG] int simple():
+[DEBUG] bpf_prog_95c04b6fbfe01bb4_simple:
+[DEBUG] ; static int simple() {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$8, %rsp
+[DEBUG] 	48 81 ec 08 00 00 00 
+[DEBUG]   13:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; volatile int dummy = 0;
+[DEBUG]   15:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG] ; dummy++;
+[DEBUG]   18:	movl	-4(%rbp), %edi
+[DEBUG] 	8b 7d fc 
+[DEBUG]   1b:	addq	$1, %rdi
+[DEBUG] 	48 83 c7 01 
+[DEBUG]   1f:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG] ; return 0;
+[DEBUG]   22:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   24:	leave
+[DEBUG] 	c9 
+[DEBUG]   25:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 3a 8f 03 c5 
+[DEBUG] 
+[DEBUG] ----------------------------------------
+[DEBUG] Completed all 1 measurement runs
+[DEBUG] Destroying BPF link...
+[DEBUG] Closing BPF object...
+[DEBUG] Cleanup complete for single_linear
+[DEBUG] --- Completed iteration count: 101 ---
+[DEBUG] Completed all tests for program: single_linear
+[DEBUG] ========================================
+[DEBUG] Testing program 3/3: terminated
+[DEBUG] ========================================
+[DEBUG] --- Testing iteration count: 1 ---
+[DEBUG] Testing program: tracepoint_exit_runtime_terminated (display: terminated) at iteration count: 1
+[DEBUG] Opening BPF object file: runtime_terminated.kern.o
+libbpf: loading object from runtime_terminated.kern.o
+libbpf: elf: section(2) .text, size 328, link 0, flags 6, type=1
+libbpf: sec '.text': found program 'loop2' at insn offset 0 (0 bytes), code size 17 insns (136 bytes)
+libbpf: sec '.text': found program 'loop3' at insn offset 17 (136 bytes), code size 17 insns (136 bytes)
+libbpf: sec '.text': found program 'simple' at insn offset 34 (272 bytes), code size 7 insns (56 bytes)
+libbpf: elf: section(3) .rel.text, size 96, link 29, flags 40, type=9
+libbpf: elf: section(4) tracepoint/syscalls/sys_exit_saterm_test, size 136, link 0, flags 6, type=1
+libbpf: sec 'tracepoint/syscalls/sys_exit_saterm_test': found program 'tracepoint_exit_runtime_terminated' at insn offset 0 (0 bytes), code size 17 insns (136 bytes)
+libbpf: elf: section(5) .reltracepoint/syscalls/sys_exit_saterm_test, size 32, link 29, flags 40, type=9
+libbpf: elf: section(6) license, size 13, link 0, flags 3, type=1
+libbpf: license of runtime_terminated.kern.o is Dual BSD/GPL
+libbpf: elf: section(7) .maps, size 32, link 0, flags 3, type=1
+libbpf: elf: section(8) .rodata, size 16, link 0, flags 2, type=1
+libbpf: elf: section(19) .BTF, size 1336, link 0, flags 0, type=1
+libbpf: elf: section(21) .BTF.ext, size 488, link 0, flags 0, type=1
+libbpf: elf: section(29) .symtab, size 600, link 1, flags 0, type=2
+libbpf: looking for externs among 25 symbols...
+libbpf: collected 1 externs total
+libbpf: extern (ksym) #0: symbol 23, name bpf_die_kfunc
+libbpf: map 'control_map': at sec_idx 7, offset 0.
+libbpf: map 'control_map': found type = 2.
+libbpf: map 'control_map': found key [8], sz = 4.
+libbpf: map 'control_map': found value [8], sz = 4.
+libbpf: map 'control_map': found max_entries = 1.
+libbpf: map 'runtime_.rodata' (global data): at sec_idx 8, offset 0, flags 80.
+libbpf: map 1 is "runtime_.rodata"
+libbpf: sec '.rel.text': collecting relocation for section(2) '.text'
+libbpf: sec '.rel.text': relo #0: insn #4 against 'control_map'
+libbpf: prog 'loop2': found map 0 (control_map, sec 7, off 0) for insn #4
+libbpf: sec '.rel.text': relo #1: insn #10 against '.text'
+libbpf: sec '.rel.text': relo #2: insn #21 against 'control_map'
+libbpf: prog 'loop3': found map 0 (control_map, sec 7, off 0) for insn #4
+libbpf: sec '.rel.text': relo #3: insn #27 against '.text'
+libbpf: sec '.rel.text': relo #4: insn #34 against 'bpf_die_kfunc'
+libbpf: prog 'simple': found extern #0 'bpf_die_kfunc' (sym 23) for insn #0
+libbpf: sec '.rel.text': relo #5: insn #35 against '.rodata'
+libbpf: prog 'simple': found data map 1 (runtime_.rodata, sec 8, off 0) for insn 1
+libbpf: sec '.reltracepoint/syscalls/sys_exit_saterm_test': collecting relocation for section(4) 'tracepoint/syscalls/sys_exit_saterm_test'
+libbpf: sec '.reltracepoint/syscalls/sys_exit_saterm_test': relo #0: insn #4 against 'control_map'
+libbpf: prog 'tracepoint_exit_runtime_terminated': found map 0 (control_map, sec 7, off 0) for insn #4
+libbpf: sec '.reltracepoint/syscalls/sys_exit_saterm_test': relo #1: insn #10 against '.text'
+[DEBUG] Successfully opened BPF object file
+[DEBUG] Loading BPF program into kernel...
+libbpf: object 'runtime_termina': failed (-95) to create BPF token from '/sys/fs/bpf', skipping optional step...
+libbpf: loaded kernel BTF from '/sys/kernel/btf/vmlinux'
+libbpf: extern (func ksym) 'bpf_die_kfunc': resolved to vmlinux [106048]
+libbpf: prog 'tracepoint_exit_runtime_terminated': added 17 insns from sub-prog 'loop2'
+libbpf: prog 'tracepoint_exit_runtime_terminated': added 17 insns from sub-prog 'loop3'
+libbpf: prog 'tracepoint_exit_runtime_terminated': added 7 insns from sub-prog 'simple'
+libbpf: prog 'loop3': insn #10 relocated, imm 6 points to subprog 'simple' (now at 51 offset)
+libbpf: prog 'loop2': insn #10 relocated, imm 6 points to subprog 'loop3' (now at 34 offset)
+libbpf: prog 'tracepoint_exit_runtime_terminated': insn #10 relocated, imm 6 points to subprog 'loop2' (now at 17 offset)
+libbpf: map 'control_map': created successfully, fd=5
+libbpf: map 'runtime_.rodata': created successfully, fd=6
+[DEBUG] Successfully loaded BPF program
+[DEBUG] Finding program by name: tracepoint_exit_runtime_terminated
+[DEBUG] Found program: tracepoint_exit_runtime_terminated
+[DEBUG] Program FD: 7
+[DEBUG] Program info - ID: 127, Type: 5, JIT: yes
+[DEBUG] JIT program length: 606 bytes
+[DEBUG] JIT Instructions (initial, before first trigger) (disassembled via bpftool):
+[DEBUG] ----------------------------------------
+[DEBUG] Using bpftool at: /home/rosa/saterm/linux/tools/bpf/bpftool/bpftool
+[DEBUG] int tracepoint_exit_runtime_terminated(struct pt_regs * ctx):
+[DEBUG] bpf_prog_113c3671176fdbd9_tracepoint_exit_runtime_terminated:
+[DEBUG] ; int tracepoint_exit_runtime_terminated(struct pt_regs *ctx) {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$32, %rsp
+[DEBUG] 	48 81 ec 20 00 00 00 
+[DEBUG]   13:	pushq	%rbx
+[DEBUG] 	53 
+[DEBUG]   14:	pushq	%r13
+[DEBUG] 	41 55 
+[DEBUG]   16:	pushq	%r14
+[DEBUG] 	41 56 
+[DEBUG]   18:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; __u32 key = 0;
+[DEBUG]   1a:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG]   1d:	movq	%rbp, %rsi
+[DEBUG] 	48 89 ee 
+[DEBUG]   20:	addq	$-4, %rsi
+[DEBUG] 	48 83 c6 fc 
+[DEBUG] ; __u32 *iters = bpf_map_lookup_elem(&control_map, &key);
+[DEBUG]   24:	movabsq	$-128988314920448, %rdi
+[DEBUG] 	48 bf 00 1a 4f 91 af 8a ff ff 
+[DEBUG]   2e:	addq	$264, %rdi
+[DEBUG] 	48 81 c7 08 01 00 00 
+[DEBUG]   35:	movl	(%rsi), %eax
+[DEBUG] 	8b 46 00 
+[DEBUG]   38:	cmpq	$1, %rax
+[DEBUG] 	48 83 f8 01 
+[DEBUG]   3c:	jae	0xffffffffc04258af
+[DEBUG] 	73 09 
+[DEBUG]   3e:	shlq	$3, %rax
+[DEBUG] 	48 c1 e0 03 
+[DEBUG]   42:	addq	%rdi, %rax
+[DEBUG] 	48 01 f8 
+[DEBUG]   45:	jmp	0xffffffffc04258b1
+[DEBUG] 	eb 02 
+[DEBUG]   47:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   49:	movl	$32, %edi
+[DEBUG] 	bf 20 00 00 00 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   4e:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   51:	je	0xffffffffc04258be
+[DEBUG] 	74 03 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   53:	movl	(%rax), %edi
+[DEBUG] 	8b 78 00 
+[DEBUG] ; bpf_loop(count, loop2, NULL, 0);
+[DEBUG]   56:	movq	$-1069393396, %rsi
+[DEBUG] 	48 c7 c6 0c 5a 42 c0 
+[DEBUG]   5d:	xorl	%edx, %edx
+[DEBUG] 	31 d2 
+[DEBUG]   5f:	xorl	%ecx, %ecx
+[DEBUG] 	31 c9 
+[DEBUG]   61:	cmpq	$8388608, %rdi
+[DEBUG] 	48 81 ff 00 00 80 00 
+[DEBUG]   68:	jbe	0xffffffffc04258d9
+[DEBUG] 	76 07 
+[DEBUG]   6a:	movl	$4294967289, %eax
+[DEBUG] 	b8 f9 ff ff ff 
+[DEBUG]   6f:	jmp	0xffffffffc0425916
+[DEBUG] 	eb 3d 
+[DEBUG]   71:	movq	%rbx, -32(%rbp)
+[DEBUG] 	48 89 5d e0 
+[DEBUG]   75:	movq	%r13, -24(%rbp)
+[DEBUG] 	4c 89 6d e8 
+[DEBUG]   79:	movq	%r14, -16(%rbp)
+[DEBUG] 	4c 89 75 f0 
+[DEBUG]   7d:	movq	%rdi, %rbx
+[DEBUG] 	48 89 fb 
+[DEBUG]   80:	xorl	%r13d, %r13d
+[DEBUG] 	45 31 ed 
+[DEBUG]   83:	movq	%rdx, %r14
+[DEBUG] 	49 89 d6 
+[DEBUG]   86:	cmpq	%rbx, %r13
+[DEBUG] 	49 39 dd 
+[DEBUG]   89:	jae	0xffffffffc0425907
+[DEBUG] 	73 14 
+[DEBUG]   8b:	movq	%r13, %rdi
+[DEBUG] 	4c 89 ef 
+[DEBUG]   8e:	movq	%r14, %rsi
+[DEBUG] 	4c 89 f6 
+[DEBUG]   91:	callq	0xffffffffc0425a0c
+[DEBUG] 	e8 0e 01 00 00 
+[DEBUG]   96:	addq	$1, %r13
+[DEBUG] 	49 83 c5 01 
+[DEBUG]   9a:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   9d:	je	0xffffffffc04258ee
+[DEBUG] 	74 e7 
+[DEBUG]   9f:	movq	%r13, %rax
+[DEBUG] 	4c 89 e8 
+[DEBUG]   a2:	movq	-32(%rbp), %rbx
+[DEBUG] 	48 8b 5d e0 
+[DEBUG]   a6:	movq	-24(%rbp), %r13
+[DEBUG] 	4c 8b 6d e8 
+[DEBUG]   aa:	movq	-16(%rbp), %r14
+[DEBUG] 	4c 8b 75 f0 
+[DEBUG] ; return 0;
+[DEBUG]   ae:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   b0:	popq	%r14
+[DEBUG] 	41 5e 
+[DEBUG]   b2:	popq	%r13
+[DEBUG] 	41 5d 
+[DEBUG]   b4:	popq	%rbx
+[DEBUG] 	5b 
+[DEBUG]   b5:	leave
+[DEBUG] 	c9 
+[DEBUG]   b6:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 fd 8f 03 c5 
+[DEBUG] 
+[DEBUG] int loop2():
+[DEBUG] bpf_prog_3f128170d468b262_loop2:
+[DEBUG] ; static int loop2() {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$32, %rsp
+[DEBUG] 	48 81 ec 20 00 00 00 
+[DEBUG]   13:	pushq	%rbx
+[DEBUG] 	53 
+[DEBUG]   14:	pushq	%r13
+[DEBUG] 	41 55 
+[DEBUG]   16:	pushq	%r14
+[DEBUG] 	41 56 
+[DEBUG]   18:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; __u32 key = 0;
+[DEBUG]   1a:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG]   1d:	movq	%rbp, %rsi
+[DEBUG] 	48 89 ee 
+[DEBUG]   20:	addq	$-4, %rsi
+[DEBUG] 	48 83 c6 fc 
+[DEBUG] ; __u32 *iters = bpf_map_lookup_elem(&control_map, &key);
+[DEBUG]   24:	movabsq	$-128988314920448, %rdi
+[DEBUG] 	48 bf 00 1a 4f 91 af 8a ff ff 
+[DEBUG]   2e:	addq	$264, %rdi
+[DEBUG] 	48 81 c7 08 01 00 00 
+[DEBUG]   35:	movl	(%rsi), %eax
+[DEBUG] 	8b 46 00 
+[DEBUG]   38:	cmpq	$1, %rax
+[DEBUG] 	48 83 f8 01 
+[DEBUG]   3c:	jae	0xffffffffc0425a53
+[DEBUG] 	73 09 
+[DEBUG]   3e:	shlq	$3, %rax
+[DEBUG] 	48 c1 e0 03 
+[DEBUG]   42:	addq	%rdi, %rax
+[DEBUG] 	48 01 f8 
+[DEBUG]   45:	jmp	0xffffffffc0425a55
+[DEBUG] 	eb 02 
+[DEBUG]   47:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   49:	movl	$32, %edi
+[DEBUG] 	bf 20 00 00 00 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   4e:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   51:	je	0xffffffffc0425a62
+[DEBUG] 	74 03 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   53:	movl	(%rax), %edi
+[DEBUG] 	8b 78 00 
+[DEBUG] ; bpf_loop(count, loop3, NULL, 0);
+[DEBUG]   56:	movq	$-1069393144, %rsi
+[DEBUG] 	48 c7 c6 08 5b 42 c0 
+[DEBUG]   5d:	xorl	%edx, %edx
+[DEBUG] 	31 d2 
+[DEBUG]   5f:	xorl	%ecx, %ecx
+[DEBUG] 	31 c9 
+[DEBUG]   61:	cmpq	$8388608, %rdi
+[DEBUG] 	48 81 ff 00 00 80 00 
+[DEBUG]   68:	jbe	0xffffffffc0425a7d
+[DEBUG] 	76 07 
+[DEBUG]   6a:	movl	$4294967289, %eax
+[DEBUG] 	b8 f9 ff ff ff 
+[DEBUG]   6f:	jmp	0xffffffffc0425aba
+[DEBUG] 	eb 3d 
+[DEBUG]   71:	movq	%rbx, -32(%rbp)
+[DEBUG] 	48 89 5d e0 
+[DEBUG]   75:	movq	%r13, -24(%rbp)
+[DEBUG] 	4c 89 6d e8 
+[DEBUG]   79:	movq	%r14, -16(%rbp)
+[DEBUG] 	4c 89 75 f0 
+[DEBUG]   7d:	movq	%rdi, %rbx
+[DEBUG] 	48 89 fb 
+[DEBUG]   80:	xorl	%r13d, %r13d
+[DEBUG] 	45 31 ed 
+[DEBUG]   83:	movq	%rdx, %r14
+[DEBUG] 	49 89 d6 
+[DEBUG]   86:	cmpq	%rbx, %r13
+[DEBUG] 	49 39 dd 
+[DEBUG]   89:	jae	0xffffffffc0425aab
+[DEBUG] 	73 14 
+[DEBUG]   8b:	movq	%r13, %rdi
+[DEBUG] 	4c 89 ef 
+[DEBUG]   8e:	movq	%r14, %rsi
+[DEBUG] 	4c 89 f6 
+[DEBUG]   91:	callq	0xffffffffc0425b08
+[DEBUG] 	e8 66 00 00 00 
+[DEBUG]   96:	addq	$1, %r13
+[DEBUG] 	49 83 c5 01 
+[DEBUG]   9a:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   9d:	je	0xffffffffc0425a92
+[DEBUG] 	74 e7 
+[DEBUG]   9f:	movq	%r13, %rax
+[DEBUG] 	4c 89 e8 
+[DEBUG]   a2:	movq	-32(%rbp), %rbx
+[DEBUG] 	48 8b 5d e0 
+[DEBUG]   a6:	movq	-24(%rbp), %r13
+[DEBUG] 	4c 8b 6d e8 
+[DEBUG]   aa:	movq	-16(%rbp), %r14
+[DEBUG] 	4c 8b 75 f0 
+[DEBUG] ; return 0;
+[DEBUG]   ae:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   b0:	popq	%r14
+[DEBUG] 	41 5e 
+[DEBUG]   b2:	popq	%r13
+[DEBUG] 	41 5d 
+[DEBUG]   b4:	popq	%rbx
+[DEBUG] 	5b 
+[DEBUG]   b5:	leave
+[DEBUG] 	c9 
+[DEBUG]   b6:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 59 8e 03 c5 
+[DEBUG] 
+[DEBUG] int loop3():
+[DEBUG] bpf_prog_b50dd0ba4ef23762_loop3:
+[DEBUG] ; static int loop3() {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$32, %rsp
+[DEBUG] 	48 81 ec 20 00 00 00 
+[DEBUG]   13:	pushq	%rbx
+[DEBUG] 	53 
+[DEBUG]   14:	pushq	%r13
+[DEBUG] 	41 55 
+[DEBUG]   16:	pushq	%r14
+[DEBUG] 	41 56 
+[DEBUG]   18:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; __u32 key = 0;
+[DEBUG]   1a:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG]   1d:	movq	%rbp, %rsi
+[DEBUG] 	48 89 ee 
+[DEBUG]   20:	addq	$-4, %rsi
+[DEBUG] 	48 83 c6 fc 
+[DEBUG] ; __u32 *iters = bpf_map_lookup_elem(&control_map, &key);
+[DEBUG]   24:	movabsq	$-128988314920448, %rdi
+[DEBUG] 	48 bf 00 1a 4f 91 af 8a ff ff 
+[DEBUG]   2e:	addq	$264, %rdi
+[DEBUG] 	48 81 c7 08 01 00 00 
+[DEBUG]   35:	movl	(%rsi), %eax
+[DEBUG] 	8b 46 00 
+[DEBUG]   38:	cmpq	$1, %rax
+[DEBUG] 	48 83 f8 01 
+[DEBUG]   3c:	jae	0xffffffffc0425b4f
+[DEBUG] 	73 09 
+[DEBUG]   3e:	shlq	$3, %rax
+[DEBUG] 	48 c1 e0 03 
+[DEBUG]   42:	addq	%rdi, %rax
+[DEBUG] 	48 01 f8 
+[DEBUG]   45:	jmp	0xffffffffc0425b51
+[DEBUG] 	eb 02 
+[DEBUG]   47:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   49:	movl	$32, %edi
+[DEBUG] 	bf 20 00 00 00 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   4e:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   51:	je	0xffffffffc0425b5e
+[DEBUG] 	74 03 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   53:	movl	(%rax), %edi
+[DEBUG] 	8b 78 00 
+[DEBUG] ; bpf_loop(count, simple, NULL, 0);
+[DEBUG]   56:	movq	$-1069392884, %rsi
+[DEBUG] 	48 c7 c6 0c 5c 42 c0 
+[DEBUG]   5d:	xorl	%edx, %edx
+[DEBUG] 	31 d2 
+[DEBUG]   5f:	xorl	%ecx, %ecx
+[DEBUG] 	31 c9 
+[DEBUG]   61:	cmpq	$8388608, %rdi
+[DEBUG] 	48 81 ff 00 00 80 00 
+[DEBUG]   68:	jbe	0xffffffffc0425b79
+[DEBUG] 	76 07 
+[DEBUG]   6a:	movl	$4294967289, %eax
+[DEBUG] 	b8 f9 ff ff ff 
+[DEBUG]   6f:	jmp	0xffffffffc0425bb6
+[DEBUG] 	eb 3d 
+[DEBUG]   71:	movq	%rbx, -32(%rbp)
+[DEBUG] 	48 89 5d e0 
+[DEBUG]   75:	movq	%r13, -24(%rbp)
+[DEBUG] 	4c 89 6d e8 
+[DEBUG]   79:	movq	%r14, -16(%rbp)
+[DEBUG] 	4c 89 75 f0 
+[DEBUG]   7d:	movq	%rdi, %rbx
+[DEBUG] 	48 89 fb 
+[DEBUG]   80:	xorl	%r13d, %r13d
+[DEBUG] 	45 31 ed 
+[DEBUG]   83:	movq	%rdx, %r14
+[DEBUG] 	49 89 d6 
+[DEBUG]   86:	cmpq	%rbx, %r13
+[DEBUG] 	49 39 dd 
+[DEBUG]   89:	jae	0xffffffffc0425ba7
+[DEBUG] 	73 14 
+[DEBUG]   8b:	movq	%r13, %rdi
+[DEBUG] 	4c 89 ef 
+[DEBUG]   8e:	movq	%r14, %rsi
+[DEBUG] 	4c 89 f6 
+[DEBUG]   91:	callq	0xffffffffc0425c0c
+[DEBUG] 	e8 6e 00 00 00 
+[DEBUG]   96:	addq	$1, %r13
+[DEBUG] 	49 83 c5 01 
+[DEBUG]   9a:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   9d:	je	0xffffffffc0425b8e
+[DEBUG] 	74 e7 
+[DEBUG]   9f:	movq	%r13, %rax
+[DEBUG] 	4c 89 e8 
+[DEBUG]   a2:	movq	-32(%rbp), %rbx
+[DEBUG] 	48 8b 5d e0 
+[DEBUG]   a6:	movq	-24(%rbp), %r13
+[DEBUG] 	4c 8b 6d e8 
+[DEBUG]   aa:	movq	-16(%rbp), %r14
+[DEBUG] 	4c 8b 75 f0 
+[DEBUG] ; return 0;
+[DEBUG]   ae:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   b0:	popq	%r14
+[DEBUG] 	41 5e 
+[DEBUG]   b2:	popq	%r13
+[DEBUG] 	41 5d 
+[DEBUG]   b4:	popq	%rbx
+[DEBUG] 	5b 
+[DEBUG]   b5:	leave
+[DEBUG] 	c9 
+[DEBUG]   b6:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 5d 8d 03 c5 
+[DEBUG] 
+[DEBUG] int simple():
+[DEBUG] bpf_prog_48a7145975360457_simple:
+[DEBUG] ; bpf_die_kfunc();
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	callq	0xffffffff845bdc90
+[DEBUG] 	e8 73 80 19 c4 
+[DEBUG] ; bpf_printk("not terminated\n");
+[DEBUG]   11:	movabsq	$-128988314918136, %rdi
+[DEBUG] 	48 bf 08 23 4f 91 af 8a ff ff 
+[DEBUG]   1b:	movl	$16, %esi
+[DEBUG] 	be 10 00 00 00 
+[DEBUG]   20:	callq	0xffffffff84554b80
+[DEBUG] 	e8 4f ef 12 c4 
+[DEBUG] ; return 0;
+[DEBUG]   25:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   27:	leave
+[DEBUG] 	c9 
+[DEBUG]   28:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 e7 8c 03 c5 
+[DEBUG] 
+[DEBUG] ----------------------------------------
+[DEBUG] Finding control_map...
+[DEBUG] Found control_map, FD: 5
+[DEBUG] Setting iteration count to 1 in control_map
+[DEBUG] Successfully set iteration count
+[DEBUG] Attaching program to tracepoint...
+[DEBUG] Successfully attached program to tracepoint
+[DEBUG] Starting 1 measurement runs...
+[DEBUG] JIT Instructions (after first trigger) (disassembled via bpftool):
+[DEBUG] ----------------------------------------
+[DEBUG] Using bpftool at: /home/rosa/saterm/linux/tools/bpf/bpftool/bpftool
+[DEBUG] int tracepoint_exit_runtime_terminated(struct pt_regs * ctx):
+[DEBUG] bpf_prog_113c3671176fdbd9_tracepoint_exit_runtime_terminated:
+[DEBUG] ; int tracepoint_exit_runtime_terminated(struct pt_regs *ctx) {
+[DEBUG]    0:	nopl	-23(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 e9 
+[DEBUG]    5:	scasl	%es:(%rdi), %eax
+[DEBUG] 	af 
+[DEBUG]    6:	nop
+[DEBUG] 	90 
+[DEBUG]    7:	addl	%ebp, %eax
+[DEBUG] 	03 c5 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$32, %rsp
+[DEBUG] 	48 81 ec 20 00 00 00 
+[DEBUG]   13:	pushq	%rbx
+[DEBUG] 	53 
+[DEBUG]   14:	pushq	%r13
+[DEBUG] 	41 55 
+[DEBUG]   16:	pushq	%r14
+[DEBUG] 	41 56 
+[DEBUG]   18:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; __u32 key = 0;
+[DEBUG]   1a:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG]   1d:	movq	%rbp, %rsi
+[DEBUG] 	48 89 ee 
+[DEBUG]   20:	addq	$-4, %rsi
+[DEBUG] 	48 83 c6 fc 
+[DEBUG] ; __u32 *iters = bpf_map_lookup_elem(&control_map, &key);
+[DEBUG]   24:	movabsq	$-128988314920448, %rdi
+[DEBUG] 	48 bf 00 1a 4f 91 af 8a ff ff 
+[DEBUG]   2e:	addq	$264, %rdi
+[DEBUG] 	48 81 c7 08 01 00 00 
+[DEBUG]   35:	movl	(%rsi), %eax
+[DEBUG] 	8b 46 00 
+[DEBUG]   38:	cmpq	$1, %rax
+[DEBUG] 	48 83 f8 01 
+[DEBUG]   3c:	jae	0xffffffffc04258af
+[DEBUG] 	73 09 
+[DEBUG]   3e:	shlq	$3, %rax
+[DEBUG] 	48 c1 e0 03 
+[DEBUG]   42:	addq	%rdi, %rax
+[DEBUG] 	48 01 f8 
+[DEBUG]   45:	jmp	0xffffffffc04258b1
+[DEBUG] 	eb 02 
+[DEBUG]   47:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   49:	movl	$32, %edi
+[DEBUG] 	bf 20 00 00 00 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   4e:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   51:	je	0xffffffffc04258be
+[DEBUG] 	74 03 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   53:	movl	(%rax), %edi
+[DEBUG] 	8b 78 00 
+[DEBUG] ; bpf_loop(count, loop2, NULL, 0);
+[DEBUG]   56:	movq	$-1069393396, %rsi
+[DEBUG] 	48 c7 c6 0c 5a 42 c0 
+[DEBUG]   5d:	xorl	%edx, %edx
+[DEBUG] 	31 d2 
+[DEBUG]   5f:	xorl	%ecx, %ecx
+[DEBUG] 	31 c9 
+[DEBUG]   61:	cmpq	$8388608, %rdi
+[DEBUG] 	48 81 ff 00 00 80 00 
+[DEBUG]   68:	jbe	0xffffffffc04258d9
+[DEBUG] 	76 07 
+[DEBUG]   6a:	movl	$4294967289, %eax
+[DEBUG] 	b8 f9 ff ff ff 
+[DEBUG]   6f:	jmp	0xffffffffc0425916
+[DEBUG] 	eb 3d 
+[DEBUG]   71:	movq	%rbx, -32(%rbp)
+[DEBUG] 	48 89 5d e0 
+[DEBUG]   75:	movq	%r13, -24(%rbp)
+[DEBUG] 	4c 89 6d e8 
+[DEBUG]   79:	movq	%r14, -16(%rbp)
+[DEBUG] 	4c 89 75 f0 
+[DEBUG]   7d:	movq	%rdi, %rbx
+[DEBUG] 	48 89 fb 
+[DEBUG]   80:	xorl	%r13d, %r13d
+[DEBUG] 	45 31 ed 
+[DEBUG]   83:	movq	%rdx, %r14
+[DEBUG] 	49 89 d6 
+[DEBUG]   86:	cmpq	%rbx, %r13
+[DEBUG] 	49 39 dd 
+[DEBUG]   89:	jae	0xffffffffc0425907
+[DEBUG] 	73 14 
+[DEBUG]   8b:	movq	%r13, %rdi
+[DEBUG] 	4c 89 ef 
+[DEBUG]   8e:	movq	%r14, %rsi
+[DEBUG] 	4c 89 f6 
+[DEBUG]   91:	callq	0xffffffff845749b0
+[DEBUG] 	e8 b2 f0 14 c4 
+[DEBUG]   96:	addq	$1, %r13
+[DEBUG] 	49 83 c5 01 
+[DEBUG]   9a:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   9d:	je	0xffffffffc04258ee
+[DEBUG] 	74 e7 
+[DEBUG]   9f:	movq	%r13, %rax
+[DEBUG] 	4c 89 e8 
+[DEBUG]   a2:	movq	-32(%rbp), %rbx
+[DEBUG] 	48 8b 5d e0 
+[DEBUG]   a6:	movq	-24(%rbp), %r13
+[DEBUG] 	4c 8b 6d e8 
+[DEBUG]   aa:	movq	-16(%rbp), %r14
+[DEBUG] 	4c 8b 75 f0 
+[DEBUG] ; return 0;
+[DEBUG]   ae:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   b0:	popq	%r14
+[DEBUG] 	41 5e 
+[DEBUG]   b2:	popq	%r13
+[DEBUG] 	41 5d 
+[DEBUG]   b4:	popq	%rbx
+[DEBUG] 	5b 
+[DEBUG]   b5:	leave
+[DEBUG] 	c9 
+[DEBUG]   b6:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 fd 8f 03 c5 
+[DEBUG] 
+[DEBUG] int loop2():
+[DEBUG] bpf_prog_3f128170d468b262_loop2:
+[DEBUG] ; static int loop2() {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$32, %rsp
+[DEBUG] 	48 81 ec 20 00 00 00 
+[DEBUG]   13:	pushq	%rbx
+[DEBUG] 	53 
+[DEBUG]   14:	pushq	%r13
+[DEBUG] 	41 55 
+[DEBUG]   16:	pushq	%r14
+[DEBUG] 	41 56 
+[DEBUG]   18:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; __u32 key = 0;
+[DEBUG]   1a:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG]   1d:	movq	%rbp, %rsi
+[DEBUG] 	48 89 ee 
+[DEBUG]   20:	addq	$-4, %rsi
+[DEBUG] 	48 83 c6 fc 
+[DEBUG] ; __u32 *iters = bpf_map_lookup_elem(&control_map, &key);
+[DEBUG]   24:	movabsq	$-128988314920448, %rdi
+[DEBUG] 	48 bf 00 1a 4f 91 af 8a ff ff 
+[DEBUG]   2e:	addq	$264, %rdi
+[DEBUG] 	48 81 c7 08 01 00 00 
+[DEBUG]   35:	movl	(%rsi), %eax
+[DEBUG] 	8b 46 00 
+[DEBUG]   38:	cmpq	$1, %rax
+[DEBUG] 	48 83 f8 01 
+[DEBUG]   3c:	jae	0xffffffffc0425a53
+[DEBUG] 	73 09 
+[DEBUG]   3e:	shlq	$3, %rax
+[DEBUG] 	48 c1 e0 03 
+[DEBUG]   42:	addq	%rdi, %rax
+[DEBUG] 	48 01 f8 
+[DEBUG]   45:	jmp	0xffffffffc0425a55
+[DEBUG] 	eb 02 
+[DEBUG]   47:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   49:	movl	$32, %edi
+[DEBUG] 	bf 20 00 00 00 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   4e:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   51:	je	0xffffffffc0425a62
+[DEBUG] 	74 03 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   53:	movl	(%rax), %edi
+[DEBUG] 	8b 78 00 
+[DEBUG] ; bpf_loop(count, loop3, NULL, 0);
+[DEBUG]   56:	movq	$-1069393144, %rsi
+[DEBUG] 	48 c7 c6 08 5b 42 c0 
+[DEBUG]   5d:	xorl	%edx, %edx
+[DEBUG] 	31 d2 
+[DEBUG]   5f:	xorl	%ecx, %ecx
+[DEBUG] 	31 c9 
+[DEBUG]   61:	cmpq	$8388608, %rdi
+[DEBUG] 	48 81 ff 00 00 80 00 
+[DEBUG]   68:	jbe	0xffffffffc0425a7d
+[DEBUG] 	76 07 
+[DEBUG]   6a:	movl	$4294967289, %eax
+[DEBUG] 	b8 f9 ff ff ff 
+[DEBUG]   6f:	jmp	0xffffffffc0425aba
+[DEBUG] 	eb 3d 
+[DEBUG]   71:	movq	%rbx, -32(%rbp)
+[DEBUG] 	48 89 5d e0 
+[DEBUG]   75:	movq	%r13, -24(%rbp)
+[DEBUG] 	4c 89 6d e8 
+[DEBUG]   79:	movq	%r14, -16(%rbp)
+[DEBUG] 	4c 89 75 f0 
+[DEBUG]   7d:	movq	%rdi, %rbx
+[DEBUG] 	48 89 fb 
+[DEBUG]   80:	xorl	%r13d, %r13d
+[DEBUG] 	45 31 ed 
+[DEBUG]   83:	movq	%rdx, %r14
+[DEBUG] 	49 89 d6 
+[DEBUG]   86:	cmpq	%rbx, %r13
+[DEBUG] 	49 39 dd 
+[DEBUG]   89:	jae	0xffffffffc0425aab
+[DEBUG] 	73 14 
+[DEBUG]   8b:	movq	%r13, %rdi
+[DEBUG] 	4c 89 ef 
+[DEBUG]   8e:	movq	%r14, %rsi
+[DEBUG] 	4c 89 f6 
+[DEBUG]   91:	callq	0xffffffff845749b0
+[DEBUG] 	e8 0e ef 14 c4 
+[DEBUG]   96:	addq	$1, %r13
+[DEBUG] 	49 83 c5 01 
+[DEBUG]   9a:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   9d:	je	0xffffffffc0425a92
+[DEBUG] 	74 e7 
+[DEBUG]   9f:	movq	%r13, %rax
+[DEBUG] 	4c 89 e8 
+[DEBUG]   a2:	movq	-32(%rbp), %rbx
+[DEBUG] 	48 8b 5d e0 
+[DEBUG]   a6:	movq	-24(%rbp), %r13
+[DEBUG] 	4c 8b 6d e8 
+[DEBUG]   aa:	movq	-16(%rbp), %r14
+[DEBUG] 	4c 8b 75 f0 
+[DEBUG] ; return 0;
+[DEBUG]   ae:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   b0:	popq	%r14
+[DEBUG] 	41 5e 
+[DEBUG]   b2:	popq	%r13
+[DEBUG] 	41 5d 
+[DEBUG]   b4:	popq	%rbx
+[DEBUG] 	5b 
+[DEBUG]   b5:	leave
+[DEBUG] 	c9 
+[DEBUG]   b6:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 59 8e 03 c5 
+[DEBUG] 
+[DEBUG] int loop3():
+[DEBUG] bpf_prog_b50dd0ba4ef23762_loop3:
+[DEBUG] ; static int loop3() {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$32, %rsp
+[DEBUG] 	48 81 ec 20 00 00 00 
+[DEBUG]   13:	pushq	%rbx
+[DEBUG] 	53 
+[DEBUG]   14:	pushq	%r13
+[DEBUG] 	41 55 
+[DEBUG]   16:	pushq	%r14
+[DEBUG] 	41 56 
+[DEBUG]   18:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; __u32 key = 0;
+[DEBUG]   1a:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG]   1d:	movq	%rbp, %rsi
+[DEBUG] 	48 89 ee 
+[DEBUG]   20:	addq	$-4, %rsi
+[DEBUG] 	48 83 c6 fc 
+[DEBUG] ; __u32 *iters = bpf_map_lookup_elem(&control_map, &key);
+[DEBUG]   24:	movabsq	$-128988314920448, %rdi
+[DEBUG] 	48 bf 00 1a 4f 91 af 8a ff ff 
+[DEBUG]   2e:	addq	$264, %rdi
+[DEBUG] 	48 81 c7 08 01 00 00 
+[DEBUG]   35:	movl	(%rsi), %eax
+[DEBUG] 	8b 46 00 
+[DEBUG]   38:	cmpq	$1, %rax
+[DEBUG] 	48 83 f8 01 
+[DEBUG]   3c:	jae	0xffffffffc0425b4f
+[DEBUG] 	73 09 
+[DEBUG]   3e:	shlq	$3, %rax
+[DEBUG] 	48 c1 e0 03 
+[DEBUG]   42:	addq	%rdi, %rax
+[DEBUG] 	48 01 f8 
+[DEBUG]   45:	jmp	0xffffffffc0425b51
+[DEBUG] 	eb 02 
+[DEBUG]   47:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   49:	movl	$32, %edi
+[DEBUG] 	bf 20 00 00 00 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   4e:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   51:	je	0xffffffffc0425b5e
+[DEBUG] 	74 03 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   53:	movl	(%rax), %edi
+[DEBUG] 	8b 78 00 
+[DEBUG] ; bpf_loop(count, simple, NULL, 0);
+[DEBUG]   56:	movq	$-1069392884, %rsi
+[DEBUG] 	48 c7 c6 0c 5c 42 c0 
+[DEBUG]   5d:	xorl	%edx, %edx
+[DEBUG] 	31 d2 
+[DEBUG]   5f:	xorl	%ecx, %ecx
+[DEBUG] 	31 c9 
+[DEBUG]   61:	cmpq	$8388608, %rdi
+[DEBUG] 	48 81 ff 00 00 80 00 
+[DEBUG]   68:	jbe	0xffffffffc0425b79
+[DEBUG] 	76 07 
+[DEBUG]   6a:	movl	$4294967289, %eax
+[DEBUG] 	b8 f9 ff ff ff 
+[DEBUG]   6f:	jmp	0xffffffffc0425bb6
+[DEBUG] 	eb 3d 
+[DEBUG]   71:	movq	%rbx, -32(%rbp)
+[DEBUG] 	48 89 5d e0 
+[DEBUG]   75:	movq	%r13, -24(%rbp)
+[DEBUG] 	4c 89 6d e8 
+[DEBUG]   79:	movq	%r14, -16(%rbp)
+[DEBUG] 	4c 89 75 f0 
+[DEBUG]   7d:	movq	%rdi, %rbx
+[DEBUG] 	48 89 fb 
+[DEBUG]   80:	xorl	%r13d, %r13d
+[DEBUG] 	45 31 ed 
+[DEBUG]   83:	movq	%rdx, %r14
+[DEBUG] 	49 89 d6 
+[DEBUG]   86:	cmpq	%rbx, %r13
+[DEBUG] 	49 39 dd 
+[DEBUG]   89:	jae	0xffffffffc0425ba7
+[DEBUG] 	73 14 
+[DEBUG]   8b:	movq	%r13, %rdi
+[DEBUG] 	4c 89 ef 
+[DEBUG]   8e:	movq	%r14, %rsi
+[DEBUG] 	4c 89 f6 
+[DEBUG]   91:	callq	0xffffffff845749b0
+[DEBUG] 	e8 12 ee 14 c4 
+[DEBUG]   96:	addq	$1, %r13
+[DEBUG] 	49 83 c5 01 
+[DEBUG]   9a:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   9d:	je	0xffffffffc0425b8e
+[DEBUG] 	74 e7 
+[DEBUG]   9f:	movq	%r13, %rax
+[DEBUG] 	4c 89 e8 
+[DEBUG]   a2:	movq	-32(%rbp), %rbx
+[DEBUG] 	48 8b 5d e0 
+[DEBUG]   a6:	movq	-24(%rbp), %r13
+[DEBUG] 	4c 8b 6d e8 
+[DEBUG]   aa:	movq	-16(%rbp), %r14
+[DEBUG] 	4c 8b 75 f0 
+[DEBUG] ; return 0;
+[DEBUG]   ae:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   b0:	popq	%r14
+[DEBUG] 	41 5e 
+[DEBUG]   b2:	popq	%r13
+[DEBUG] 	41 5d 
+[DEBUG]   b4:	popq	%rbx
+[DEBUG] 	5b 
+[DEBUG]   b5:	leave
+[DEBUG] 	c9 
+[DEBUG]   b6:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 5d 8d 03 c5 
+[DEBUG] 
+[DEBUG] int simple():
+[DEBUG] bpf_prog_48a7145975360457_simple:
+[DEBUG] ; bpf_die_kfunc();
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	callq	0xffffffff845bdc90
+[DEBUG] 	e8 73 80 19 c4 
+[DEBUG] ; bpf_printk("not terminated\n");
+[DEBUG]   11:	movabsq	$-128988314918136, %rdi
+[DEBUG] 	48 bf 08 23 4f 91 af 8a ff ff 
+[DEBUG]   1b:	movl	$16, %esi
+[DEBUG] 	be 10 00 00 00 
+[DEBUG]   20:	callq	0xffffffff845749d0
+[DEBUG] 	e8 9f ed 14 c4 
+[DEBUG] ; return 0;
+[DEBUG]   25:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   27:	leave
+[DEBUG] 	c9 
+[DEBUG]   28:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 e7 8c 03 c5 
+[DEBUG] 
+[DEBUG] ----------------------------------------
+[DEBUG] Completed all 1 measurement runs
+[DEBUG] Destroying BPF link...
+[DEBUG] Closing BPF object...
+[DEBUG] Cleanup complete for terminated
+[DEBUG] --- Completed iteration count: 1 ---
+[DEBUG] --- Testing iteration count: 101 ---
+[DEBUG] Testing program: tracepoint_exit_runtime_terminated (display: terminated) at iteration count: 101
+[DEBUG] Opening BPF object file: runtime_terminated.kern.o
+libbpf: loading object from runtime_terminated.kern.o
+libbpf: elf: section(2) .text, size 328, link 0, flags 6, type=1
+libbpf: sec '.text': found program 'loop2' at insn offset 0 (0 bytes), code size 17 insns (136 bytes)
+libbpf: sec '.text': found program 'loop3' at insn offset 17 (136 bytes), code size 17 insns (136 bytes)
+libbpf: sec '.text': found program 'simple' at insn offset 34 (272 bytes), code size 7 insns (56 bytes)
+libbpf: elf: section(3) .rel.text, size 96, link 29, flags 40, type=9
+libbpf: elf: section(4) tracepoint/syscalls/sys_exit_saterm_test, size 136, link 0, flags 6, type=1
+libbpf: sec 'tracepoint/syscalls/sys_exit_saterm_test': found program 'tracepoint_exit_runtime_terminated' at insn offset 0 (0 bytes), code size 17 insns (136 bytes)
+libbpf: elf: section(5) .reltracepoint/syscalls/sys_exit_saterm_test, size 32, link 29, flags 40, type=9
+libbpf: elf: section(6) license, size 13, link 0, flags 3, type=1
+libbpf: license of runtime_terminated.kern.o is Dual BSD/GPL
+libbpf: elf: section(7) .maps, size 32, link 0, flags 3, type=1
+libbpf: elf: section(8) .rodata, size 16, link 0, flags 2, type=1
+libbpf: elf: section(19) .BTF, size 1336, link 0, flags 0, type=1
+libbpf: elf: section(21) .BTF.ext, size 488, link 0, flags 0, type=1
+libbpf: elf: section(29) .symtab, size 600, link 1, flags 0, type=2
+libbpf: looking for externs among 25 symbols...
+libbpf: collected 1 externs total
+libbpf: extern (ksym) #0: symbol 23, name bpf_die_kfunc
+libbpf: map 'control_map': at sec_idx 7, offset 0.
+libbpf: map 'control_map': found type = 2.
+libbpf: map 'control_map': found key [8], sz = 4.
+libbpf: map 'control_map': found value [8], sz = 4.
+libbpf: map 'control_map': found max_entries = 1.
+libbpf: map 'runtime_.rodata' (global data): at sec_idx 8, offset 0, flags 80.
+libbpf: map 1 is "runtime_.rodata"
+libbpf: sec '.rel.text': collecting relocation for section(2) '.text'
+libbpf: sec '.rel.text': relo #0: insn #4 against 'control_map'
+libbpf: prog 'loop2': found map 0 (control_map, sec 7, off 0) for insn #4
+libbpf: sec '.rel.text': relo #1: insn #10 against '.text'
+libbpf: sec '.rel.text': relo #2: insn #21 against 'control_map'
+libbpf: prog 'loop3': found map 0 (control_map, sec 7, off 0) for insn #4
+libbpf: sec '.rel.text': relo #3: insn #27 against '.text'
+libbpf: sec '.rel.text': relo #4: insn #34 against 'bpf_die_kfunc'
+libbpf: prog 'simple': found extern #0 'bpf_die_kfunc' (sym 23) for insn #0
+libbpf: sec '.rel.text': relo #5: insn #35 against '.rodata'
+libbpf: prog 'simple': found data map 1 (runtime_.rodata, sec 8, off 0) for insn 1
+libbpf: sec '.reltracepoint/syscalls/sys_exit_saterm_test': collecting relocation for section(4) 'tracepoint/syscalls/sys_exit_saterm_test'
+libbpf: sec '.reltracepoint/syscalls/sys_exit_saterm_test': relo #0: insn #4 against 'control_map'
+libbpf: prog 'tracepoint_exit_runtime_terminated': found map 0 (control_map, sec 7, off 0) for insn #4
+libbpf: sec '.reltracepoint/syscalls/sys_exit_saterm_test': relo #1: insn #10 against '.text'
+[DEBUG] Successfully opened BPF object file
+[DEBUG] Loading BPF program into kernel...
+libbpf: object 'runtime_termina': failed (-95) to create BPF token from '/sys/fs/bpf', skipping optional step...
+libbpf: loaded kernel BTF from '/sys/kernel/btf/vmlinux'
+libbpf: extern (func ksym) 'bpf_die_kfunc': resolved to vmlinux [106048]
+libbpf: prog 'tracepoint_exit_runtime_terminated': added 17 insns from sub-prog 'loop2'
+libbpf: prog 'tracepoint_exit_runtime_terminated': added 17 insns from sub-prog 'loop3'
+libbpf: prog 'tracepoint_exit_runtime_terminated': added 7 insns from sub-prog 'simple'
+libbpf: prog 'loop3': insn #10 relocated, imm 6 points to subprog 'simple' (now at 51 offset)
+libbpf: prog 'loop2': insn #10 relocated, imm 6 points to subprog 'loop3' (now at 34 offset)
+libbpf: prog 'tracepoint_exit_runtime_terminated': insn #10 relocated, imm 6 points to subprog 'loop2' (now at 17 offset)
+libbpf: map 'control_map': created successfully, fd=5
+libbpf: map 'runtime_.rodata': created successfully, fd=6
+[DEBUG] Successfully loaded BPF program
+[DEBUG] Finding program by name: tracepoint_exit_runtime_terminated
+[DEBUG] Found program: tracepoint_exit_runtime_terminated
+[DEBUG] Program FD: 7
+[DEBUG] Program info - ID: 130, Type: 5, JIT: yes
+[DEBUG] JIT program length: 606 bytes
+[DEBUG] JIT Instructions (initial, before first trigger) (disassembled via bpftool):
+[DEBUG] ----------------------------------------
+[DEBUG] Using bpftool at: /home/rosa/saterm/linux/tools/bpf/bpftool/bpftool
+[DEBUG] int tracepoint_exit_runtime_terminated(struct pt_regs * ctx):
+[DEBUG] bpf_prog_113c3671176fdbd9_tracepoint_exit_runtime_terminated:
+[DEBUG] ; int tracepoint_exit_runtime_terminated(struct pt_regs *ctx) {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$32, %rsp
+[DEBUG] 	48 81 ec 20 00 00 00 
+[DEBUG]   13:	pushq	%rbx
+[DEBUG] 	53 
+[DEBUG]   14:	pushq	%r13
+[DEBUG] 	41 55 
+[DEBUG]   16:	pushq	%r14
+[DEBUG] 	41 56 
+[DEBUG]   18:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; __u32 key = 0;
+[DEBUG]   1a:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG]   1d:	movq	%rbp, %rsi
+[DEBUG] 	48 89 ee 
+[DEBUG]   20:	addq	$-4, %rsi
+[DEBUG] 	48 83 c6 fc 
+[DEBUG] ; __u32 *iters = bpf_map_lookup_elem(&control_map, &key);
+[DEBUG]   24:	movabsq	$-128988314925056, %rdi
+[DEBUG] 	48 bf 00 08 4f 91 af 8a ff ff 
+[DEBUG]   2e:	addq	$264, %rdi
+[DEBUG] 	48 81 c7 08 01 00 00 
+[DEBUG]   35:	movl	(%rsi), %eax
+[DEBUG] 	8b 46 00 
+[DEBUG]   38:	cmpq	$1, %rax
+[DEBUG] 	48 83 f8 01 
+[DEBUG]   3c:	jae	0xffffffffc042577f
+[DEBUG] 	73 09 
+[DEBUG]   3e:	shlq	$3, %rax
+[DEBUG] 	48 c1 e0 03 
+[DEBUG]   42:	addq	%rdi, %rax
+[DEBUG] 	48 01 f8 
+[DEBUG]   45:	jmp	0xffffffffc0425781
+[DEBUG] 	eb 02 
+[DEBUG]   47:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   49:	movl	$32, %edi
+[DEBUG] 	bf 20 00 00 00 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   4e:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   51:	je	0xffffffffc042578e
+[DEBUG] 	74 03 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   53:	movl	(%rax), %edi
+[DEBUG] 	8b 78 00 
+[DEBUG] ; bpf_loop(count, loop2, NULL, 0);
+[DEBUG]   56:	movq	$-1069393892, %rsi
+[DEBUG] 	48 c7 c6 1c 58 42 c0 
+[DEBUG]   5d:	xorl	%edx, %edx
+[DEBUG] 	31 d2 
+[DEBUG]   5f:	xorl	%ecx, %ecx
+[DEBUG] 	31 c9 
+[DEBUG]   61:	cmpq	$8388608, %rdi
+[DEBUG] 	48 81 ff 00 00 80 00 
+[DEBUG]   68:	jbe	0xffffffffc04257a9
+[DEBUG] 	76 07 
+[DEBUG]   6a:	movl	$4294967289, %eax
+[DEBUG] 	b8 f9 ff ff ff 
+[DEBUG]   6f:	jmp	0xffffffffc04257e6
+[DEBUG] 	eb 3d 
+[DEBUG]   71:	movq	%rbx, -32(%rbp)
+[DEBUG] 	48 89 5d e0 
+[DEBUG]   75:	movq	%r13, -24(%rbp)
+[DEBUG] 	4c 89 6d e8 
+[DEBUG]   79:	movq	%r14, -16(%rbp)
+[DEBUG] 	4c 89 75 f0 
+[DEBUG]   7d:	movq	%rdi, %rbx
+[DEBUG] 	48 89 fb 
+[DEBUG]   80:	xorl	%r13d, %r13d
+[DEBUG] 	45 31 ed 
+[DEBUG]   83:	movq	%rdx, %r14
+[DEBUG] 	49 89 d6 
+[DEBUG]   86:	cmpq	%rbx, %r13
+[DEBUG] 	49 39 dd 
+[DEBUG]   89:	jae	0xffffffffc04257d7
+[DEBUG] 	73 14 
+[DEBUG]   8b:	movq	%r13, %rdi
+[DEBUG] 	4c 89 ef 
+[DEBUG]   8e:	movq	%r14, %rsi
+[DEBUG] 	4c 89 f6 
+[DEBUG]   91:	callq	0xffffffffc042581c
+[DEBUG] 	e8 4e 00 00 00 
+[DEBUG]   96:	addq	$1, %r13
+[DEBUG] 	49 83 c5 01 
+[DEBUG]   9a:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   9d:	je	0xffffffffc04257be
+[DEBUG] 	74 e7 
+[DEBUG]   9f:	movq	%r13, %rax
+[DEBUG] 	4c 89 e8 
+[DEBUG]   a2:	movq	-32(%rbp), %rbx
+[DEBUG] 	48 8b 5d e0 
+[DEBUG]   a6:	movq	-24(%rbp), %r13
+[DEBUG] 	4c 8b 6d e8 
+[DEBUG]   aa:	movq	-16(%rbp), %r14
+[DEBUG] 	4c 8b 75 f0 
+[DEBUG] ; return 0;
+[DEBUG]   ae:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   b0:	popq	%r14
+[DEBUG] 	41 5e 
+[DEBUG]   b2:	popq	%r13
+[DEBUG] 	41 5d 
+[DEBUG]   b4:	popq	%rbx
+[DEBUG] 	5b 
+[DEBUG]   b5:	leave
+[DEBUG] 	c9 
+[DEBUG]   b6:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 2d 91 03 c5 
+[DEBUG] 
+[DEBUG] int loop2():
+[DEBUG] bpf_prog_3f128170d468b262_loop2:
+[DEBUG] ; static int loop2() {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$32, %rsp
+[DEBUG] 	48 81 ec 20 00 00 00 
+[DEBUG]   13:	pushq	%rbx
+[DEBUG] 	53 
+[DEBUG]   14:	pushq	%r13
+[DEBUG] 	41 55 
+[DEBUG]   16:	pushq	%r14
+[DEBUG] 	41 56 
+[DEBUG]   18:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; __u32 key = 0;
+[DEBUG]   1a:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG]   1d:	movq	%rbp, %rsi
+[DEBUG] 	48 89 ee 
+[DEBUG]   20:	addq	$-4, %rsi
+[DEBUG] 	48 83 c6 fc 
+[DEBUG] ; __u32 *iters = bpf_map_lookup_elem(&control_map, &key);
+[DEBUG]   24:	movabsq	$-128988314925056, %rdi
+[DEBUG] 	48 bf 00 08 4f 91 af 8a ff ff 
+[DEBUG]   2e:	addq	$264, %rdi
+[DEBUG] 	48 81 c7 08 01 00 00 
+[DEBUG]   35:	movl	(%rsi), %eax
+[DEBUG] 	8b 46 00 
+[DEBUG]   38:	cmpq	$1, %rax
+[DEBUG] 	48 83 f8 01 
+[DEBUG]   3c:	jae	0xffffffffc0425863
+[DEBUG] 	73 09 
+[DEBUG]   3e:	shlq	$3, %rax
+[DEBUG] 	48 c1 e0 03 
+[DEBUG]   42:	addq	%rdi, %rax
+[DEBUG] 	48 01 f8 
+[DEBUG]   45:	jmp	0xffffffffc0425865
+[DEBUG] 	eb 02 
+[DEBUG]   47:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   49:	movl	$32, %edi
+[DEBUG] 	bf 20 00 00 00 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   4e:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   51:	je	0xffffffffc0425872
+[DEBUG] 	74 03 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   53:	movl	(%rax), %edi
+[DEBUG] 	8b 78 00 
+[DEBUG] ; bpf_loop(count, loop3, NULL, 0);
+[DEBUG]   56:	movq	$-1069393628, %rsi
+[DEBUG] 	48 c7 c6 24 59 42 c0 
+[DEBUG]   5d:	xorl	%edx, %edx
+[DEBUG] 	31 d2 
+[DEBUG]   5f:	xorl	%ecx, %ecx
+[DEBUG] 	31 c9 
+[DEBUG]   61:	cmpq	$8388608, %rdi
+[DEBUG] 	48 81 ff 00 00 80 00 
+[DEBUG]   68:	jbe	0xffffffffc042588d
+[DEBUG] 	76 07 
+[DEBUG]   6a:	movl	$4294967289, %eax
+[DEBUG] 	b8 f9 ff ff ff 
+[DEBUG]   6f:	jmp	0xffffffffc04258ca
+[DEBUG] 	eb 3d 
+[DEBUG]   71:	movq	%rbx, -32(%rbp)
+[DEBUG] 	48 89 5d e0 
+[DEBUG]   75:	movq	%r13, -24(%rbp)
+[DEBUG] 	4c 89 6d e8 
+[DEBUG]   79:	movq	%r14, -16(%rbp)
+[DEBUG] 	4c 89 75 f0 
+[DEBUG]   7d:	movq	%rdi, %rbx
+[DEBUG] 	48 89 fb 
+[DEBUG]   80:	xorl	%r13d, %r13d
+[DEBUG] 	45 31 ed 
+[DEBUG]   83:	movq	%rdx, %r14
+[DEBUG] 	49 89 d6 
+[DEBUG]   86:	cmpq	%rbx, %r13
+[DEBUG] 	49 39 dd 
+[DEBUG]   89:	jae	0xffffffffc04258bb
+[DEBUG] 	73 14 
+[DEBUG]   8b:	movq	%r13, %rdi
+[DEBUG] 	4c 89 ef 
+[DEBUG]   8e:	movq	%r14, %rsi
+[DEBUG] 	4c 89 f6 
+[DEBUG]   91:	callq	0xffffffffc0425924
+[DEBUG] 	e8 72 00 00 00 
+[DEBUG]   96:	addq	$1, %r13
+[DEBUG] 	49 83 c5 01 
+[DEBUG]   9a:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   9d:	je	0xffffffffc04258a2
+[DEBUG] 	74 e7 
+[DEBUG]   9f:	movq	%r13, %rax
+[DEBUG] 	4c 89 e8 
+[DEBUG]   a2:	movq	-32(%rbp), %rbx
+[DEBUG] 	48 8b 5d e0 
+[DEBUG]   a6:	movq	-24(%rbp), %r13
+[DEBUG] 	4c 8b 6d e8 
+[DEBUG]   aa:	movq	-16(%rbp), %r14
+[DEBUG] 	4c 8b 75 f0 
+[DEBUG] ; return 0;
+[DEBUG]   ae:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   b0:	popq	%r14
+[DEBUG] 	41 5e 
+[DEBUG]   b2:	popq	%r13
+[DEBUG] 	41 5d 
+[DEBUG]   b4:	popq	%rbx
+[DEBUG] 	5b 
+[DEBUG]   b5:	leave
+[DEBUG] 	c9 
+[DEBUG]   b6:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 49 90 03 c5 
+[DEBUG] 
+[DEBUG] int loop3():
+[DEBUG] bpf_prog_b50dd0ba4ef23762_loop3:
+[DEBUG] ; static int loop3() {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$32, %rsp
+[DEBUG] 	48 81 ec 20 00 00 00 
+[DEBUG]   13:	pushq	%rbx
+[DEBUG] 	53 
+[DEBUG]   14:	pushq	%r13
+[DEBUG] 	41 55 
+[DEBUG]   16:	pushq	%r14
+[DEBUG] 	41 56 
+[DEBUG]   18:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; __u32 key = 0;
+[DEBUG]   1a:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG]   1d:	movq	%rbp, %rsi
+[DEBUG] 	48 89 ee 
+[DEBUG]   20:	addq	$-4, %rsi
+[DEBUG] 	48 83 c6 fc 
+[DEBUG] ; __u32 *iters = bpf_map_lookup_elem(&control_map, &key);
+[DEBUG]   24:	movabsq	$-128988314925056, %rdi
+[DEBUG] 	48 bf 00 08 4f 91 af 8a ff ff 
+[DEBUG]   2e:	addq	$264, %rdi
+[DEBUG] 	48 81 c7 08 01 00 00 
+[DEBUG]   35:	movl	(%rsi), %eax
+[DEBUG] 	8b 46 00 
+[DEBUG]   38:	cmpq	$1, %rax
+[DEBUG] 	48 83 f8 01 
+[DEBUG]   3c:	jae	0xffffffffc042596b
+[DEBUG] 	73 09 
+[DEBUG]   3e:	shlq	$3, %rax
+[DEBUG] 	48 c1 e0 03 
+[DEBUG]   42:	addq	%rdi, %rax
+[DEBUG] 	48 01 f8 
+[DEBUG]   45:	jmp	0xffffffffc042596d
+[DEBUG] 	eb 02 
+[DEBUG]   47:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   49:	movl	$32, %edi
+[DEBUG] 	bf 20 00 00 00 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   4e:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   51:	je	0xffffffffc042597a
+[DEBUG] 	74 03 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   53:	movl	(%rax), %edi
+[DEBUG] 	8b 78 00 
+[DEBUG] ; bpf_loop(count, simple, NULL, 0);
+[DEBUG]   56:	movq	$-1069393352, %rsi
+[DEBUG] 	48 c7 c6 38 5a 42 c0 
+[DEBUG]   5d:	xorl	%edx, %edx
+[DEBUG] 	31 d2 
+[DEBUG]   5f:	xorl	%ecx, %ecx
+[DEBUG] 	31 c9 
+[DEBUG]   61:	cmpq	$8388608, %rdi
+[DEBUG] 	48 81 ff 00 00 80 00 
+[DEBUG]   68:	jbe	0xffffffffc0425995
+[DEBUG] 	76 07 
+[DEBUG]   6a:	movl	$4294967289, %eax
+[DEBUG] 	b8 f9 ff ff ff 
+[DEBUG]   6f:	jmp	0xffffffffc04259d2
+[DEBUG] 	eb 3d 
+[DEBUG]   71:	movq	%rbx, -32(%rbp)
+[DEBUG] 	48 89 5d e0 
+[DEBUG]   75:	movq	%r13, -24(%rbp)
+[DEBUG] 	4c 89 6d e8 
+[DEBUG]   79:	movq	%r14, -16(%rbp)
+[DEBUG] 	4c 89 75 f0 
+[DEBUG]   7d:	movq	%rdi, %rbx
+[DEBUG] 	48 89 fb 
+[DEBUG]   80:	xorl	%r13d, %r13d
+[DEBUG] 	45 31 ed 
+[DEBUG]   83:	movq	%rdx, %r14
+[DEBUG] 	49 89 d6 
+[DEBUG]   86:	cmpq	%rbx, %r13
+[DEBUG] 	49 39 dd 
+[DEBUG]   89:	jae	0xffffffffc04259c3
+[DEBUG] 	73 14 
+[DEBUG]   8b:	movq	%r13, %rdi
+[DEBUG] 	4c 89 ef 
+[DEBUG]   8e:	movq	%r14, %rsi
+[DEBUG] 	4c 89 f6 
+[DEBUG]   91:	callq	0xffffffffc0425a38
+[DEBUG] 	e8 7e 00 00 00 
+[DEBUG]   96:	addq	$1, %r13
+[DEBUG] 	49 83 c5 01 
+[DEBUG]   9a:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   9d:	je	0xffffffffc04259aa
+[DEBUG] 	74 e7 
+[DEBUG]   9f:	movq	%r13, %rax
+[DEBUG] 	4c 89 e8 
+[DEBUG]   a2:	movq	-32(%rbp), %rbx
+[DEBUG] 	48 8b 5d e0 
+[DEBUG]   a6:	movq	-24(%rbp), %r13
+[DEBUG] 	4c 8b 6d e8 
+[DEBUG]   aa:	movq	-16(%rbp), %r14
+[DEBUG] 	4c 8b 75 f0 
+[DEBUG] ; return 0;
+[DEBUG]   ae:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   b0:	popq	%r14
+[DEBUG] 	41 5e 
+[DEBUG]   b2:	popq	%r13
+[DEBUG] 	41 5d 
+[DEBUG]   b4:	popq	%rbx
+[DEBUG] 	5b 
+[DEBUG]   b5:	leave
+[DEBUG] 	c9 
+[DEBUG]   b6:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 41 8f 03 c5 
+[DEBUG] 
+[DEBUG] int simple():
+[DEBUG] bpf_prog_48a7145975360457_simple:
+[DEBUG] ; bpf_die_kfunc();
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	callq	0xffffffff845bdc90
+[DEBUG] 	e8 47 82 19 c4 
+[DEBUG] ; bpf_printk("not terminated\n");
+[DEBUG]   11:	movabsq	$-128988314925816, %rdi
+[DEBUG] 	48 bf 08 05 4f 91 af 8a ff ff 
+[DEBUG]   1b:	movl	$16, %esi
+[DEBUG] 	be 10 00 00 00 
+[DEBUG]   20:	callq	0xffffffff84554b80
+[DEBUG] 	e8 23 f1 12 c4 
+[DEBUG] ; return 0;
+[DEBUG]   25:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   27:	leave
+[DEBUG] 	c9 
+[DEBUG]   28:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 bb 8e 03 c5 
+[DEBUG] 
+[DEBUG] ----------------------------------------
+[DEBUG] Finding control_map...
+[DEBUG] Found control_map, FD: 5
+[DEBUG] Setting iteration count to 101 in control_map
+[DEBUG] Successfully set iteration count
+[DEBUG] Attaching program to tracepoint...
+[DEBUG] Successfully attached program to tracepoint
+[DEBUG] Starting 1 measurement runs...
+[DEBUG] JIT Instructions (after first trigger) (disassembled via bpftool):
+[DEBUG] ----------------------------------------
+[DEBUG] Using bpftool at: /home/rosa/saterm/linux/tools/bpf/bpftool/bpftool
+[DEBUG] int tracepoint_exit_runtime_terminated(struct pt_regs * ctx):
+[DEBUG] bpf_prog_113c3671176fdbd9_tracepoint_exit_runtime_terminated:
+[DEBUG] ; int tracepoint_exit_runtime_terminated(struct pt_regs *ctx) {
+[DEBUG]    0:	nopl	-23(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 e9 
+[DEBUG]    5:	fists	-1991719677(%rcx)
+[DEBUG] 	df 91 03 c5 48 89 
+[DEBUG]    b:	inl	$72, %eax
+[DEBUG] 	e5 48 
+[DEBUG]    d:	subl	$32, %esp
+[DEBUG] 	81 ec 20 00 00 00 
+[DEBUG]   13:	pushq	%rbx
+[DEBUG] 	53 
+[DEBUG]   14:	pushq	%r13
+[DEBUG] 	41 55 
+[DEBUG]   16:	pushq	%r14
+[DEBUG] 	41 56 
+[DEBUG]   18:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; __u32 key = 0;
+[DEBUG]   1a:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG]   1d:	movq	%rbp, %rsi
+[DEBUG] 	48 89 ee 
+[DEBUG]   20:	addq	$-4, %rsi
+[DEBUG] 	48 83 c6 fc 
+[DEBUG] ; __u32 *iters = bpf_map_lookup_elem(&control_map, &key);
+[DEBUG]   24:	movabsq	$-128988314925056, %rdi
+[DEBUG] 	48 bf 00 08 4f 91 af 8a ff ff 
+[DEBUG]   2e:	addq	$264, %rdi
+[DEBUG] 	48 81 c7 08 01 00 00 
+[DEBUG]   35:	movl	(%rsi), %eax
+[DEBUG] 	8b 46 00 
+[DEBUG]   38:	cmpq	$1, %rax
+[DEBUG] 	48 83 f8 01 
+[DEBUG]   3c:	jae	0xffffffffc042577f
+[DEBUG] 	73 09 
+[DEBUG]   3e:	shlq	$3, %rax
+[DEBUG] 	48 c1 e0 03 
+[DEBUG]   42:	addq	%rdi, %rax
+[DEBUG] 	48 01 f8 
+[DEBUG]   45:	jmp	0xffffffffc0425781
+[DEBUG] 	eb 02 
+[DEBUG]   47:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   49:	movl	$32, %edi
+[DEBUG] 	bf 20 00 00 00 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   4e:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   51:	je	0xffffffffc042578e
+[DEBUG] 	74 03 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   53:	movl	(%rax), %edi
+[DEBUG] 	8b 78 00 
+[DEBUG] ; bpf_loop(count, loop2, NULL, 0);
+[DEBUG]   56:	movq	$-1069393892, %rsi
+[DEBUG] 	48 c7 c6 1c 58 42 c0 
+[DEBUG]   5d:	xorl	%edx, %edx
+[DEBUG] 	31 d2 
+[DEBUG]   5f:	xorl	%ecx, %ecx
+[DEBUG] 	31 c9 
+[DEBUG]   61:	cmpq	$8388608, %rdi
+[DEBUG] 	48 81 ff 00 00 80 00 
+[DEBUG]   68:	jbe	0xffffffffc04257a9
+[DEBUG] 	76 07 
+[DEBUG]   6a:	movl	$4294967289, %eax
+[DEBUG] 	b8 f9 ff ff ff 
+[DEBUG]   6f:	jmp	0xffffffffc04257e6
+[DEBUG] 	eb 3d 
+[DEBUG]   71:	movq	%rbx, -32(%rbp)
+[DEBUG] 	48 89 5d e0 
+[DEBUG]   75:	movq	%r13, -24(%rbp)
+[DEBUG] 	4c 89 6d e8 
+[DEBUG]   79:	movq	%r14, -16(%rbp)
+[DEBUG] 	4c 89 75 f0 
+[DEBUG]   7d:	movq	%rdi, %rbx
+[DEBUG] 	48 89 fb 
+[DEBUG]   80:	xorl	%r13d, %r13d
+[DEBUG] 	45 31 ed 
+[DEBUG]   83:	movq	%rdx, %r14
+[DEBUG] 	49 89 d6 
+[DEBUG]   86:	cmpq	%rbx, %r13
+[DEBUG] 	49 39 dd 
+[DEBUG]   89:	jae	0xffffffffc04257d7
+[DEBUG] 	73 14 
+[DEBUG]   8b:	movq	%r13, %rdi
+[DEBUG] 	4c 89 ef 
+[DEBUG]   8e:	movq	%r14, %rsi
+[DEBUG] 	4c 89 f6 
+[DEBUG]   91:	callq	0xffffffff845749b0
+[DEBUG] 	e8 e2 f1 14 c4 
+[DEBUG]   96:	addq	$1, %r13
+[DEBUG] 	49 83 c5 01 
+[DEBUG]   9a:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   9d:	je	0xffffffffc04257be
+[DEBUG] 	74 e7 
+[DEBUG]   9f:	movq	%r13, %rax
+[DEBUG] 	4c 89 e8 
+[DEBUG]   a2:	movq	-32(%rbp), %rbx
+[DEBUG] 	48 8b 5d e0 
+[DEBUG]   a6:	movq	-24(%rbp), %r13
+[DEBUG] 	4c 8b 6d e8 
+[DEBUG]   aa:	movq	-16(%rbp), %r14
+[DEBUG] 	4c 8b 75 f0 
+[DEBUG] ; return 0;
+[DEBUG]   ae:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   b0:	popq	%r14
+[DEBUG] 	41 5e 
+[DEBUG]   b2:	popq	%r13
+[DEBUG] 	41 5d 
+[DEBUG]   b4:	popq	%rbx
+[DEBUG] 	5b 
+[DEBUG]   b5:	leave
+[DEBUG] 	c9 
+[DEBUG]   b6:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 2d 91 03 c5 
+[DEBUG] 
+[DEBUG] int loop2():
+[DEBUG] bpf_prog_3f128170d468b262_loop2:
+[DEBUG] ; static int loop2() {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$32, %rsp
+[DEBUG] 	48 81 ec 20 00 00 00 
+[DEBUG]   13:	pushq	%rbx
+[DEBUG] 	53 
+[DEBUG]   14:	pushq	%r13
+[DEBUG] 	41 55 
+[DEBUG]   16:	pushq	%r14
+[DEBUG] 	41 56 
+[DEBUG]   18:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; __u32 key = 0;
+[DEBUG]   1a:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG]   1d:	movq	%rbp, %rsi
+[DEBUG] 	48 89 ee 
+[DEBUG]   20:	addq	$-4, %rsi
+[DEBUG] 	48 83 c6 fc 
+[DEBUG] ; __u32 *iters = bpf_map_lookup_elem(&control_map, &key);
+[DEBUG]   24:	movabsq	$-128988314925056, %rdi
+[DEBUG] 	48 bf 00 08 4f 91 af 8a ff ff 
+[DEBUG]   2e:	addq	$264, %rdi
+[DEBUG] 	48 81 c7 08 01 00 00 
+[DEBUG]   35:	movl	(%rsi), %eax
+[DEBUG] 	8b 46 00 
+[DEBUG]   38:	cmpq	$1, %rax
+[DEBUG] 	48 83 f8 01 
+[DEBUG]   3c:	jae	0xffffffffc0425863
+[DEBUG] 	73 09 
+[DEBUG]   3e:	shlq	$3, %rax
+[DEBUG] 	48 c1 e0 03 
+[DEBUG]   42:	addq	%rdi, %rax
+[DEBUG] 	48 01 f8 
+[DEBUG]   45:	jmp	0xffffffffc0425865
+[DEBUG] 	eb 02 
+[DEBUG]   47:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   49:	movl	$32, %edi
+[DEBUG] 	bf 20 00 00 00 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   4e:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   51:	je	0xffffffffc0425872
+[DEBUG] 	74 03 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   53:	movl	(%rax), %edi
+[DEBUG] 	8b 78 00 
+[DEBUG] ; bpf_loop(count, loop3, NULL, 0);
+[DEBUG]   56:	movq	$-1069393628, %rsi
+[DEBUG] 	48 c7 c6 24 59 42 c0 
+[DEBUG]   5d:	xorl	%edx, %edx
+[DEBUG] 	31 d2 
+[DEBUG]   5f:	xorl	%ecx, %ecx
+[DEBUG] 	31 c9 
+[DEBUG]   61:	cmpq	$8388608, %rdi
+[DEBUG] 	48 81 ff 00 00 80 00 
+[DEBUG]   68:	jbe	0xffffffffc042588d
+[DEBUG] 	76 07 
+[DEBUG]   6a:	movl	$4294967289, %eax
+[DEBUG] 	b8 f9 ff ff ff 
+[DEBUG]   6f:	jmp	0xffffffffc04258ca
+[DEBUG] 	eb 3d 
+[DEBUG]   71:	movq	%rbx, -32(%rbp)
+[DEBUG] 	48 89 5d e0 
+[DEBUG]   75:	movq	%r13, -24(%rbp)
+[DEBUG] 	4c 89 6d e8 
+[DEBUG]   79:	movq	%r14, -16(%rbp)
+[DEBUG] 	4c 89 75 f0 
+[DEBUG]   7d:	movq	%rdi, %rbx
+[DEBUG] 	48 89 fb 
+[DEBUG]   80:	xorl	%r13d, %r13d
+[DEBUG] 	45 31 ed 
+[DEBUG]   83:	movq	%rdx, %r14
+[DEBUG] 	49 89 d6 
+[DEBUG]   86:	cmpq	%rbx, %r13
+[DEBUG] 	49 39 dd 
+[DEBUG]   89:	jae	0xffffffffc04258bb
+[DEBUG] 	73 14 
+[DEBUG]   8b:	movq	%r13, %rdi
+[DEBUG] 	4c 89 ef 
+[DEBUG]   8e:	movq	%r14, %rsi
+[DEBUG] 	4c 89 f6 
+[DEBUG]   91:	callq	0xffffffff845749b0
+[DEBUG] 	e8 fe f0 14 c4 
+[DEBUG]   96:	addq	$1, %r13
+[DEBUG] 	49 83 c5 01 
+[DEBUG]   9a:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   9d:	je	0xffffffffc04258a2
+[DEBUG] 	74 e7 
+[DEBUG]   9f:	movq	%r13, %rax
+[DEBUG] 	4c 89 e8 
+[DEBUG]   a2:	movq	-32(%rbp), %rbx
+[DEBUG] 	48 8b 5d e0 
+[DEBUG]   a6:	movq	-24(%rbp), %r13
+[DEBUG] 	4c 8b 6d e8 
+[DEBUG]   aa:	movq	-16(%rbp), %r14
+[DEBUG] 	4c 8b 75 f0 
+[DEBUG] ; return 0;
+[DEBUG]   ae:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   b0:	popq	%r14
+[DEBUG] 	41 5e 
+[DEBUG]   b2:	popq	%r13
+[DEBUG] 	41 5d 
+[DEBUG]   b4:	popq	%rbx
+[DEBUG] 	5b 
+[DEBUG]   b5:	leave
+[DEBUG] 	c9 
+[DEBUG]   b6:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 49 90 03 c5 
+[DEBUG] 
+[DEBUG] int loop3():
+[DEBUG] bpf_prog_b50dd0ba4ef23762_loop3:
+[DEBUG] ; static int loop3() {
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	subq	$32, %rsp
+[DEBUG] 	48 81 ec 20 00 00 00 
+[DEBUG]   13:	pushq	%rbx
+[DEBUG] 	53 
+[DEBUG]   14:	pushq	%r13
+[DEBUG] 	41 55 
+[DEBUG]   16:	pushq	%r14
+[DEBUG] 	41 56 
+[DEBUG]   18:	xorl	%edi, %edi
+[DEBUG] 	31 ff 
+[DEBUG] ; __u32 key = 0;
+[DEBUG]   1a:	movl	%edi, -4(%rbp)
+[DEBUG] 	89 7d fc 
+[DEBUG]   1d:	movq	%rbp, %rsi
+[DEBUG] 	48 89 ee 
+[DEBUG]   20:	addq	$-4, %rsi
+[DEBUG] 	48 83 c6 fc 
+[DEBUG] ; __u32 *iters = bpf_map_lookup_elem(&control_map, &key);
+[DEBUG]   24:	movabsq	$-128988314925056, %rdi
+[DEBUG] 	48 bf 00 08 4f 91 af 8a ff ff 
+[DEBUG]   2e:	addq	$264, %rdi
+[DEBUG] 	48 81 c7 08 01 00 00 
+[DEBUG]   35:	movl	(%rsi), %eax
+[DEBUG] 	8b 46 00 
+[DEBUG]   38:	cmpq	$1, %rax
+[DEBUG] 	48 83 f8 01 
+[DEBUG]   3c:	jae	0xffffffffc042596b
+[DEBUG] 	73 09 
+[DEBUG]   3e:	shlq	$3, %rax
+[DEBUG] 	48 c1 e0 03 
+[DEBUG]   42:	addq	%rdi, %rax
+[DEBUG] 	48 01 f8 
+[DEBUG]   45:	jmp	0xffffffffc042596d
+[DEBUG] 	eb 02 
+[DEBUG]   47:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   49:	movl	$32, %edi
+[DEBUG] 	bf 20 00 00 00 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   4e:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   51:	je	0xffffffffc042597a
+[DEBUG] 	74 03 
+[DEBUG] ; __u32 count = iters ? *iters : DEFAULT_ITERS;
+[DEBUG]   53:	movl	(%rax), %edi
+[DEBUG] 	8b 78 00 
+[DEBUG] ; bpf_loop(count, simple, NULL, 0);
+[DEBUG]   56:	movq	$-1069393352, %rsi
+[DEBUG] 	48 c7 c6 38 5a 42 c0 
+[DEBUG]   5d:	xorl	%edx, %edx
+[DEBUG] 	31 d2 
+[DEBUG]   5f:	xorl	%ecx, %ecx
+[DEBUG] 	31 c9 
+[DEBUG]   61:	cmpq	$8388608, %rdi
+[DEBUG] 	48 81 ff 00 00 80 00 
+[DEBUG]   68:	jbe	0xffffffffc0425995
+[DEBUG] 	76 07 
+[DEBUG]   6a:	movl	$4294967289, %eax
+[DEBUG] 	b8 f9 ff ff ff 
+[DEBUG]   6f:	jmp	0xffffffffc04259d2
+[DEBUG] 	eb 3d 
+[DEBUG]   71:	movq	%rbx, -32(%rbp)
+[DEBUG] 	48 89 5d e0 
+[DEBUG]   75:	movq	%r13, -24(%rbp)
+[DEBUG] 	4c 89 6d e8 
+[DEBUG]   79:	movq	%r14, -16(%rbp)
+[DEBUG] 	4c 89 75 f0 
+[DEBUG]   7d:	movq	%rdi, %rbx
+[DEBUG] 	48 89 fb 
+[DEBUG]   80:	xorl	%r13d, %r13d
+[DEBUG] 	45 31 ed 
+[DEBUG]   83:	movq	%rdx, %r14
+[DEBUG] 	49 89 d6 
+[DEBUG]   86:	cmpq	%rbx, %r13
+[DEBUG] 	49 39 dd 
+[DEBUG]   89:	jae	0xffffffffc04259c3
+[DEBUG] 	73 14 
+[DEBUG]   8b:	movq	%r13, %rdi
+[DEBUG] 	4c 89 ef 
+[DEBUG]   8e:	movq	%r14, %rsi
+[DEBUG] 	4c 89 f6 
+[DEBUG]   91:	callq	0xffffffff845749b0
+[DEBUG] 	e8 f6 ef 14 c4 
+[DEBUG]   96:	addq	$1, %r13
+[DEBUG] 	49 83 c5 01 
+[DEBUG]   9a:	testq	%rax, %rax
+[DEBUG] 	48 85 c0 
+[DEBUG]   9d:	je	0xffffffffc04259aa
+[DEBUG] 	74 e7 
+[DEBUG]   9f:	movq	%r13, %rax
+[DEBUG] 	4c 89 e8 
+[DEBUG]   a2:	movq	-32(%rbp), %rbx
+[DEBUG] 	48 8b 5d e0 
+[DEBUG]   a6:	movq	-24(%rbp), %r13
+[DEBUG] 	4c 8b 6d e8 
+[DEBUG]   aa:	movq	-16(%rbp), %r14
+[DEBUG] 	4c 8b 75 f0 
+[DEBUG] ; return 0;
+[DEBUG]   ae:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   b0:	popq	%r14
+[DEBUG] 	41 5e 
+[DEBUG]   b2:	popq	%r13
+[DEBUG] 	41 5d 
+[DEBUG]   b4:	popq	%rbx
+[DEBUG] 	5b 
+[DEBUG]   b5:	leave
+[DEBUG] 	c9 
+[DEBUG]   b6:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 41 8f 03 c5 
+[DEBUG] 
+[DEBUG] int simple():
+[DEBUG] bpf_prog_48a7145975360457_simple:
+[DEBUG] ; bpf_die_kfunc();
+[DEBUG]    0:	nopl	(%rax,%rax)
+[DEBUG] 	0f 1f 44 00 00 
+[DEBUG]    5:	nopl	(%rax)
+[DEBUG] 	0f 1f 00 
+[DEBUG]    8:	pushq	%rbp
+[DEBUG] 	55 
+[DEBUG]    9:	movq	%rsp, %rbp
+[DEBUG] 	48 89 e5 
+[DEBUG]    c:	callq	0xffffffff845bdc90
+[DEBUG] 	e8 47 82 19 c4 
+[DEBUG] ; bpf_printk("not terminated\n");
+[DEBUG]   11:	movabsq	$-128988314925816, %rdi
+[DEBUG] 	48 bf 08 05 4f 91 af 8a ff ff 
+[DEBUG]   1b:	movl	$16, %esi
+[DEBUG] 	be 10 00 00 00 
+[DEBUG]   20:	callq	0xffffffff845749d0
+[DEBUG] 	e8 73 ef 14 c4 
+[DEBUG] ; return 0;
+[DEBUG]   25:	xorl	%eax, %eax
+[DEBUG] 	31 c0 
+[DEBUG]   27:	leave
+[DEBUG] 	c9 
+[DEBUG]   28:	jmp	0xffffffff8545e920
+[DEBUG] 	e9 bb 8e 03 c5 
+[DEBUG] 
+[DEBUG] ----------------------------------------
+[DEBUG] Completed all 1 measurement runs
+[DEBUG] Destroying BPF link...
+[DEBUG] Closing BPF object...
+[DEBUG] Cleanup complete for terminated
+[DEBUG] --- Completed iteration count: 101 ---
+[DEBUG] Completed all tests for program: terminated
+[DEBUG] All tests completed. Closing CSV file...
+[DEBUG] Results written to: results.csv
