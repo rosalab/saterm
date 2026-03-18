@@ -13,7 +13,7 @@ $(FILES): %.o : %.c
 	$(BPF-CLANG) $(INCLUDE) $(BPF_CLANG_CFLAGS) -o $@ $<
 
 $(USER): % : %.c
-	gcc $(USER-CFLAGS) $< -lbpf -o $@
+	gcc $(USER-CFLAGS) $< -lbpf -lm -o $@
 
 .PHONY: clean
 clean:

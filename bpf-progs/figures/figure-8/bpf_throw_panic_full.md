@@ -1,0 +1,119 @@
+# command ran:
+```
+sudo ./figure8.user kflex 100 62 5 3
+```
+
+# result:
+```
+[   65.867562] BUG: unable to handle page fault for address: 0000000f576088a7
+[   65.868971] #PF: supervisor read access in kernel mode
+[   65.870374] #PF: error_code(0x0000) - not-present page
+[   65.871762] PGD 0 P4D 0
+[   65.872275] Oops: Oops: 0000 [#1] SMP NOPTI
+[   65.873149] CPU: 27 UID: 0 PID: 2588 Comm: figure8.user Tainted: G        W           6.17.0-rc5-kflex+ #13 PREEMPT(voluntary)
+[   65.875400] Tainted: [W]=WARN
+[   65.875960] Hardware name: QEMU Ubuntu 24.04 PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[   65.877434] RIP: 0010:trace_call_bpf+0x141/0x1b0
+[   65.878085] Code: c9 31 f6 31 ff e9 ff eb f0 00 e8 0a be d8 ff 48 8d 73 60 4c 89 ef 49 89 c7 48 8b 43 48 ff d0 0f 1f 00 41 89 c6 e8 ef bd d8 ff <48
+[   65.881082] RSP: 0018:ffffd3bc05ce3b30 EFLAGS: 00010282
+[   65.881855] RAX: 0000000f5764eac4 RBX: 0000000f5760886f RCX: 0000000000000000
+[   65.882701] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+[   65.883482] RBP: ffff8ef6d046ccd0 R08: 0000000000000000 R09: 0000000000000000
+[   65.884261] R10: 0000000000000000 R11: 0000000000000000 R12: 00000000deadbeef
+[   65.885038] R13: ffffffffc061b077 R14: 0000000000000000 R15: 0000000000000000
+[   65.885820] FS:  0000795257abe740(0000) GS:ffff8efc50828000(0000) knlGS:0000000000000000
+[   65.886702] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   65.887337] CR2: 0000000f576088a7 CR3: 000000011713b000 CR4: 0000000000752ef0
+[   65.888122] PKRU: 55555554
+[   65.888311] Call Trace:
+[   65.888475]  <TASK>
+[   65.888613]  perf_syscall_exit+0x12d/0x200
+[   65.888873]  syscall_exit_work+0xa1/0x150
+[   65.889132]  do_syscall_64+0x25b/0x320
+[   65.889372]  ? __sys_bpf+0x2169/0x2590
+[   65.889611]  ? perf_ioctl+0x52/0x70
+[   65.889833]  ? syscall_exit_work+0xa1/0x150
+[   65.890098]  ? syscall_exit_work+0xa1/0x150
+[   65.890360]  ? do_syscall_64+0xb8/0x320
+[   65.890614]  ? exit_to_user_mode_loop+0xdd/0x160
+[   65.890906]  ? ksys_read+0x69/0xf0
+[   65.891126]  ? clear_bhb_loop+0x40/0x90
+[   65.891370]  ? clear_bhb_loop+0x40/0x90
+[   65.891612]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+[   65.891930] RIP: 0033:0x79525792728d
+[   65.892231] Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48
+[   65.893377] RSP: 002b:00007ffd701fd518 EFLAGS: 00000246 ORIG_RAX: 00000000000001d6
+[   65.893829] RAX: 0000000000000000 RBX: 00007ffd701fd9d8 RCX: 000079525792728d
+[   65.894216] RDX: 000079525792728d RSI: 0000000000000000 RDI: 00007ffd701fd340
+[   65.894602] RBP: 00007ffd701fd5a0 R08: 000000e800000007 R09: 00007ffd701fd5f0
+[   65.894992] R10: 0000000000000007 R11: 0000000000000246 R12: 0000000000000006
+[   65.895382] R13: 0000000000000000 R14: 000057eff9217c70 R15: 0000795257bb6000
+[   65.895769]  </TASK>
+[   65.895895] Modules linked in: xt_CHECKSUM xt_MASQUERADE xt_conntrack ipt_REJECT nf_reject_ipv4 xt_tcpudp nft_compat x_tables nft_chain_nat nf_natl
+[   65.900770] CR2: 0000000f576088a7
+[   65.901085] ---[ end trace 0000000000000000 ]---
+[   65.901695] RIP: 0010:trace_call_bpf+0x141/0x1b0
+[   65.902385] Code: c9 31 f6 31 ff e9 ff eb f0 00 e8 0a be d8 ff 48 8d 73 60 4c 89 ef 49 89 c7 48 8b 43 48 ff d0 0f 1f 00 41 89 c6 e8 ef bd d8 ff <48
+[   65.903985] RSP: 0018:ffffd3bc05ce3b30 EFLAGS: 00010282
+[   65.904461] RAX: 0000000f5764eac4 RBX: 0000000f5760886f RCX: 0000000000000000
+[   65.905052] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+[   65.905646] RBP: ffff8ef6d046ccd0 R08: 0000000000000000 R09: 0000000000000000
+[   65.906183] R10: 0000000000000000 R11: 0000000000000000 R12: 00000000deadbeef
+[   65.906720] R13: ffffffffc061b077 R14: 0000000000000000 R15: 0000000000000000
+[   65.907245] FS:  0000795257abe740(0000) GS:ffff8efc50828000(0000) knlGS:0000000000000000
+[   65.907815] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   65.908258] CR2: 0000000f576088a7 CR3: 000000011713b000 CR4: 0000000000752ef0
+[   65.908783] PKRU: 55555554
+[   65.909067] note: figure8.user[2588] exited with irqs disabled
+[   65.909552] note: figure8.user[2588] exited with preempt_count 1
+[   65.911095] ------------[ cut here ]------------
+[   65.911507] Voluntary context switch within RCU read-side critical section!
+[   65.911513] WARNING: CPU: 27 PID: 2588 at kernel/rcu/tree_plugin.h:332 rcu_note_context_switch+0x519/0x580
+[   65.912920] Modules linked in: xt_CHECKSUM xt_MASQUERADE xt_conntrack ipt_REJECT nf_reject_ipv4 xt_tcpudp nft_compat x_tables nft_chain_nat nf_natl
+[   65.918915] CPU: 27 UID: 0 PID: 2588 Comm: figure8.user Tainted: G      D W           6.17.0-rc5-kflex+ #13 PREEMPT(voluntary)
+[   65.919718] Tainted: [D]=DIE, [W]=WARN
+[   65.920102] Hardware name: QEMU Ubuntu 24.04 PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[   65.920815] RIP: 0010:rcu_note_context_switch+0x519/0x580
+[   65.921289] Code: ff 49 89 85 a8 00 00 00 e9 4f fd ff ff 45 85 f6 75 ef e9 45 fd ff ff 48 c7 c7 28 19 a1 95 c6 05 a7 77 5e 02 01 e8 07 67 f2 ff <01
+[   65.922669] RSP: 0018:ffffd3bc05ce3bb8 EFLAGS: 00010046
+[   65.923150] RAX: 0000000000000000 RBX: ffff8ef6d2105280 RCX: 0000000000000000
+[   65.923731] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+[   65.924375] RBP: ffff8efbe7bb3640 R08: 0000000000000000 R09: 0000000000000000
+[   65.925061] R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000000
+[   65.925719] R13: 0000000000000000 R14: 0000000000000000 R15: ffff8ef6d2105280
+[   65.926292] FS:  0000000000000000(0000) GS:ffff8efc50828000(0000) knlGS:0000000000000000
+[   65.926923] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   65.927423] CR2: 0000000f576088a7 CR3: 0000000178840000 CR4: 0000000000752ef0
+[   65.927981] PKRU: 55555554
+[   65.928303] Call Trace:
+[   65.928613]  <TASK>
+[   65.928900]  __schedule+0xe7/0x1640
+[   65.929269]  schedule+0x23/0xd0
+[   65.929612]  schedule_timeout+0x100/0x110
+[   65.929992]  __wait_for_common+0x94/0x180
+[   65.930371]  ? __pfx_schedule_timeout+0x10/0x10
+[   65.930768]  wait_for_completion_state+0x1d/0x40
+[   65.931175]  __wait_rcu_gp+0x184/0x190
+[   65.931538]  synchronize_rcu_tasks_generic+0x66/0xf0
+[   65.931958]  ? __pfx_call_rcu_tasks_trace+0x10/0x10
+[   65.932380]  ? __pfx_wakeme_after_rcu+0x10/0x10
+[   65.932765]  perf_event_detach_bpf_prog+0xa7/0x120
+[   65.933189]  bpf_perf_link_release+0x16/0x20
+[   65.933629]  bpf_link_free+0x4e/0xf0
+[   65.934027]  bpf_link_release+0x14/0x20
+[   65.934443]  __fput+0xe6/0x2b0
+[   65.934796]  task_work_run+0x55/0x90
+[   65.935185]  do_exit+0x2a5/0xa40
+[   65.935579]  make_task_dead+0x7d/0x160
+[   65.935910]  rewind_stack_and_make_dead+0x16/0x20
+[   65.936335] RIP: 0033:0x79525792728d
+[   65.936679] Code: Unable to access opcode bytes at 0x795257927263.
+[   65.937146] RSP: 002b:00007ffd701fd518 EFLAGS: 00000246 ORIG_RAX: 00000000000001d6
+[   65.937693] RAX: 0000000000000000 RBX: 00007ffd701fd9d8 RCX: 000079525792728d
+[   65.938217] RDX: 000079525792728d RSI: 0000000000000000 RDI: 00007ffd701fd340
+[   65.938741] RBP: 00007ffd701fd5a0 R08: 000000e800000007 R09: 00007ffd701fd5f0
+[   65.939264] R10: 0000000000000007 R11: 0000000000000246 R12: 0000000000000006
+[   65.939784] R13: 0000000000000000 R14: 000057eff9217c70 R15: 0000795257bb6000
+[   65.940327]  </TASK>
+[   65.940584] ---[ end trace 0000000000000000 ]---
+```

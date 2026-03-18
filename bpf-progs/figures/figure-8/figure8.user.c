@@ -4,8 +4,9 @@
  * Runs three sweeps:
  * 1) Verification time vs number of branches (times bpftool prog load)
  * 2) Termination time vs number of local objects
- *    - kflex: uses /proc/bpf_throw_stats for accurate bpf_throw timing
  *    - saterm: uses run_time_ns delta from bpf_prog_info
+ *    - kflex: skipped by default because tracepoint bpf_throw() is unsafe;
+ *      pass --unsafe-kflex-throw to force it and use /proc/bpf_throw_stats
  * 3) Load-time memory vs number of local objects (MemAvailable delta)
  *
  * Use tag "baseline" for unmodified kernel: runs memory sweep only.
@@ -15,7 +16,8 @@
  * Usage:
  *   ./figure8.user <saterm|kflex|baseline> <num_branches> <num_objects>
  *                  <iteration_interval> <num_runs>
- *                  [branches_csv] [objects_csv] [memory_csv] [--verbose]
+ *                  [branches_csv] [objects_csv] [memory_csv]
+ *                  [--verbose] [--unsafe-kflex-throw]
  */
 
 #include <bpf/bpf.h>
@@ -46,7 +48,6 @@ struct kernel_variant {
 	const char *branches_obj;   /* NULL for baseline */
 	const char *objects_obj;    /* for termination; NULL for baseline */
 	const char *memory_obj;    /* for load-time memory sweep */
-	bool branches_and_objects; /* false for baseline: memory only */
 };
 
 static uint64_t get_program_runtime_ns(int prog_fd)
@@ -535,21 +536,18 @@ int main(int argc, char **argv)
 			.branches_obj = "branches_die.kern.o",
 			.objects_obj = "objects_die.kern.o",
 			.memory_obj = "objects_die.kern.o",
-			.branches_and_objects = true,
 		},
 		{
 			.tag = "kflex",
 			.branches_obj = "branches_throw.kern.o",
 			.objects_obj = "objects_throw.kern.o",
 			.memory_obj = "objects_throw.kern.o",
-			.branches_and_objects = true,
 		},
 		{
 			.tag = "baseline",
 			.branches_obj = NULL,
 			.objects_obj = NULL,
 			.memory_obj = "objects_baseline.kern.o",
-			.branches_and_objects = false,
 		},
 	};
 	const struct kernel_variant *selected = NULL;
@@ -557,7 +555,9 @@ int main(int argc, char **argv)
 	const char *branches_csv_path;
 	const char *objects_csv_path;
 	const char *memory_csv_path;
+	bool run_object_benchmark;
 	bool verbose = false;
+	bool unsafe_kflex_throw = false;
 	bool branches_set = false;
 	bool objects_set = false;
 	bool memory_set = false;
@@ -578,7 +578,8 @@ int main(int argc, char **argv)
 	if (argc < 6) {
 		fprintf(stderr,
 			"Usage: %s <saterm|kflex|baseline> <num_branches> <num_objects> "
-			"<iteration_interval> <num_runs> [branches_csv] [objects_csv] [memory_csv] [--verbose]\n",
+			"<iteration_interval> <num_runs> [branches_csv] [objects_csv] [memory_csv] "
+			"[--verbose] [--unsafe-kflex-throw]\n",
 			argv[0]);
 		return 1;
 	}
@@ -617,6 +618,10 @@ int main(int argc, char **argv)
 			verbose = true;
 			continue;
 		}
+		if (strcmp(argv[i], "--unsafe-kflex-throw") == 0) {
+			unsafe_kflex_throw = true;
+			continue;
+		}
 		if (!branches_set) {
 			branches_csv_path = argv[i];
 			branches_set = true;
@@ -635,15 +640,27 @@ int main(int argc, char **argv)
 		fprintf(stderr,
 			"ERROR: unexpected argument '%s'\n"
 			"Usage: %s <saterm|kflex|baseline> <num_branches> <num_objects> "
-			"<iteration_interval> <num_runs> [branches_csv] [objects_csv] [memory_csv] [--verbose]\n",
+			"<iteration_interval> <num_runs> [branches_csv] [objects_csv] [memory_csv] "
+			"[--verbose] [--unsafe-kflex-throw]\n",
 			argv[i], argv[0]);
 		return 1;
+	}
+
+	run_object_benchmark = selected->objects_obj != NULL;
+	if (run_object_benchmark &&
+	    strcmp(selected->tag, "kflex") == 0 &&
+	    !unsafe_kflex_throw) {
+		fprintf(stderr,
+			"WARNING: skipping kflex object sweep by default: tracepoint "
+			"bpf_throw() is known to panic or stall during detach. "
+			"Pass --unsafe-kflex-throw to force it.\n");
+		run_object_benchmark = false;
 	}
 
 	/* Keep output clean for CSV-oriented benchmark runs. */
 	libbpf_set_print(NULL);
 
-	if (selected->branches_and_objects) {
+	if (run_object_benchmark) {
 		/*
 		 * run_time_ns/run_cnt require runtime stats to be enabled while this
 		 * FD is open; otherwise termination_time_ns may stay at 0.
@@ -671,7 +688,7 @@ int main(int argc, char **argv)
 			goto out;
 	}
 
-	if (selected->objects_obj) {
+	if (run_object_benchmark) {
 		bool use_proc = (strcmp(selected->tag, "kflex") == 0 && bpf_throw_proc_available());
 
 		objects_csv = fopen(objects_csv_path, "w");
@@ -700,8 +717,11 @@ int main(int argc, char **argv)
 			    memory_csv) != 0)
 		goto out;
 
-	if (selected->branches_and_objects)
+	if (run_object_benchmark)
 		printf("Wrote CSVs: %s, %s, %s\n", branches_csv_path, objects_csv_path, memory_csv_path);
+	else if (selected->branches_obj)
+		printf("Wrote CSVs: %s, %s (skipped unsafe kflex object sweep)\n",
+		       branches_csv_path, memory_csv_path);
 	else
 		printf("Wrote memory CSV (baseline): %s\n", memory_csv_path);
 	rc = 0;
